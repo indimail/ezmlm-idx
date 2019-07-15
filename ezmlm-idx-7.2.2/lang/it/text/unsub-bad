@@ -1,0 +1,40 @@
+# Revision: 2
+Mi dispiace, il codice di conferma che ho ricevuto non risulta valido.
+
+La ragione più comune per i codici di conferma non validi è che si
+riferiscono ad una richiesta scaduta: la conferma di una richiesta deve
+essere ricevuta entro 10 giorni.
+Un altra ragione può dipendere al tuo programma di posta elettronica:
+alcuni programmi, infatti, hanno l'abitudine di troncare gli indirizzi
+di risposta, se non sono in grado di gestire un indirizzo così lungo.
+
+Ti ho predisposto un altro numero di conferma. Per confermare che
+
+<#A#>
+
+dev'essere cancellato dalla mailing list <#l#>,
+spedisci un messaggio anche vuoto all'indirizzo:
+
+<#R#>
+
+oppure clicca qui:
+        mailto:<#R#>
+
+<=q=>
+
+Alcuni programmi di posta non sono in grado di gestire indirizzi così
+lunghi. Se il tuo programma non riesce a gestire questo indirizzo,
+invia un messaggio a:
+
+<<#L#>-request@<#h#>>
+
+copiando l'indirizzo di risposta completo nell'oggetto del messaggio.
+<==>
+
+Prima di spedire la conferma della tua cancellazione, ti consiglio di
+controllare nuovamente l'indirizzo di risposta per assicurarti che sia
+stato copiato tutto intero.
+
+Mi dispiace per l'inconveniente.
+
+        <#L#>-Owner <<#l#>-owner@<#h#>>
