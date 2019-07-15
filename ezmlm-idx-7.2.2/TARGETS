@@ -238,7 +238,6 @@ installer.o
 iopause.h
 iopause.lo
 ip4_scan.lo
-it
 lang/ch_GB/ezmlmrc
 lang/cs/ezmlmrc
 lang/cs/text/messages
@@ -408,4 +407,3 @@ wrap_stat.lo
 wrap_waitpid.lo
 ezmlm-queue
 __TSTDIR
-ezmlm-idx.spec
