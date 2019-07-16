@@ -1,5 +1,0 @@
-ezmlm-idx (@version-1.1) stable; urgency=low
-
-  * First debian release of ezmlm-idx for indimail/indimail-mta
-
- -- Manvendra Bhangui <manvendra@indimail.org>  Tue, 16 Jul 2019 19:11:05 +0530
