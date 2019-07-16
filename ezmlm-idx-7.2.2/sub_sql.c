@@ -281,10 +281,8 @@ int sub_sql_subscribe(struct subdbinfo *info,
   void *result;
   char *cpat;
   char szhash[3] = "00";
-
   unsigned int j;
   unsigned char ch;
-  int nparams;
 
   make_name(info,table?"_":0,table,0);
 
@@ -341,11 +339,9 @@ int sub_sql_subscribe(struct subdbinfo *info,
     if (forcehash >= 0) {
       if (!stralloc_cats(&query,sql_subscribe_delete2_where_defn)) die_nomem();
       if (!stralloc_copys(&params[1],szhash)) die_nomem();
-      nparams = 2;
     }
     else {
       if (!stralloc_cats(&query,sql_subscribe_delete1_where_defn)) die_nomem();
-      nparams = 1;
     }
     if (sql_exec(info,&query,1,params) == 0)
       return 0;			/* address wasn't there*/

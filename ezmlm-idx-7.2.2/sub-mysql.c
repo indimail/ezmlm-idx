@@ -23,8 +23,6 @@ static void _closesub(struct subdbinfo *info)
 /* open connection to the SQL server, if it isn't already open. */
 static const char *_opensub(struct subdbinfo *info)
 {
-  unsigned int    flags;
-
   if (!(MYSQL*)info->conn) {
     if (!(info->conn = mysql_init((MYSQL *) 0)))
 	 die_nomem();					/* init */

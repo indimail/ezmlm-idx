@@ -413,9 +413,10 @@ int main(int argc,char **argv)
 
     if ((child = wrap_fork()) == 0) {
       close(0);
-      dup(fd);	/* make fnmsg.s stdin */
+      if (dup(fd) == -1)	/* make fnmsg.s stdin */
+        strerr_die2sys(111,FATAL,MSG(ERR_DUP));
       if (argc > opt + 1)
-	wrap_execvp((const char **)argv + opt);
+        wrap_execvp((const char **)argv + opt);
       else if (argc > opt)
         wrap_execsh(argv[opt]);
       else
