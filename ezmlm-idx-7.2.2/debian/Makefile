@@ -1,8 +1,8 @@
 indimaildir=/var/indimail
 prefix=/usr
 cgibindir=/var/www/cgi-bin
-version=7.2.2
-release=1
+version=$(sed -e 's/^.*-//' -e q ../VERSION )
+release=$(shell cat ../conf-release)
 sysconfdir=/etc/indimail
 #
 
@@ -23,6 +23,9 @@ ezmlm-idx.dsc: ezmlm-idx.dsc.in Makefile
 	$(edit) $@.in > $@
 _service: _service.in
 	$(edit) $@.in > $@
+changelog: changelog.in ../conf-release ../VERSION
+	(cat $@.in; echo "";\
+	echo " -- Manvendra Bhangui <manvendra@indimail.org>  `date +'%a, %d %b %Y %H:%S:%M %z'`" )| $(edit) > $@
 dummy.tar.gz: README
 	tar cf - README |gzip > $@
 debian.tar.gz: copyright rules control changelog compat
