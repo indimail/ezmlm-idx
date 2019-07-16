@@ -161,9 +161,8 @@ int main(void)
     get(&line);			/* if bad format we exit(0) via get() */
     for (;;) {
       if (isboundary()) {
-      if (line.len == boundary.len + 5 && line.s[line.len - 1] == '-'
-		&& line.s[line.len - 2] == '-')
-        _exit(99);			/* end: not failure report */
+        if (line.len == boundary.len + 5 && line.s[line.len - 1] == '-' && line.s[line.len - 2] == '-')
+          _exit(99);			/* end: not failure report */
         get(&line);			/* Content-type */
         if (case_startb(line.s,line.len,"content-type:")) {
 	  i = 13;

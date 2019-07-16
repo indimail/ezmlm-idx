@@ -6,9 +6,17 @@ unsigned int str_copy(char *s,const char *t)
 
   len = 0;
   for (;;) {
-    if (!(*s = *t)) return len; ++s; ++t; ++len;
-    if (!(*s = *t)) return len; ++s; ++t; ++len;
-    if (!(*s = *t)) return len; ++s; ++t; ++len;
-    if (!(*s = *t)) return len; ++s; ++t; ++len;
+    if (!(*s = *t))
+      return len;
+    ++s; ++t; ++len;
+    if (!(*s = *t))
+      return len;
+    ++s; ++t; ++len;
+    if (!(*s = *t))
+      return len;
+    ++s; ++t; ++len;
+    if (!(*s = *t))
+      return len;
+    ++s; ++t; ++len;
   }
 }

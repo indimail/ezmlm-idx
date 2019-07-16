@@ -454,9 +454,9 @@ int main(int argc,char **argv)
     pos = byte_rchr(sublist.s,sublist.len,'@');	/* checked in sublistmatch */
     if (str_start(sender+pos,"-return-"))
       pos += 8;
-      pos += scan_ulong(sender+pos,&innum);
-      if (!flagarchived && innum && sender[pos] == '-')
-        outnum = innum;
+    pos += scan_ulong(sender+pos,&innum);
+    if (!flagarchived && innum && sender[pos] == '-')
+      outnum = innum;
   }
   szmsgnum[fmt_ulong(szmsgnum,outnum)] = '\0';
   set_cpnum(szmsgnum);				/* for copy */

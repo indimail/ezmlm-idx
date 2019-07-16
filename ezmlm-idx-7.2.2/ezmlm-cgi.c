@@ -1750,18 +1750,22 @@ void setmsg(struct msginfo *infop)
     pos = scan_ulong(line.s,&(msgnav[2]));
     if (infop->direction == DIRECT_FIRST && infop->axis == ITEM_DATE) {
       if (pos + HASHLEN + 1 < line.len)
-        if (!stralloc_copyb(&subject,line.s+pos+1,HASHLEN)) die_nomem();
-	if (!stralloc_0(&subject)) die_nomem();
+        if (!stralloc_copyb(&subject,line.s+pos+1,HASHLEN))
+          die_nomem();
+      if (!stralloc_0(&subject))
+        die_nomem();
       break;
     }
     if (msgnav[2] == infop->source) {
       if (getln(&ssin,&line,&match,'\n') == -1)
         strerr_die2sys(111,FATAL,MSG1(ERR_READ,fn.s));
-      if (!match) break;
+      if (!match)
+        break;
       (void) scan_ulong(line.s,&(msgnav[3]));
       if (getln(&ssin,&line,&match,'\n') == -1)
       strerr_die2sys(111,FATAL,MSG1(ERR_READ,fn.s));
-      if (!match) break;
+      if (!match)
+        break;
       (void) scan_ulong(line.s,&(msgnav[4]));
       break;
     }
@@ -1841,27 +1845,30 @@ int do_cmd(struct msginfo *infop)
 	    switch (infop->axis) {
 	      case ITEM_MESSAGE:
 	        if (infop->direction == DIRECT_SAME)
-		  break;
-	        else if (infop->direction == DIRECT_NEXT)
-		  (infop->target)++;
+	          break;
+	        else
+	        if (infop->direction == DIRECT_NEXT)
+	          (infop->target)++;
 	        else {		/* previous */
-		  cache = 2;
-		  if (infop->target >= 2)
-		    (infop->target)--;
-		  else
-		    infop->target = 1;
+	          cache = 2;
+	          if (infop->target >= 2)
+	            (infop->target)--;
+	          else
+	            infop->target = 1;
 	        }
-		break;
+	        break;
 	      case ITEM_AUTHOR:
-	          infop->author = infop->cgiarg;
-		if (!infop->author)	 /* we don't know author hash */
-		  if (!msg2hash(infop)) return 0;
+	        infop->author = infop->cgiarg;
+	        if (!infop->author)	 /* we don't know author hash */
+	          if (!msg2hash(infop))
+	            return 0;
 	        auth2msg(infop);
 	        break;
 	      case ITEM_SUBJECT:
-	          infop->subject = infop->cgiarg;
+	        infop->subject = infop->cgiarg;
 	        if (!infop->subject)	 /* we don't know Subject hash */
-		  if (!msg2hash(infop)) return 0;
+	          if (!msg2hash(infop))
+	            return 0;
 	        subj2msg(infop);
 	        break;
 	    }
@@ -1871,18 +1878,21 @@ int do_cmd(struct msginfo *infop)
 	  switch (infop->axis) {
 	    case ITEM_MESSAGE:
 	      if (!infop->author)
-		if (!msg2hash(infop)) return 0;
+	        if (!msg2hash(infop))
+	          return 0;
 	      break;
 	    case ITEM_AUTHOR:
 	      infop->author = infop->cgiarg;
 	      if (!infop->author)
-		if (!msg2hash(infop)) return 0;
-	        auth2msg(infop);
+	        if (!msg2hash(infop))
+	          return 0;
+	      auth2msg(infop);
 	      break;
 	    case ITEM_SUBJECT:
 	      infop->subject = infop->cgiarg;
 	      if (!infop->subject)	 /* we don't know Subject hash */
-		if (!msg2hash(infop)) return 0;
+	        if (!msg2hash(infop))
+	          return 0;
 	      subj2msg(infop);
 	      break;
 	    }
@@ -1895,13 +1905,15 @@ int do_cmd(struct msginfo *infop)
 	    case ITEM_AUTHOR:
 	      infop->author = infop->cgiarg;
 	      if (!infop->author)
-		if (!msg2hash(infop)) return 0;
+	        if (!msg2hash(infop))
+	          return 0;
 	      auth2msg(infop);
 	      break;
 	    case ITEM_SUBJECT:
 	      infop->subject = infop->cgiarg;
 	      if (!infop->subject)	 /* we don't know Subject hash */
-		if (!msg2hash(infop)) return 0;
+	        if (!msg2hash(infop))
+	          return 0;
 	      subj2msg(infop);
 	      break;
 	    }
@@ -1912,10 +1924,10 @@ int do_cmd(struct msginfo *infop)
 	      case ITEM_AUTHOR:
 	      case ITEM_SUBJECT:
 	      case ITEM_DATE:
-		if (!infop->date && infop->source)
-		  if (!msg2hash(infop)) return 0;
-		  gtdate(infop,0);
-		break;
+	        if (!infop->date && infop->source)
+	          if (!msg2hash(infop)) return 0;
+	            gtdate(infop,0);
+	        break;
 	    }
 	    break;
 	  case ITEM_INDEX:	/* ignore direction etc - only for index */
@@ -2105,7 +2117,7 @@ int main(int argc,char **argv)
     }
     pos += scan_ulong(cfline.s+pos,&tmpuid);		/* listno for line */
     if (tmpuid) uid = tmpuid;				/* override default */
-    if (!cfline.s[pos++] == sep)
+    if (!(cfline.s[pos++] == sep))
       die_syntax("missing separator after user id");
     if (cfline.s[pos] != '/')
 	die_syntax("dir");				/* absolute path */

@@ -132,7 +132,10 @@ static unsigned int findhost(const stralloc *sa,unsigned int n)
       case '(':
         ++level;
         while (level && (++s < last)) {
-          if (*s == ')') --level; if (!level) break;
+          if (*s == ')')
+            --level;
+          if (!level)
+            break;
           if (*s == '(') ++level;
           if (*s == '\\') ++s;
         }
