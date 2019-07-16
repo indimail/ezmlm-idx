@@ -9,7 +9,7 @@ sysconfdir=/etc/indimail
 all: rules debian.tar.gz dummy.tar.gz ezmlm-idx.dsc _service
 
 clean:
-	/bin/rm -f rules postinst postrm *.dsc debian.tar.gz dummy.tar.gz _service
+	/bin/rm -f *.dsc debian.tar.gz dummy.tar.gz _service
 
 edit = sed \
 	-e 's,@indimaildir\@,$(indimaildir),g' \
