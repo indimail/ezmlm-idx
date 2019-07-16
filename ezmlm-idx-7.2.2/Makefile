@@ -1616,7 +1616,7 @@ ezmlm-queue: ezmlm-queue.in conf-prefix conf-sysconfdir warn-auto.sh
 
 ezmlm-queue.0: \
 ezmlm-queue.1
-	nroff -man ezmlm-queue.1 > ezmlm.0
+	nroff -man ezmlm-queue.1 > ezmlm-queue.0
 
 ezmlm-queue.1: ezmlm-queue.9 conf-sysconfdir
 	cat ezmlm-queue.9 \
