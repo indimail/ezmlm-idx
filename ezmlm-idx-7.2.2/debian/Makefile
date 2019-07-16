@@ -1,7 +1,7 @@
 indimaildir=/var/indimail
 prefix=/usr
 cgibindir=/var/www/cgi-bin
-version=$(sed -e 's/^.*-//' -e q ../VERSION )
+version=$(shell sed -e 's/^.*-//' -e q ../VERSION )
 release=$(shell cat ../conf-release)
 sysconfdir=/etc/indimail
 #

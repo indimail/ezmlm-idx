@@ -1,4 +1,4 @@
-ezmlm-idx (@version-@release@) stable; urgency=low
+ezmlm-idx (@version@-@release@) stable; urgency=low
 
   * First debian release of ezmlm-idx for indimail-mta
   * ezmlm-queue for handling indimail queue
