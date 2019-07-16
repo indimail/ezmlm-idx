@@ -5,7 +5,7 @@ Original source:
 		You may use under GPL.
 
 and for PostgreSQL modifications:
-(c) 1999, Magnus Stålåker, stalaker@umc.se
+(c) 1999, Magnus StÃ¥lÃ¥ker, stalaker@umc.se
 
 Rewritten as a plugin by:
 (c) 2007 Bruce Guenter, bruce@untroubled.org

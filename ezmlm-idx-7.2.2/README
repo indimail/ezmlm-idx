@@ -94,7 +94,7 @@ ACKNOWLEDGEMENTS (from Fred Lindberg)
   support to work, as well as pre-release testing.
 - Frank Tegtmeyer for inciting digests and format info/suggestions, and for
   ezmlmrc.de.
-- Magnus Stålåker (MAS; stalaker@umc.se) for the PostgresSQL interface.
+- Magnus StÃ¥lÃ¥ker (MAS; stalaker@umc.se) for the PostgresSQL interface.
 - Mark Delany for the original ezmlm-issub and for suggesting reordering
   unlink() and doit() in ezmlm-warn.
 - Raul Miller and Chris Garrigues for format info/suggestions.
