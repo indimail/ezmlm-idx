@@ -93,6 +93,7 @@ ERR_PERIOD|periods not allowed in tags|punten zijn niet toegestaan in tags
 ERR_QMAIL_QUEUE|unable to run qmail-queue|kon qmail-queue niet uitvoeren
 ERR_QUOTE|quotes not allowed in dir|aanhalingstekens zijn niet toegestaan in dir
 ERR_READ_INPUT|unable to read input|kon invoer niet lezen
+ERR_DUP|unable to dup fd|unable to dup fd
 ERR_READ_NOTHING|unable to read <#1#>: nothing there|kon <#1#> niet lezen: er staat niks
 ERR_READ_STDIN|unable to read standard input|kon standaard invoer niet lezen
 ERR_READ|unable to read <#1#>|kon <#1#> niet lezen
