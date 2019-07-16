@@ -42,7 +42,7 @@ build-stamp:
 	make all
 	( \
 	echo "The script ezmlm-cgi is installed as  %ezcgi/ezmlm-cgi" \
-	echo "Please see INSTALL 16-22) in this package's doc directory and the" \
+	echo "Please see INSTALL 13-19) in this package's doc directory and the" \
 	echo "man page ezmlm-cgi.1 for more details on setting up and using ezmlm-cgi." \
 	) > INSTALL.cgi
 	# --- end custom part for compiling
@@ -97,7 +97,7 @@ binary-arch: build install
 	dh_install --sourcedir=$(DESTDIR) -pezmlm-idx-mysql
 	dh_install --sourcedir=$(DESTDIR) -pezmlm-idx-pgsql
 	dh_install --sourcedir=$(DESTDIR) -pezmlm-idx-sqlite
-	dh_installdocs BLURB CHANGES* FAQ INSTALL README README.std ChangeLog THANKS TODO UPGRADE DOWNGRADE ezmlmrc.template LICENSE
+	dh_installdocs BLURB CHANGES* FAQ INSTALL.source README README.std ChangeLog THANKS TODO UPGRADE DOWNGRADE ezmlmrc.template LICENSE
 	dh_installexamples
 	dh_installcron
 	dh_installman
