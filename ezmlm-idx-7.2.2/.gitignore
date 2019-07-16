@@ -398,3 +398,4 @@ debian/ezmlm-idx.dsc
 debian/_service
 debian/dummy.tar.gz
 debian/debian.tar.gz
+ezmlm-queue.1
