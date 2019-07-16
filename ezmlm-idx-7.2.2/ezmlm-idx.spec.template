@@ -18,8 +18,8 @@
 %global rcdir      %{sysconfdir}/ezmlm
 
 Name: ezmlm-idx
-Version: @VERSION@
-Release: 1.1%{?dist}
+Version: @version@
+Release: @release@%{?dist}
 Summary: Easy Mailing List Manager + IDX patches
 BuildRequires: rpm >= 3.0.2
 Buildroot: %{_tmppath}/%{name}-%{version}-root
