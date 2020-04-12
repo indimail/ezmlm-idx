@@ -408,3 +408,4 @@ wrap_waitpid.lo
 ezmlm-queue
 __TSTDIR
 ezmlm-queue.1
+INSTALL.cgi
