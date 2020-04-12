@@ -915,6 +915,11 @@ idxthread.lo: \
 libcompile idxthread.c error.h alloc.h str.h stralloc.h gen_alloc.h strerr.h hasattribute.h lock.h open.h getln.h scan.h byte.h die.h hasattribute.h idx.h messages.h substdio.h fmt.h readwrite.h makehash.h yyyymm.h stralloc.h gen_alloc.h
 	./libcompile idxthread.c
 
+INSTALL.cgi: INSTALL.cgi.in conf-cgidir
+	cat INSTALL.cgi.in \
+	| sed s}CGIDIR}"`head -1 conf-cgidir`"}g \
+	> INSTALL.cgi
+
 install: \
 it man installer conf-bin conf-etc conf-lang conf-lib conf-man BIN ETC LIB MAN
 	mkdir -p $(DESTDIR)"`head -n 1 conf-bin`"
@@ -933,9 +938,10 @@ it man installer conf-bin conf-etc conf-lang conf-lib conf-man BIN ETC LIB MAN
 	mv $(DESTDIR)"`head -n 1 conf-bin`"/ezmlm-queue $(DESTDIR)$(prefix)/sbin/ezmlm-queue
 	mv $(DESTDIR)"`head -n 1 conf-bin`"/ezmlm-cgi $(DESTDIR)"`head -n 1 conf-cgidir`"
 	chmod 4755  "$(DESTDIR)"`head -n 1 conf-cgidir`"/ezmlm-cgi"
-	cp README.mysql README.pgsql $(DESTDIR)/$(prefix)/share/docs/ezmlm-idx
-	cp BLURB CHANGES* FAQ INSTALL README README.std ChangeLog $(DESTDIR)/$(prefix)/share/docs/ezmlm-idx
-	cp LICENSE THANKS TODO UPGRADE DOWNGRADE ezmlmrc.template LICENSE $(DESTDIR)/$(prefix)/share/docs/ezmlm-idx
+	cp README.mysql README.pgsql $(DESTDIR)$(prefix)/share/docs/ezmlm-idx
+	cp BLURB CHANGES* FAQ README README.std ChangeLog $(DESTDIR)$(prefix)/share/docs/ezmlm-idx
+	cp LICENSE THANKS TODO UPGRADE DOWNGRADE ezmlmrc.template $(DESTDIR)$(prefix)/share/docs/ezmlm-idx
+	cp INSTALL.source INSTALL.cgi $(DESTDIR)$(prefix)/share/docs/ezmlm-idx
 
 installer: \
 load installer.o getln.a strerr.a substdio.a stralloc.a alloc.a open.a error.a str.a fs.a
@@ -1174,7 +1180,7 @@ ezmlm-confirm.0 ezmlm-cron.0 ezmlm-dispatch.0 ezmlm-gate.0 ezmlm-get.0 ezmlm-glc
 ezmlm-import.0 ezmlm-issubn.0 ezmlm-limit.0 ezmlm-list.0 ezmlm-make.0 ezmlm-manage.0 ezmlm-moderate.0 \
 ezmlm-receipt.0 ezmlm-reject.0 ezmlm-request.0 ezmlm-return.0 ezmlm-rmtab.0 ezmlm-send.0 ezmlm-split.0 \
 ezmlm-store.0 ezmlm-sub.0 ezmlm-test.0 ezmlm-tstdig.0 ezmlm-unsub.0 ezmlm-warn.0 ezmlm-weed.0 \
-ezmlmglrc.0 ezmlmsubrc.0 ezmlmrc.0 surf.0 surfpcs.0 ezmlm-queue.1
+ezmlmglrc.0 ezmlmsubrc.0 ezmlmrc.0 surf.0 surfpcs.0 ezmlm-queue.1 INSTALL.cgi
 
 messages.all: \
 lang/cs/text/messages lang/da/text/messages lang/de/text/messages lang/en_US/text/messages lang/fr/text/messages lang/hu/text/messages lang/id/text/messages lang/it/text/messages lang/nl/text/messages lang/pl/text/messages lang/pt_BR/text/messages lang/pt/text/messages lang/sv/text/messages
