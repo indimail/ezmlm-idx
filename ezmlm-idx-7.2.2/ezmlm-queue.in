@@ -1,2 +1,6 @@
-exec PREFIX/bin/envdir SYSCONFDIR/control/defaultqueue \
-	PREFIX/sbin/qmail-multi
+if [ -d $HOME/.defaultqueue ] ; then
+	exec PREFIX/bin/envdir $HOME/.defaultqueue PREFIX/sbin/qmail-multi
+else
+	exec PREFIX/bin/envdir SYSCONFDIR/control/defaultqueue \
+		PREFIX/sbin/qmail-multi
+fi
