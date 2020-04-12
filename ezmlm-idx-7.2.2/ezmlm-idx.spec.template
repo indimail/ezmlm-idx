@@ -158,8 +158,8 @@ www archiver for %name.
 %setup -q
 
 %build 
+echo %{sysconfdir}                 >conf-sysconfdir
 echo %{rcdir}                      >conf-etc
-echo %{sysconfdir}/indimail        >conf-sysconfdir
 echo %{_prefix}                    >conf-prefix
 echo %{_bindir}                    >conf-bin
 echo %{mandir}                     >conf-man
@@ -171,14 +171,14 @@ make all
 
 # Create INSTALL file for how to set up ezmlm-cgi
 
-(
-echo "The binary ezmlm-cgi is installed as  %{ezcgidir}/ezmlm-cgi with"
-echo "permissions 04555."
-echo ""
-echo "Please see INSTALL.source 13-19) in this package's doc directory and the"
-echo "man page ezmlm-cgi.1 for more details on setting up and using ezmlm-cgi."
-echo ""
-) > INSTALL.cgi
+#(
+#echo "The binary ezmlm-cgi is installed as  %{ezcgidir}/ezmlm-cgi with"
+#echo "permissions 04555."
+#echo ""
+#echo "Please see INSTALL.source 13-19) in this package's doc directory and the"
+#echo "man page ezmlm-cgi.1 for more details on setting up and using ezmlm-cgi."
+#echo ""
+#) > INSTALL.cgi
 
 %install
 /bin/rm -rf %buildroot
