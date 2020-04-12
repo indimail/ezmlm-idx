@@ -1,0 +1,6 @@
+The binary ezmlm-cgi is installed as  CGIDIR/ezmlm-cgi with
+permissions 04555.
+
+Please see INSTALL 16-22) in this package's doc directory and the
+man page ezmlm-cgi.1 for more details on setting up and using ezmlm-cgi.
+
