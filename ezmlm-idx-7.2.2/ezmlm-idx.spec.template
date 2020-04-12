@@ -164,8 +164,8 @@ echo %{_prefix}                    >conf-prefix
 echo %{_bindir}                    >conf-bin
 echo %{mandir}                     >conf-man
 echo %{ezmlmlibdir}                >conf-lib
-echo gcc %optflags -I%{_includedir}/mysql -I%{_includedir}/pgsql >conf-cc
-echo gcc %optflags -s -L%{_libdir}/mysql >conf-ld
+echo gcc %optflags -Wall -O -s -fPIC -I%{_includedir}/mysql -I%{_includedir}/pgsql >conf-cc
+echo gcc %optflags -s -rdynamic -fPIC -L%{_libdir}/mysql >conf-ld
 
 make all
 
