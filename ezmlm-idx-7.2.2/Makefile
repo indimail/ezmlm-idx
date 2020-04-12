@@ -588,7 +588,7 @@ lang/ch_GB/ezmlmrc lang/cs/ezmlmrc lang/da/ezmlmrc lang/de/ezmlmrc lang/en_US/ez
 
 ezmlmrc: \
 ezmlmrc.template VERSION fill-template
-	./fill-template ezmlmrc
+	./fill-template ezmlmrc > $@
 
 ezmlm-receipt.0: \
 ezmlm-receipt.1
