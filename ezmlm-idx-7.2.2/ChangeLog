@@ -1,5 +1,0 @@
-* Mon Apr 13 2020 01:16:39 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
-Release 1.1 Start 22/03/2017
-1. ezmlm-queue for handling indimail queue
-2. Added Pre-Depends daemontools
-3. Fixed defaultqueue path in ezmlm-queue
