@@ -401,3 +401,5 @@ debian/debian.tar.gz
 ezmlm-queue.1
 debian/changelog
 INSTALL.cgi
+ChangeLog
+debian/changelog.in
