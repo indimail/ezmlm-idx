@@ -403,3 +403,4 @@ debian/changelog
 INSTALL.cgi
 ChangeLog
 debian/changelog.in
+debian/control
