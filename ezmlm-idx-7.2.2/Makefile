@@ -336,22 +336,10 @@ error_str.lo: \
 libcompile error_str.c error.h
 	./libcompile error_str.c
 
-ezmlm.0: \
-ezmlm.5
-	nroff -man ezmlm.5 > ezmlm.0
-
-ezmlm-accept.0: \
-ezmlm-accept.1
-	nroff -man ezmlm-accept.1 > ezmlm-accept.0
-
 ezmlm-accept: \
 warn-auto.sh ezmlm-accept.sh
 	cat warn-auto.sh ezmlm-accept.sh > ezmlm-accept
 	chmod 755 ezmlm-accept
-
-ezmlm-archive.0: \
-ezmlm-archive.1
-	nroff -man ezmlm-archive.1 > ezmlm-archive.0
 
 ezmlm-archive: \
 load ezmlm-archive.o libezmlm.a
@@ -361,10 +349,6 @@ ezmlm-archive.o: \
 compile ezmlm-archive.c alloc.h byte.h error.h stralloc.h gen_alloc.h str.h sig.h getconf.h strerr.h hasattribute.h getln.h substdio.h readwrite.h fmt.h getconfopt.h idxthread.h idx.h makehash.h lock.h open.h scan.h die.h hasattribute.h wrap.h idx.h messages.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-archive.c
 
-ezmlm-cgi.0: \
-ezmlm-cgi.1
-	nroff -man ezmlm-cgi.1 > ezmlm-cgi.0
-
 ezmlm-cgi: \
 load ezmlm-cgi.o libezmlm.a
 	./load ezmlm-cgi -lezmlm 
@@ -373,18 +357,10 @@ ezmlm-cgi.o: \
 compile ezmlm-cgi.c alloc.h direntry.h datetime.h now.h datetime.h stralloc.h gen_alloc.h strerr.h hasattribute.h error.h env.h sig.h open.h getln.h case.h scan.h str.h fmt.h readwrite.h fork.h wait.h exit.h substdio.h getconf.h gen_alloc.h gen_allocdefs.h constmap.h byte.h subdb.h stralloc.h gen_alloc.h messages.h makehash.h mime.h stralloc.h gen_alloc.h wrap.h die.h hasattribute.h idx.h yyyymm.h stralloc.h gen_alloc.h cgi.h hasattribute.h auto_etc.h
 	./compile ezmlm-cgi.c
 
-ezmlm-check.0: \
-ezmlm-check.1
-	nroff -man ezmlm-check.1 > ezmlm-check.0
-
 ezmlm-check: \
 warn-auto.sh ezmlm-check.sh
 	cat warn-auto.sh ezmlm-check.sh > ezmlm-check
 	chmod 755 ezmlm-check
-
-ezmlm-checksub.0: \
-ezmlm-checksub.1
-	nroff -man ezmlm-checksub.1 > ezmlm-checksub.0
 
 ezmlm-checksub: \
 load ezmlm-checksub.o libezmlm.a dl.lib
@@ -394,10 +370,6 @@ ezmlm-checksub.o: \
 compile ezmlm-checksub.c strerr.h hasattribute.h env.h sender.h str.h subdb.h stralloc.h gen_alloc.h subfd.h substdio.h getconfopt.h messages.h die.h hasattribute.h idx.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-checksub.c
 
-ezmlm-clean.0: \
-ezmlm-clean.1
-	nroff -man ezmlm-clean.1 > ezmlm-clean.0
-
 ezmlm-clean: \
 load ezmlm-clean.o libezmlm.a
 	./load ezmlm-clean -lezmlm 
@@ -405,10 +377,6 @@ load ezmlm-clean.o libezmlm.a
 ezmlm-clean.o: \
 compile ezmlm-clean.c error.h stralloc.h gen_alloc.h str.h env.h sig.h getconf.h getconfopt.h strerr.h hasattribute.h byte.h getln.h case.h qmail.h substdio.h stralloc.h gen_alloc.h substdio.h readwrite.h seek.h quote.h datetime.h now.h datetime.h direntry.h cookie.h fmt.h messages.h copy.h cookie.h datetime.h open.h scan.h lock.h hdr.h die.h hasattribute.h idx.h mime.h stralloc.h gen_alloc.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-clean.c
-
-ezmlm-confirm.0: \
-ezmlm-confirm.1
-	nroff -man ezmlm-confirm.1 > ezmlm-confirm.0
 
 ezmlm-confirm: \
 load ezmlm-confirm.o libezmlm.a
@@ -418,10 +386,6 @@ ezmlm-confirm.o: \
 compile ezmlm-confirm.c error.h case.h stralloc.h gen_alloc.h str.h env.h sender.h error.h sig.h fork.h wait.h strerr.h hasattribute.h byte.h getln.h qmail.h substdio.h stralloc.h gen_alloc.h substdio.h readwrite.h seek.h quote.h datetime.h now.h datetime.h fmt.h getconfopt.h cookie.h messages.h copy.h cookie.h datetime.h open.h lock.h wrap.h die.h hasattribute.h idx.h mime.h stralloc.h gen_alloc.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-confirm.c
 
-ezmlm-cron.0: \
-ezmlm-cron.1
-	nroff -man ezmlm-cron.1 > ezmlm-cron.0
-
 ezmlm-cron: \
 load ezmlm-cron.o libezmlm.a
 	./load ezmlm-cron -lezmlm 
@@ -429,10 +393,6 @@ load ezmlm-cron.o libezmlm.a
 ezmlm-cron.o: \
 compile ezmlm-cron.c strerr.h hasattribute.h stralloc.h gen_alloc.h getconfopt.h substdio.h error.h str.h fmt.h wait.h readwrite.h sig.h case.h scan.h open.h lock.h byte.h getln.h auto_qmail.h auto_cron.h auto_version.h messages.h die.h hasattribute.h idx.h wrap.h
 	./compile ezmlm-cron.c
-
-ezmlm-dispatch.0: \
-ezmlm-dispatch.1
-	nroff -man ezmlm-dispatch.1 > ezmlm-dispatch.0
 
 ezmlm-dispatch: \
 load ezmlm-dispatch.o libezmlm.a
@@ -442,10 +402,6 @@ ezmlm-dispatch.o: \
 compile ezmlm-dispatch.c env.h sender.h strerr.h hasattribute.h getconfopt.h substdio.h subfd.h substdio.h messages.h error.h byte.h fmt.h str.h stralloc.h gen_alloc.h qmail.h substdio.h stralloc.h gen_alloc.h seek.h wrap.h slurp.h die.h hasattribute.h auto_version.h
 	./compile ezmlm-dispatch.c
 
-ezmlm-gate.0: \
-ezmlm-gate.1
-	nroff -man ezmlm-gate.1 > ezmlm-gate.0
-
 ezmlm-gate: \
 load ezmlm-gate.o libezmlm.a dl.lib
 	./load ezmlm-gate -lezmlm  `cat dl.lib`
@@ -453,10 +409,6 @@ load ezmlm-gate.o libezmlm.a dl.lib
 ezmlm-gate.o: \
 compile ezmlm-gate.c substdio.h subfd.h substdio.h stralloc.h gen_alloc.h strerr.h hasattribute.h error.h env.h sender.h sig.h str.h seek.h wait.h exit.h getconf.h auto_bin.h getconfopt.h messages.h die.h hasattribute.h idx.h subdb.h stralloc.h gen_alloc.h wrap.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-gate.c
-
-ezmlm-get.0: \
-ezmlm-get.1
-	nroff -man ezmlm-get.1 > ezmlm-get.0
 
 ezmlm-get: \
 load ezmlm-get.o libezmlm.a dl.lib
@@ -466,22 +418,10 @@ ezmlm-get.o: \
 compile ezmlm-get.c alloc.h error.h stralloc.h gen_alloc.h str.h env.h sender.h sig.h getconf.h strerr.h hasattribute.h byte.h getln.h case.h qmail.h substdio.h stralloc.h gen_alloc.h substdio.h readwrite.h seek.h quote.h datetime.h now.h datetime.h date822fmt.h fmt.h getconfopt.h cookie.h makehash.h copy.h cookie.h datetime.h constmap.h subdb.h stralloc.h gen_alloc.h hdr.h open.h lock.h scan.h idxthread.h idx.h die.h hasattribute.h wrap.h idx.h mime.h stralloc.h gen_alloc.h messages.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-get.c
 
-ezmlm-glconf.0: \
-ezmlm-glconf.1
-	nroff -man ezmlm-glconf.1 > ezmlm-glconf.0
-
 ezmlm-glconf: \
 warn-auto.sh ezmlm-glconf.sh
 	cat warn-auto.sh ezmlm-glconf.sh > ezmlm-glconf
 	chmod 755 ezmlm-glconf
-
-ezmlmglrc.0: \
-ezmlmglrc.5
-	nroff -man ezmlmglrc.5 > ezmlmglrc.0
-
-ezmlm-idx.0: \
-ezmlm-idx.1
-	nroff -man ezmlm-idx.1 > ezmlm-idx.0
 
 ezmlm-idx: \
 load ezmlm-idx.o libezmlm.a
@@ -495,10 +435,6 @@ ezmlm-idx.spec: \
 ezmlm-idx.spec.template VERSION fill-template conf-release
 	(./fill-template ezmlm-idx.spec;./catChangeLog) > $@
 
-ezmlm-import.0: \
-ezmlm-import.1
-	nroff -man ezmlm-import.1 > ezmlm-import.0
-
 ezmlm-import: \
 load ezmlm-import.o libezmlm.a
 	./load ezmlm-import -lezmlm 
@@ -506,10 +442,6 @@ load ezmlm-import.o libezmlm.a
 ezmlm-import.o: \
 compile ezmlm-import.c stralloc.h gen_alloc.h getconf.h config.h stralloc.h gen_alloc.h error.h strerr.h hasattribute.h substdio.h lock.h open.h messages.h die.h hasattribute.h wrap.h fmt.h getln.h byte.h idx.h getconfopt.h auto_version.h
 	./compile ezmlm-import.c
-
-ezmlm-issubn.0: \
-ezmlm-issubn.1
-	nroff -man ezmlm-issubn.1 > ezmlm-issubn.0
 
 ezmlm-issubn: \
 load ezmlm-issubn.o libezmlm.a dl.lib
@@ -519,10 +451,6 @@ ezmlm-issubn.o: \
 compile ezmlm-issubn.c strerr.h hasattribute.h env.h sender.h subdb.h stralloc.h gen_alloc.h getconfopt.h messages.h die.h hasattribute.h idx.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-issubn.c
 
-ezmlm-limit.0: \
-ezmlm-limit.1
-	nroff -man ezmlm-limit.1 > ezmlm-limit.0
-
 ezmlm-limit: \
 load ezmlm-limit.o libezmlm.a
 	./load ezmlm-limit -lezmlm 
@@ -530,10 +458,6 @@ load ezmlm-limit.o libezmlm.a
 ezmlm-limit.o: \
 compile ezmlm-limit.c stralloc.h gen_alloc.h substdio.h readwrite.h strerr.h hasattribute.h sig.h lock.h getconf.h fmt.h now.h datetime.h getconfopt.h error.h scan.h open.h messages.h die.h hasattribute.h config.h stralloc.h gen_alloc.h idx.h
 	./compile ezmlm-limit.c
-
-ezmlm-list.0: \
-ezmlm-list.1
-	nroff -man ezmlm-list.1 > ezmlm-list.0
 
 ezmlm-list: \
 load ezmlm-list.o libezmlm.a dl.lib
@@ -543,10 +467,6 @@ ezmlm-list.o: \
 compile ezmlm-list.c strerr.h hasattribute.h readwrite.h substdio.h subfd.h substdio.h subdb.h stralloc.h gen_alloc.h exit.h fmt.h getconfopt.h messages.h die.h hasattribute.h idx.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-list.c
 
-ezmlm-make.0: \
-ezmlm-make.1
-	nroff -man ezmlm-make.1 > ezmlm-make.0
-
 ezmlm-make: \
 load ezmlm-make.o libezmlm.a dl.lib
 	./load ezmlm-make -lezmlm  `cat dl.lib`
@@ -554,10 +474,6 @@ load ezmlm-make.o libezmlm.a dl.lib
 ezmlm-make.o: \
 compile ezmlm-make.c sgetopt.h subgetopt.h stralloc.h gen_alloc.h strerr.h hasattribute.h exit.h readwrite.h byte.h open.h substdio.h subdb.h stralloc.h gen_alloc.h str.h wrap.h auto_bin.h getln.h error.h lock.h messages.h die.h hasattribute.h idx.h auto_etc.h auto_version.h
 	./compile ezmlm-make.c
-
-ezmlm-manage.0: \
-ezmlm-manage.1
-	nroff -man ezmlm-manage.1 > ezmlm-manage.0
 
 ezmlm-manage: \
 load ezmlm-manage.o libezmlm.a dl.lib
@@ -567,10 +483,6 @@ ezmlm-manage.o: \
 compile ezmlm-manage.c error.h stralloc.h gen_alloc.h str.h env.h sender.h sig.h slurp.h getconf.h strerr.h hasattribute.h byte.h getln.h case.h qmail.h substdio.h stralloc.h gen_alloc.h substdio.h readwrite.h seek.h quote.h datetime.h now.h datetime.h fmt.h subdb.h stralloc.h gen_alloc.h cookie.h getconfopt.h copy.h cookie.h datetime.h messages.h open.h lock.h scan.h mime.h stralloc.h gen_alloc.h hdr.h die.h hasattribute.h wrap.h idx.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-manage.c
 
-ezmlm-moderate.0: \
-ezmlm-moderate.1
-	nroff -man ezmlm-moderate.1 > ezmlm-moderate.0
-
 ezmlm-moderate: \
 load ezmlm-moderate.o libezmlm.a
 	./load ezmlm-moderate -lezmlm 
@@ -579,24 +491,12 @@ ezmlm-moderate.o: \
 compile ezmlm-moderate.c error.h case.h stralloc.h gen_alloc.h str.h env.h sender.h error.h sig.h wait.h strerr.h hasattribute.h byte.h getln.h qmail.h substdio.h stralloc.h gen_alloc.h substdio.h subfd.h substdio.h readwrite.h seek.h quote.h datetime.h now.h datetime.h fmt.h getconfopt.h cookie.h messages.h copy.h cookie.h datetime.h hdr.h mime.h stralloc.h gen_alloc.h open.h lock.h die.h hasattribute.h idx.h wrap.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-moderate.c
 
-ezmlmrc.0: \
-ezmlmrc.5
-	nroff -man ezmlmrc.5 > ezmlmrc.0
-
 ezmlmrc.all: \
 lang/ch_GB/ezmlmrc lang/cs/ezmlmrc lang/da/ezmlmrc lang/de/ezmlmrc lang/en_US/ezmlmrc lang/es/ezmlmrc lang/fr/ezmlmrc lang/hu/ezmlmrc lang/id/ezmlmrc lang/it/ezmlmrc lang/ja/ezmlmrc lang/nl/ezmlmrc lang/pl/ezmlmrc lang/pt/ezmlmrc lang/pt_BR/ezmlmrc lang/ru/ezmlmrc lang/sv/ezmlmrc
 
 ezmlmrc: \
 ezmlmrc.template VERSION fill-template
 	./fill-template ezmlmrc > $@
-
-ezmlm-receipt.0: \
-ezmlm-receipt.1
-	nroff -man ezmlm-receipt.1 > ezmlm-receipt.0
-
-ezmlm-reject.0: \
-ezmlm-reject.1
-	nroff -man ezmlm-reject.1 > ezmlm-reject.0
 
 ezmlm-reject: \
 load ezmlm-reject.o libezmlm.a
@@ -606,10 +506,6 @@ ezmlm-reject.o: \
 compile ezmlm-reject.c strerr.h hasattribute.h substdio.h byte.h case.h str.h readwrite.h stralloc.h gen_alloc.h getln.h getconfopt.h getconf.h constmap.h fmt.h qmail.h substdio.h stralloc.h gen_alloc.h seek.h scan.h env.h sender.h messages.h mime.h stralloc.h gen_alloc.h die.h hasattribute.h idx.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-reject.c
 
-ezmlm-request.0: \
-ezmlm-request.1
-	nroff -man ezmlm-request.1 > ezmlm-request.0
-
 ezmlm-request: \
 load ezmlm-request.o libezmlm.a dl.lib
 	./load ezmlm-request -lezmlm  `cat dl.lib`
@@ -617,10 +513,6 @@ load ezmlm-request.o libezmlm.a dl.lib
 ezmlm-request.o: \
 compile ezmlm-request.c stralloc.h gen_alloc.h subfd.h substdio.h strerr.h hasattribute.h error.h qmail.h substdio.h stralloc.h gen_alloc.h env.h sender.h sig.h open.h getln.h case.h str.h datetime.h now.h datetime.h quote.h readwrite.h exit.h substdio.h getconf.h constmap.h fmt.h getconfopt.h byte.h seek.h messages.h copy.h cookie.h datetime.h cookie.h subdb.h stralloc.h gen_alloc.h mime.h stralloc.h gen_alloc.h hdr.h die.h hasattribute.h idx.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-request.c
-
-ezmlm-return.0: \
-ezmlm-return.1
-	nroff -man ezmlm-return.1 > ezmlm-return.0
 
 ezmlm-return: \
 load ezmlm-return.o libezmlm.a dl.lib
@@ -630,10 +522,6 @@ ezmlm-return.o: \
 compile ezmlm-return.c direntry.h stralloc.h gen_alloc.h str.h env.h sender.h sig.h strerr.h hasattribute.h byte.h case.h open.h scan.h lock.h slurpclose.h getln.h substdio.h error.h quote.h readwrite.h fmt.h now.h datetime.h cookie.h getconfopt.h subdb.h stralloc.h gen_alloc.h messages.h die.h hasattribute.h wrap.h config.h stralloc.h gen_alloc.h idx.h auto_version.h
 	./compile ezmlm-return.c
 
-ezmlm-rmtab.0: \
-ezmlm-rmtab.1
-	nroff -man ezmlm-rmtab.1 > ezmlm-rmtab.0
-
 ezmlm-rmtab: \
 load ezmlm-rmtab.o libezmlm.a dl.lib
 	./load ezmlm-rmtab -lezmlm  `cat dl.lib`
@@ -641,10 +529,6 @@ load ezmlm-rmtab.o libezmlm.a dl.lib
 ezmlm-rmtab.o: \
 compile ezmlm-rmtab.c strerr.h hasattribute.h readwrite.h substdio.h subfd.h substdio.h subdb.h stralloc.h gen_alloc.h exit.h fmt.h getconfopt.h messages.h die.h hasattribute.h idx.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-rmtab.c
-
-ezmlm-send.0: \
-ezmlm-send.1
-	nroff -man ezmlm-send.1 > ezmlm-send.0
 
 ezmlm-send: \
 load ezmlm-send.o libezmlm.a dl.lib
@@ -654,10 +538,6 @@ ezmlm-send.o: \
 compile ezmlm-send.c stralloc.h gen_alloc.h subfd.h substdio.h strerr.h hasattribute.h error.h qmail.h substdio.h stralloc.h gen_alloc.h env.h sender.h lock.h sig.h open.h getln.h case.h scan.h str.h fmt.h readwrite.h exit.h substdio.h getconf.h constmap.h byte.h getconfopt.h quote.h subdb.h stralloc.h gen_alloc.h mime.h stralloc.h gen_alloc.h messages.h makehash.h cookie.h dmarc.h stralloc.h gen_alloc.h hdr.h die.h hasattribute.h wrap.h idx.h copy.h cookie.h datetime.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-send.c
 
-ezmlm-split.0: \
-ezmlm-split.1
-	nroff -man ezmlm-split.1 > ezmlm-split.0
-
 ezmlm-split: \
 load ezmlm-split.o libezmlm.a
 	./load ezmlm-split -lezmlm 
@@ -665,10 +545,6 @@ load ezmlm-split.o libezmlm.a
 ezmlm-split.o: \
 compile ezmlm-split.c error.h stralloc.h gen_alloc.h str.h env.h sender.h sig.h open.h scan.h strerr.h hasattribute.h byte.h getln.h case.h qmail.h substdio.h stralloc.h gen_alloc.h getconfopt.h subfd.h substdio.h readwrite.h quote.h now.h datetime.h uint32.h subhash.h fmt.h messages.h die.h hasattribute.h config.h stralloc.h gen_alloc.h idx.h auto_version.h
 	./compile ezmlm-split.c
-
-ezmlm-store.0: \
-ezmlm-store.1
-	nroff -man ezmlm-store.1 > ezmlm-store.0
 
 ezmlm-store: \
 load ezmlm-store.o libezmlm.a dl.lib
@@ -678,10 +554,6 @@ ezmlm-store.o: \
 compile ezmlm-store.c stralloc.h gen_alloc.h subfd.h substdio.h strerr.h hasattribute.h error.h qmail.h substdio.h stralloc.h gen_alloc.h env.h sender.h lock.h sig.h open.h getln.h str.h fmt.h readwrite.h wait.h exit.h substdio.h getconf.h datetime.h now.h datetime.h cookie.h getconfopt.h messages.h byte.h case.h quote.h hdr.h die.h hasattribute.h idx.h copy.h cookie.h datetime.h subdb.h stralloc.h gen_alloc.h mime.h stralloc.h gen_alloc.h wrap.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-store.c
 
-ezmlm-sub.0: \
-ezmlm-sub.1
-	nroff -man ezmlm-sub.1 > ezmlm-sub.0
-
 ezmlm-sub: \
 load ezmlm-sub.o ezmlm-subunsub.o libezmlm.a dl.lib
 	./load ezmlm-sub ezmlm-subunsub.o -lezmlm  `cat dl.lib`
@@ -690,17 +562,9 @@ ezmlm-sub.o: \
 compile ezmlm-sub.c hasattribute.h
 	./compile ezmlm-sub.c
 
-ezmlmsubrc.0: \
-ezmlmsubrc.5
-	nroff -man ezmlmsubrc.5 > ezmlmsubrc.0
-
 ezmlm-subunsub.o: \
 compile ezmlm-subunsub.c strerr.h hasattribute.h subdb.h stralloc.h gen_alloc.h getconfopt.h str.h stralloc.h gen_alloc.h substdio.h subfd.h substdio.h readwrite.h getln.h scan.h messages.h die.h hasattribute.h idx.h config.h stralloc.h gen_alloc.h auto_version.h
 	./compile ezmlm-subunsub.c
-
-ezmlm-test.0: \
-ezmlm-test.1
-	nroff -man ezmlm-test.1 > ezmlm-test.0
 
 ezmlm-test: \
 warn-auto.sh conf-qmail VERSION Makefile tests/00-config tests/01-misc tests/02-functions tests/09-getconfopt tests/100-ezmlm-make tests/110-ezmlm-reject tests/115-ezmlm-sub tests/116-ezmlm-checksub tests/119-ezmlm-nosql tests/119-ezmlm-sql tests/120-ezmlm-send tests/125-ezmlm-tstdig tests/130-ezmlm-weed tests/135-ezmlmrc tests/140-ezmlm-clean tests/145-ezmlm-store tests/150-ezmlm-return tests/155-ezmlm-warn tests/160-ezmlm-manage tests/165-ezmlm-request tests/170-ezmlm-split tests/180-ezmlm-gate tests/210-ezmlm-idx tests/221-ezmlm-get-index tests/222-ezmlm-get-get tests/223-ezmlm-get-thread tests/225-ezmlm-get-digest tests/260-ezmlm-manage tests/270-ezmlm-moderate tests/280-ezmlm-warn tests/290-ezmlm-archive tests/300-ezmlm-dispatch tests/310-dispatch-editor tests/400-decode-sender tests/500-export tests/504-flags tests/505-substs tests/506-messages tests/510-ezmlm-manage-subnop tests/510-ezmlm-manage-unsubnop tests/511-ezmlm-manage-subprobe tests/511-ezmlm-manage-unsubprobe tests/512-ezmlm-manage-subscribe tests/512-ezmlm-manage-unsubscribe tests/513-ezmlm-manage-modsub tests/513-ezmlm-manage-modunsub tests/514-ezmlm-manage-subbymod tests/514-ezmlm-manage-unsubbymod tests/519-ezmlm-manage-copylines tests/550-ezmlm-send tests/551-ezmlm-send-rewritefrom tests/560-addtrailer tests/570-omitbottom tests/90-cleanup tests/99-bugs
@@ -708,10 +572,6 @@ warn-auto.sh conf-qmail VERSION Makefile tests/00-config tests/01-misc tests/02-
 	echo VER=\"`head -n 1 VERSION`\"; \
 	cat tests/*-* ) >ezmlm-test;
 	chmod 755 ezmlm-test
-
-ezmlm-tstdig.0: \
-ezmlm-tstdig.1
-	nroff -man ezmlm-tstdig.1 > ezmlm-tstdig.0
 
 ezmlm-tstdig: \
 load ezmlm-tstdig.o libezmlm.a
@@ -721,10 +581,6 @@ ezmlm-tstdig.o: \
 compile ezmlm-tstdig.c stralloc.h gen_alloc.h substdio.h readwrite.h strerr.h hasattribute.h sig.h getconf.h env.h fmt.h now.h datetime.h lock.h getconfopt.h messages.h scan.h case.h str.h open.h die.h hasattribute.h wrap.h idx.h config.h stralloc.h gen_alloc.h
 	./compile ezmlm-tstdig.c
 
-ezmlm-unsub.0: \
-ezmlm-unsub.1
-	nroff -man ezmlm-unsub.1 > ezmlm-unsub.0
-
 ezmlm-unsub: \
 load ezmlm-unsub.o ezmlm-subunsub.o libezmlm.a dl.lib
 	./load ezmlm-unsub ezmlm-subunsub.o -lezmlm  `cat dl.lib`
@@ -733,10 +589,6 @@ ezmlm-unsub.o: \
 compile ezmlm-unsub.c hasattribute.h
 	./compile ezmlm-unsub.c
 
-ezmlm-warn.0: \
-ezmlm-warn.1
-	nroff -man ezmlm-warn.1 > ezmlm-warn.0
-
 ezmlm-warn: \
 load ezmlm-warn.o libezmlm.a dl.lib
 	./load ezmlm-warn -lezmlm  `cat dl.lib`
@@ -744,10 +596,6 @@ load ezmlm-warn.o libezmlm.a dl.lib
 ezmlm-warn.o: \
 compile ezmlm-warn.c direntry.h readwrite.h getln.h substdio.h stralloc.h gen_alloc.h slurp.h getconfopt.h getconf.h byte.h error.h str.h strerr.h hasattribute.h sig.h now.h datetime.h fmt.h cookie.h qmail.h substdio.h stralloc.h gen_alloc.h messages.h quote.h open.h scan.h lock.h copy.h cookie.h datetime.h mime.h stralloc.h gen_alloc.h hdr.h die.h hasattribute.h wrap.h idx.h config.h stralloc.h gen_alloc.h subdb.h stralloc.h gen_alloc.h
 	./compile ezmlm-warn.c
-
-ezmlm-weed.0: \
-ezmlm-weed.1
-	nroff -man ezmlm-weed.1 > ezmlm-weed.0
 
 ezmlm-weed: \
 load ezmlm-weed.o libezmlm.a
@@ -1174,13 +1022,7 @@ make-makeso warn-auto.sh systype
 	( cat warn-auto.sh; ./make-makeso "`cat systype`" ) > makeso
 	chmod 755 makeso
 
-man: \
-ezmlm.0 ezmlm-accept.0 ezmlm-archive.0 ezmlm-cgi.0 ezmlm-check.0 ezmlm-checksub.0 ezmlm-clean.0 \
-ezmlm-confirm.0 ezmlm-cron.0 ezmlm-dispatch.0 ezmlm-gate.0 ezmlm-get.0 ezmlm-glconf.0 ezmlm-idx.0 \
-ezmlm-import.0 ezmlm-issubn.0 ezmlm-limit.0 ezmlm-list.0 ezmlm-make.0 ezmlm-manage.0 ezmlm-moderate.0 \
-ezmlm-receipt.0 ezmlm-reject.0 ezmlm-request.0 ezmlm-return.0 ezmlm-rmtab.0 ezmlm-send.0 ezmlm-split.0 \
-ezmlm-store.0 ezmlm-sub.0 ezmlm-test.0 ezmlm-tstdig.0 ezmlm-unsub.0 ezmlm-warn.0 ezmlm-weed.0 \
-ezmlmglrc.0 ezmlmsubrc.0 ezmlmrc.0 surf.0 surfpcs.0 ezmlm-queue.1 INSTALL.cgi
+man: ezmlm-queue.1 INSTALL.cgi
 
 messages.all: \
 lang/cs/text/messages lang/da/text/messages lang/de/text/messages lang/en_US/text/messages lang/fr/text/messages lang/hu/text/messages lang/id/text/messages lang/it/text/messages lang/nl/text/messages lang/pl/text/messages lang/pt_BR/text/messages lang/pt/text/messages lang/sv/text/messages
@@ -1480,17 +1322,9 @@ sub-std.so: \
 makeso sub-std.lo libezmlm.a
 	./makeso sub-std.so sub-std.lo -lezmlm 
 
-surf.0: \
-surf.3
-	nroff -man surf.3 > surf.0
-
 surf.lo: \
 libcompile surf.c surf.h uint32.h
 	./libcompile surf.c
-
-surfpcs.0: \
-surfpcs.3
-	nroff -man surfpcs.3 > surfpcs.0
 
 surfpcs.lo: \
 libcompile surfpcs.c surf.h uint32.h surfpcs.h uint32.h
@@ -1619,10 +1453,6 @@ ezmlm-queue: ezmlm-queue.in conf-prefix conf-sysconfdir warn-auto.sh
 	| sed s}SYSCONFDIR}"`head -1 conf-sysconfdir`"}g \
 	> ezmlm-queue
 	chmod 755 ezmlm-queue
-
-ezmlm-queue.0: \
-ezmlm-queue.1
-	nroff -man ezmlm-queue.1 > ezmlm-queue.0
 
 ezmlm-queue.1: ezmlm-queue.9 conf-sysconfdir
 	cat ezmlm-queue.9 \
