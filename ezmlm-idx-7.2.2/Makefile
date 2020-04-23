@@ -432,7 +432,7 @@ compile ezmlm-idx.c stralloc.h gen_alloc.h subfd.h substdio.h strerr.h hasattrib
 	./compile ezmlm-idx.c
 
 ezmlm-idx.spec: \
-ezmlm-idx.spec.template VERSION fill-template conf-release
+ezmlm-idx.spec.template VERSION fill-template conf-release ChangeLog
 	(./fill-template ezmlm-idx.spec;./catChangeLog) > $@
 
 ezmlm-import: \
