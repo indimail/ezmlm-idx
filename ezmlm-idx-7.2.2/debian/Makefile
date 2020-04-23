@@ -19,9 +19,11 @@ edit = sed \
 	-e 's,@release\@,$(release),g' \
 	-e 's,@prefix\@,$(prefix),g'
 
-ezmlm-idx.dsc: ezmlm-idx.dsc.in Makefile
+ezmlm-idx.dsc: ezmlm-idx.dsc.in ../conf-release ../VERSION Makefile
 	$(edit) $@.in > $@
 _service: _service.in
+	$(edit) $@.in > $@
+control: control.in ../conf-release ../VERSION
 	$(edit) $@.in > $@
 changelog: changelog.in ../conf-release ../VERSION
 	(cat $@.in; echo "";\
