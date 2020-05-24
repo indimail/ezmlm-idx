@@ -27,7 +27,7 @@ control: control.in ../conf-release ../VERSION
 	$(edit) $@.in > $@
 changelog: changelog.in ../conf-release ../VERSION
 	(cat $@.in; echo "";\
-	echo " -- Manvendra Bhangui <manvendra@indimail.org>  `date +'%a, %d %b %Y %H:%S:%M %z'`" )| $(edit) > $@
+	echo " -- Manvendra Bhangui <manvendra@indimail.org>  `date +'%a, %d %b %Y %H:%M:%S %z'`" )| $(edit) > $@
 dummy.tar.gz: README
 	tar cf - README |gzip > $@
 debian.tar.gz: copyright rules control changelog compat
