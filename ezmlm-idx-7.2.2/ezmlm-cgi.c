@@ -2033,6 +2033,8 @@ void drop_priv(int flagchroot)
     if (flagchroot)
       if (chroot(dir) == -1)				/* chroot listdir */
         strerr_die2sys(111,FATAL,MSG1(ERR_CHROOT,dir));
+	if (chdir("/"))
+        strerr_die2sys(111,FATAL,MSG1(ERR_CHDIR,dir));
     if (setuid(uid) == -1)				/* setuid */
       strerr_die2sys(111,FATAL,MSG(ERR_SETUID));
   }
