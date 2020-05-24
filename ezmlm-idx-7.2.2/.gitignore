@@ -404,3 +404,4 @@ INSTALL.cgi
 ChangeLog
 debian/changelog.in
 debian/control
+conf-release
