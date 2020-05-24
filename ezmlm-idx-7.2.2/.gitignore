@@ -379,7 +379,6 @@ ezmlm-queue
 __TSTDIR
 ezmlm-idx.spec
 .ezmlm-idx.spec
-create_rpm
 lang/cs/text/messages
 lang/da/text/messages
 lang/de/text/messages
