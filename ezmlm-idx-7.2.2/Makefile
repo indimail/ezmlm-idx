@@ -83,6 +83,11 @@ auto-str.o: \
 compile auto-str.c str.h subfd.h substdio.h readwrite.h exit.h
 	./compile auto-str.c
 
+VERSION: \
+conf-version
+	(echo ezmlm-idx-"`head -n 1 conf-version`"; \
+	echo "derived from ezmlm-0.53") > VERSION
+
 auto_version.c: \
 auto-str VERSION
 	./auto-str auto_version < VERSION > auto_version.c
@@ -433,7 +438,7 @@ compile ezmlm-idx.c stralloc.h gen_alloc.h subfd.h substdio.h strerr.h hasattrib
 
 ezmlm-idx.spec: \
 ezmlm-idx.spec.template VERSION fill-template conf-release ChangeLog
-	(./fill-template ezmlm-idx.spec;./catChangeLog) > $@
+	(cat ezmlm-idx.spec.template;./catChangeLog) | ./fill-template > $@
 
 ezmlm-import: \
 load ezmlm-import.o libezmlm.a
@@ -496,7 +501,7 @@ lang/ch_GB/ezmlmrc lang/cs/ezmlmrc lang/da/ezmlmrc lang/de/ezmlmrc lang/en_US/ez
 
 ezmlmrc: \
 ezmlmrc.template VERSION fill-template
-	./fill-template ezmlmrc > $@
+	cat ezmlmrc.template | ./fill-template > $@
 
 ezmlm-reject: \
 load ezmlm-reject.o libezmlm.a
