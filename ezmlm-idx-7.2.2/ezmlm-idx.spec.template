@@ -172,7 +172,7 @@ make all
 # Create INSTALL file for how to set up ezmlm-cgi
 
 #(
-#echo "The binary ezmlm-cgi is installed as  %{ezcgidir}/ezmlm-cgi with"
+#echo "The binary ezmlm-cgi is installed as  %%{ezcgidir}/ezmlm-cgi with"
 #echo "permissions 04555."
 #echo ""
 #echo "Please see INSTALL.source 13-19) in this package's doc directory and the"
