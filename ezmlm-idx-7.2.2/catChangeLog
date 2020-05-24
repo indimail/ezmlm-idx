@@ -25,7 +25,7 @@ do
 		continue
 	fi
 	if [ $flag -eq 0 ] ; then # first line
-		echo "* `date +"%a %b %d %Y %H:%S:%M %z"` mbhangui@gmail.com" @version@-@release@%{?dist}
+		echo "* `date +"%a %b %d %Y %H:%M:%S %z"` ezmlm-idx@indimail.org" @version@-@release@%{?dist}
 		flag=1
 		continue
 	elif [ $flag -eq 1 ] ; then
