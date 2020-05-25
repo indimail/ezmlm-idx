@@ -224,6 +224,7 @@ echo file, section 7.
 %defattr(-,root,root)
 
 %dir %rcdir
+%dir %{_prefix}/lib/indimail/ezmlm
 %config(noreplace) %rcdir/*
 %attr(644,root,root) %{ezdocdir}/LICENSE
 %attr(644,root,root) %{ezdocdir}/BLURB
