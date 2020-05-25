@@ -60,14 +60,17 @@ read key
 if [ " $key" = " Y" -o " $key" = " y" ] ; then
 	cp stage/ezmlm-idx-$version/ezmlm-idx.spec /tmp
 	/bin/rm -rf stage
-	rpmbuild -ba --clean /tmp/ezmlm-idx.spec
-	/bin/rm -f /tmp/ezmlm-idx.spec
 	tmprel=`cat ezmlm-idx-$version/conf-release 2>/dev/null`
 	if [ ! " $tmprel" = " 1.$release" ] ; then
 		echo 1.$release > ezmlm-idx-$version/conf-release
-		cd ezmlm-idx-$version/debian
+		cd ezmlm-idx-$version
+		make ezmlm-idx.spec
+		cp ezmlm-idx.spec /tmp
+		cd debian
 		make
 	fi
+	rpmbuild -ba --clean /tmp/ezmlm-idx.spec
+	/bin/rm -f /tmp/ezmlm-idx.spec
 	build_arch=`rpmbuild --showrc|grep "^build arch" | awk '{print $4}'`
 	for i in ezmlm-idx ezmlm-idx-cgi ezmlm-idx-mysql ezmlm-idx-sqlite3 ezmlm-idx-pgsql
 	do
