@@ -12,32 +12,49 @@ else
 	rpmbuild=$HOME/rpmbuild
 fi
 version=$(cat conf-version)
-cd ..
-if [ -d stage ] ; then
-	/bin/rm -rf stage
+copy_src=0
+echo -n "Copy Source Files - "
+read key
+if [ " $key" = " y" -o " $key" = " Y" ] ; then
+	copy_src=1
 fi
-mkdir stage
+
+make -s ezmlm-idx.spec
 if [ $? -ne 0 ] ; then
+	echo "make failed" 1>&2
 	exit 1
 fi
-cp -rp ezmlm-idx-$version stage
-if [ $? -ne 0 ] ; then
-	exit 1
-fi
-cd stage/ezmlm-idx-$version
-if [ $? -ne 0 ] ; then
-	exit 1
-fi
-make -s clean
-make -s distclean
-cd ..
-tar \
-	--exclude="ezmlm-idx-$version/.git" \
-	--exclude="ezmlm-idx-$version/debian" \
-	--exclude="ezmlm-idx-$version/RCS" \
-	-cf - ezmlm-idx-"$version" \
+if [ $copy_src -eq 1 ] ; then
+	cd ..
+	if [ -d stage ] ; then
+		/bin/rm -rf stage
+	fi
+	mkdir stage
+	if [ $? -ne 0 ] ; then
+		exit 1
+	fi
+	cp -rp ezmlm-idx-$version stage
+	if [ $? -ne 0 ] ; then
+		exit 1
+	fi
+	cd stage/ezmlm-idx-$version
+	if [ $? -ne 0 ] ; then
+		exit 1
+	fi
+	make -s clean
+	make -s distclean
+	cd ..
+	tar \
+		--exclude="ezmlm-idx-$version/.git" \
+		--exclude="ezmlm-idx-$version/debian" \
+		--exclude="ezmlm-idx-$version/RCS" \
+		-cf - ezmlm-idx-"$version" \
 			| gzip -c > $rpmbuild/SOURCES/ezmlm-idx-"$version".tar.gz
-cd ..
+	cd ..
+	/bin/rm -rf stage
+else
+	cd ..
+fi
 dist=`uname -r |cut -d . -f4`
 if [ $# -gt 0 ] ; then
 	release=$1
@@ -62,16 +79,16 @@ fi
 echo -n "Build RPM for ezmlm-idx-"$version"-1."$release" (Y/N) - "
 read key
 if [ " $key" = " Y" -o " $key" = " y" ] ; then
-	cp stage/ezmlm-idx-$version/ezmlm-idx.spec /tmp
-	/bin/rm -rf stage
 	tmprel=`cat ezmlm-idx-$version/conf-release 2>/dev/null`
 	if [ ! " $tmprel" = " 1.$release" ] ; then
 		echo 1.$release > ezmlm-idx-$version/conf-release
 		cd ezmlm-idx-$version
-		make ezmlm-idx.spec
+		make -s ezmlm-idx.spec
 		cp ezmlm-idx.spec /tmp
 		cd debian
-		make
+		make -s
+	else
+		cp ezmlm-idx-$version/ezmlm-idx.spec /tmp
 	fi
 	rpmbuild -ba --clean /tmp/ezmlm-idx.spec
 	/bin/rm -f /tmp/ezmlm-idx.spec
@@ -96,11 +113,11 @@ if [ " $key" = " Y" -o " $key" = " y" ] ; then
 		echo ------------------------
 		) 2>&1 | less
 	fi
-else
-	/bin/rm -rf stage
 fi
-echo -n "Remove Source (Y/N) - "
-read key
-if [ " $key" = " Y" -o " $key" = " y" ] ; then
-	/bin/rm -f $rpmbuild/SOURCES/ezmlm-idx-"$version".tar.gz
+if [ $copy_src -eq 1 ] ; then
+	echo -n "Remove Source (Y/N) - "
+	read key
+	if [ " $key" = " Y" -o " $key" = " y" ] ; then
+		/bin/rm -f $rpmbuild/SOURCES/ezmlm-idx-"$version".tar.gz
+	fi
 fi
