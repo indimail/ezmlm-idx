@@ -2,13 +2,11 @@
 
 Easy Mailing List Manager for [indimail-mta](https://github.com/mbhangui/indimail-mta), [qmail](https://cr.yp.to/qmail.html)
 
-This has been forked from [ezmlm-idx Project Homepage](https://untroubled.org/ezmlm/) to adapt it to work with indimail-mta's mutiple queues
+This has been forked from [ezmlm-idx Project Homepage](https://untroubled.org/ezmlm/) to adapt it to work with indimail-mta's muti-queues architecture.
 
-ezmlm lets users set up their own mailing lists within qmail's address hierarchy. A user, Joe, types
+ezmlm is an easy-to-use, high-speed mailing list manager for qmail.
 
-`ezmlm-make ~/SOS ~/.qmail-sos joe-sos isp.net`
-
-and instantly has a functioning mailing list, joe-sos@isp.net, with all relevant information stored in a new ~/SOS directory.
+ezmlm lets users set up their own mailing lists within qmail's address hierarchy. A user, Joe, types `ezmlm-make ~/SOS ~/.qmail-sos joe-sos isp.net` and instantly has a functioning mailing list, joe-sos@isp.net, with all relevant information stored in a new ~/SOS directory.
 
 ezmlm sets up joe-sos-subscribe and joe-sos-unsubscribe for automatic processing of subscription and unsubscription requests. Any message to joe-sos-subscribe will work; Joe doesn't have to explain any tricky command formats. ezmlm will send back instructions if a subscriber sends a message to joe-sos-request or joe-sos-help.
 
