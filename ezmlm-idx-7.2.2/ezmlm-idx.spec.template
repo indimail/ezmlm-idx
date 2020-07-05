@@ -164,10 +164,10 @@ echo %{_prefix}                    >conf-prefix
 echo %{_bindir}                    >conf-bin
 echo %{mandir}                     >conf-man
 echo %{ezmlmlibdir}                >conf-lib
-echo gcc %optflags -Wall -O -s -fPIC -I%{_includedir}/mysql -I%{_includedir}/pgsql >conf-cc
-echo gcc %optflags -s -rdynamic -fPIC -L%{_libdir}/mysql >conf-ld
+echo gcc %{build_cflags} -Wall -O -s -fPIC -I%{_includedir}/mysql -I%{_includedir}/pgsql >conf-cc
+echo gcc %{build_ldflags} -s -rdynamic -fPIC -L%{_libdir}/mysql -L. >conf-ld
 
-make all
+%{__make} -s %{?_smp_mflags} CC="%{__cc}" CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}" all
 
 # Create INSTALL file for how to set up ezmlm-cgi
 
