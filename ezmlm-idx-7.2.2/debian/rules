@@ -13,6 +13,7 @@ include /usr/share/dpkg/buildflags.mk
 NAME=ezmlm-idx
 PREFIX=/usr
 BINDIR=$(PREFIX)/bin
+SBINDIR=$(PREFIX)/sbin
 LIBDIR=$(PREFIX)/lib/indimail/ezmlm
 MANDIR=$(PREFIX)/share/man
 DOCDIR=$(PREFIX)/share/doc/ezmlm-idx
@@ -29,6 +30,7 @@ build-stamp:
 	echo $(RCDIR)               >conf-etc
 	echo $(PREFIX)              >conf-prefix
 	echo $(BINDIR)              >conf-bin
+	echo $(SBINDIR)             >conf-sbin
 	echo $(MANDIR)              >conf-man
 	echo $(LIBDIR)              >conf-lib
 	echo "$(CC) $(CFLAGS) -I/usr/include/mysql -I/usr/include/postgresql" >conf-cc
@@ -58,18 +60,19 @@ install: build
 	# Add here commands to install the package
 	# The DESTDIR Has To Be Exactly  /usr/src/packages/BUILD/debian/<nameOfPackage>
 	mkdir -p "$(DESTDIR)$(BINDIR)"
+	mkdir -p "$(DESTDIR)$(SBINDIR)"
 	mkdir -p "$(DESTDIR)$(DOCDIR)"
 	mkdir -p "$(DESTDIR)$(LIBDIR)"
 	mkdir -p "$(DESTDIR)$(RCDIR)"
 	mkdir -p "$(DESTDIR)$(CGIDIR)"
 	mkdir -p "$(DESTDIR)$(PREFIX)/sbin"
-	./installer "$(DESTDIR)$(RCDIR)"  <ETC
-	./installer "$(DESTDIR)$(BINDIR)" <BIN
-	./installer "$(DESTDIR)$(MANDIR)" <MAN
-	./installer "$(DESTDIR)$(LIBDIR)" <LIB
+	./installer "$(DESTDIR)$(RCDIR)"   <ETC
+	./installer "$(DESTDIR)$(BINDIR)"  <BIN
+	./installer "$(DESTDIR)$(SBINDIR)" <SBIN
+	./installer "$(DESTDIR)$(MANDIR)"  <MAN
+	./installer "$(DESTDIR)$(LIBDIR)"  <LIB
 	ln -s `head -n 1 conf-lang` "$(DESTDIR)$(RCDIR)/default"
 	install -m 0644 README.mysql README.pgsql INSTALL.cgi ezcgirc ezcgi.css "$(DESTDIR)$(DOCDIR)"
-	mv $(DESTDIR)$(BINDIR)/ezmlm-queue $(DESTDIR)$(PREFIX)/sbin
 	mv $(DESTDIR)$(BINDIR)/ezmlm-cgi   $(DESTDIR)$(CGIDIR)
 	# --- end custom part for installing
 
