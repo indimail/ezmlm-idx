@@ -165,14 +165,25 @@ echo %{_bindir}                    >conf-bin
 echo %{_sbindir}                   >conf-sbin
 echo %{mandir}                     >conf-man
 echo %{ezmlmlibdir}                >conf-lib
-echo gcc %{build_cflags} -Wall -O -s -fPIC -I%{_includedir}/mysql -I%{_includedir}/pgsql >conf-cc
-echo gcc %{build_ldflags} -s -rdynamic -fPIC -L%{_libdir}/mysql -L. >conf-ld
+
+%if 0%{?build_cflags:1}
+  echo %{_cc} -g %{build_cflags} -Wall -O -fPIC -I%{_includedir}/mysql -I%{_includedir}/pgsql >conf-cc
+%else
+  echo %{_cc} -g %{optflags} -Wall -O -fPIC -I%{_includedir}/mysql -I%{_includedir}/pgsql >conf-cc
+%endif
+
+%if %{defined nodebug}
+  echo %{__cc} -s -rdynamic -fPIC -L%{_libdir}/mysql -L. >conf-ld
+%else
+  echo %{__cc} -rdynamic -fPIC -L%{_libdir}/mysql -L. >conf-ld
+%endif
 
 %if 0%{?build_cflags:1}
   CFLAGS="%{build_cflags}"
 %else
   CFLAGS="%{optflags}"
 %endif
+
 %if 0%{?build_ldflags:1}
   LDFLAGS="%{build_ldflags} $LDFLAGS"
 %endif
