@@ -1335,7 +1335,7 @@ int check_boundary()
     tmp = tmp->previous;
   }
   if (!stralloc_copys(&curcharset,charset)) die_nomem();
-			/* suprtfluous since header done by now */
+			/* superfluous since header done by now */
   cs = csbase;
   return 0;
 }
