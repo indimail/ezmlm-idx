@@ -6,11 +6,12 @@ ezmlm-queue \- queue messages using qmail-multi
 .B ezmlm-queue
 
 .SH DESCRIPTION
-\fBezmlm-queue\fR is use by ezmlm-idx prograrms to queue messages to be
-delivered by indimail-mta's \fBqmail-multi\fR(8). It sets environment variables
-using \fBenvdir\fR(8) using files in the directory \fISYSCONFDIR/control/defaultqueue\fR.
-These environment varables are required by \fBqmail-multi\fR(8) to correctly queue messages in
-indimail-mta's multiple queue environment. Following programs use \fBezmlm-queue\fR(1).
+\fBezmlm-queue\fR is used by ezmlm-idx programs, to queue messages, to be
+delivered by indimail-mta's \fBqmail-multi\fR(8). It sets environment
+variables using \fBenvdir\fR(8) using files in the directory
+\fISYSCONFDIR/control/defaultqueue\fR. These environment varables are
+required by \fBqmail-multi\fR(8) to queue messages to indimail-mta's multiple
+queue environment. Following programs use \fBezmlm-queue\fR(1).
 
 .EX
  ezmlm-clean(1), ezmlm-dispatch(1), ezmlm-get(1), ezmlm-manage(1), ezmlm-moderate(1),
