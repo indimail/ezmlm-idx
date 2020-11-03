@@ -26,11 +26,13 @@ ezmlm-idx originated as an add-on to [ezmlm](https://cr.yp.to/ezmlm.html). It no
 
 ## CREDITS
 
-The IDX patches add: Indexing, (Remote) Moderation, digest, make Fred Lindberg <lindberg@id.wustl.edu>, Fred B. Ringel <fredr@rivertown.net>, Bruce Guenter <bruce@untroubled.org>, and many others
+The IDX patches add: Indexing, (Remote) Moderation, digest, make patches, multi-language, MIME, global interface, SQL database support.
+
+Fred Lindberg <lindberg@id.wustl.edu>, Fred B. Ringel <fredr@rivertown.net>, Bruce Guenter <bruce@untroubled.org>, and many others
 
 # SUPPORT INFORMATION
 
-ezmlm-idx is supported at IndiMail
+For this forked version of ezmlm-idx, you can contact on IRC or mailing list
 
 ## IRC / Matrix
 
