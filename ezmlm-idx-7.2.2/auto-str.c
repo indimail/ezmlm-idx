@@ -1,8 +1,7 @@
+#include <unistd.h>
 #include "str.h"
 #include "subfd.h"
 #include "substdio.h"
-#include "readwrite.h"
-#include "exit.h"
 
 void subputs(const char *s)
 {

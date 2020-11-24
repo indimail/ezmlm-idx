@@ -1,8 +1,6 @@
 #ifndef DIE_H
 #define DIE_H
 
-#include "hasattribute.h"
-
 extern const char FATAL[];
 extern const char USAGE[];
 

@@ -15,7 +15,7 @@
 #include "str.h"
 #include "stralloc.h"
 #include "strerr.h"
-#include "lock.h"
+#include "lockfile.h"
 #include "open.h"
 #include "getln.h"
 #include "scan.h"
@@ -25,7 +25,6 @@
 #include "messages.h"
 #include "substdio.h"
 #include "fmt.h"
-#include "readwrite.h"
 #include "makehash.h"
 #include "yyyymm.h"
 
@@ -111,7 +110,7 @@ static void init_dummy(void)
   for (i = 0; i< HASHLEN; i++)
     dummyind.s[i] = 'a';
   dummyind.len = HASHLEN;
-  if (!stralloc_append(&dummyind,' ')) die_nomem();
+  if (!stralloc_append(&dummyind," ")) die_nomem();
 }
 
 void idx_mkthreads(msgentry **pmsgtable,	/* table of message<->subject */
@@ -310,8 +309,7 @@ void idx_mkthreads(msgentry **pmsgtable,	/* table of message<->subject */
 	    lastdate = pmsgt->date;
 	    if (datepos >= datemax) {		/* more space */
 	      datemax += DATENO;
-	      if (!alloc_re((void**)pdatetable,
-			    datetablesize,datetablesize+datetableunit))
+	      if (!alloc_re((char *)pdatetable, datetablesize,datetablesize+datetableunit))
 		die_nomem();
 	    }
 	    (*pdatetable)[datepos].msg = msg;	/* first msg this mo */
@@ -636,19 +634,19 @@ void idx_destroythread(msgentry *msgtable,
 
   psubt = subtable;		/* free subjects */
   while(psubt->sub) {
-    alloc_free(psubt->sub);
+    alloc_free((char *)psubt->sub);
     psubt++;
   }
 
   pautht = authtable;		/* free authors */
   while(pautht->auth) {
-    alloc_free(pautht->auth);
+    alloc_free((char *)pautht->auth);
     pautht++;
   }
 
-  alloc_free(subtable);		/* free subtable */
-  alloc_free(authtable);	/* free authtable */
-  alloc_free(msgtable);		/* free msgtable */
+  alloc_free((char *)subtable);		/* free subtable */
+  alloc_free((char *)authtable);	/* free authtable */
+  alloc_free((char *)msgtable);		/* free msgtable */
   subtable = (subentry *) 0;	/* kill pointers */
   authtable = (authentry *) 0;
   msgtable = (msgentry *) 0;

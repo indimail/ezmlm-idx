@@ -12,7 +12,6 @@
 #include "str.h"
 #include "seek.h"
 #include "wait.h"
-#include "exit.h"
 #include "getconf.h"
 #include "auto_bin.h"
 #include "getconfopt.h"

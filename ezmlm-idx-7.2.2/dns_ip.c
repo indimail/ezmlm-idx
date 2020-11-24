@@ -54,7 +54,7 @@ int dns_ip4(stralloc *out,const stralloc *fqdn)
 
     if ((ch == '[') || (ch == ']')) continue;
     if (ch == '.') {
-      if (!stralloc_append(out,code)) return -1;
+      if (!stralloc_append(out, &code)) return -1;
       code = 0;
       continue;
     }

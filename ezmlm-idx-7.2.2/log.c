@@ -1,6 +1,5 @@
 #include <unistd.h>
 #include "substdio.h"
-#include "readwrite.h"
 #include "stralloc.h"
 #include "log.h"
 #include "now.h"
@@ -29,7 +28,7 @@ void logaddr(const char *subdir,const char *event,
   if (!stralloc_cats(&line," ")) return;
   while ((ch = *addr++) != 0) {
     if ((ch < 33) || (ch > 126)) ch = '?';
-    if (!stralloc_append(&line,ch)) return;
+    if (!stralloc_append(&line,&ch)) return;
   }
   if (comment && *comment) {
     if (!stralloc_cats(&line," ")) return;
@@ -38,7 +37,7 @@ void logaddr(const char *subdir,const char *event,
         ch = ' ';
       else 
         if ((ch < 32) || (ch > 126)) ch = '?';
-      if (!stralloc_append(&line,ch)) return;
+      if (!stralloc_append(&line,&ch)) return;
     }
   }
   if (!stralloc_cats(&line,"\n")) return;
