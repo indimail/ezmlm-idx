@@ -24,6 +24,48 @@ ezmlm doesn't mind huge mailing lists. Lists don't even have to fit into emory. 
 
 ezmlm-idx originated as an add-on to [ezmlm](https://cr.yp.to/ezmlm.html). It now exists as a complete package on its own, but can still be considered essentially as an extension to ezmlm. It adds multi-message threaded message retrieval from the archive, digests, message and subscription moderation, and a number of remote administration function. It modifies the configuration program ezmlm-make(1) so that it uses a text file template rather than compiled-in texts in list creation. In this manner, ezmlm-idx allows easy setup of lists in different languages and customization of default list setup. ezmlm-idx also adds MIME handling, and other support to streamline use with languages other than English. Prior to version 7, ezmlm-idx existed as an ezmlm source add-on, and as such did not work without ezmlm. ezmlm-idx tries to be compatible with ezmlm as much as possible in its usage, though the internal structure has changed considerably. ezmlm-idx also modifies the ezmlm subscriber database to be case insensitive to avoid many unsubscribe problems.
 
+# Source Compiling/Linking
+
+## Download / clone / compile libqmail
+
+libqmail uses GNU autotools. You need to haave autoconf, automake, libtool and pkg config package. Follow the instructions below to have them installed in case you don't have them.
+
+```
+$ cd /usr/local/src
+$ git clone https://github.com/mbhangui/libqmail.git
+$ cd /usr/local/src/libqmail
+$ ./default.configure
+$ make
+$ sudo make install-strip
+```
+
+(check version in libqmail/conf-version)
+
+NOTE: for FreeBSD, install packages using pkg
+
+```
+# pkg install automake autoconf libtool pkgconf
+```
+
+NOTE: For Darwin (Mac OSX), install [MacPorts](https://www.macports.org/) or brew. You can look at this [document](https://paolozaino.wordpress.com/2015/05/05/how-to-install-and-use-autotools-on-mac-os-x/) for installing MacPorts.
+
+```
+# port install autoconf libtool automake pkgconfig
+# port install openssl
+# port update outdated
+```
+
+## Download / clone / compile ezmlm-idx
+
+```
+$ cd /usr/local/src
+$ git clone https://github.com/mbhangui/ezmlm-idx.git
+$ cd /usr/local/src/ezmlm-idx/ezmlm-idx-7.2.2
+$ ./default.configure
+$ make
+$ sudo make install-strip
+```
+
 ## CREDITS
 
 The IDX patches add: Indexing, (Remote) Moderation, digest, make patches, multi-language, MIME, global interface, SQL database support.
