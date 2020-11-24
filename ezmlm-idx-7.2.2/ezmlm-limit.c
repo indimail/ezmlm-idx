@@ -3,10 +3,9 @@
 #include <unistd.h>
 #include "stralloc.h"
 #include "substdio.h"
-#include "readwrite.h"
 #include "strerr.h"
 #include "sig.h"
-#include "lock.h"
+#include "lockfile.h"
 #include "getconf.h"
 #include "fmt.h"
 #include "now.h"

@@ -34,7 +34,6 @@
 #include "str.h"
 #include "getln.h"
 #include "case.h"
-#include "readwrite.h"
 #include "qmail.h"
 #include "messages.h"
 #include "error.h"

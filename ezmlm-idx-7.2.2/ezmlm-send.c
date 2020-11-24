@@ -10,16 +10,15 @@
 #include "qmail.h"
 #include "env.h"
 #include "sender.h"
-#include "lock.h"
+#include "lockfile.h"
 #include "sig.h"
 #include "open.h"
 #include "getln.h"
+#include "gethdrln.h"
 #include "case.h"
 #include "scan.h"
 #include "str.h"
 #include "fmt.h"
-#include "readwrite.h"
-#include "exit.h"
 #include "substdio.h"
 #include "getconf.h"
 #include "constmap.h"
@@ -507,7 +506,7 @@ int main(int argc,char **argv)
   if (flagreplytolist) {
     if (!stralloc_copyb(&line,"Reply-To: <",11)) die_nomem();
     if (!stralloc_cat(&line,&outlocal)) die_nomem();
-    if (!stralloc_append(&line,'@')) die_nomem();
+    if (!stralloc_append(&line,"@")) die_nomem();
     if (!stralloc_cat(&line,&outhost)) die_nomem();
     if (!stralloc_catb(&line,">\n",2)) die_nomem();
     qa_put(line.s,line.len);

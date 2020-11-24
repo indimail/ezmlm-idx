@@ -27,7 +27,7 @@ static int init(stralloc *rules)
   if (k == -1) return -1;
 
   if (k) {
-    if (!stralloc_append(&data,'\n')) return -1;
+    if (!stralloc_append(&data,"\n")) return -1;
     i = 0;
     for (j = 0;j < data.len;++j)
       if (data.s[j] == '\n') {
@@ -48,7 +48,7 @@ static int init(stralloc *rules)
   x = env_get("LOCALDOMAIN");
   if (x) {
     if (!stralloc_copys(&data,x)) return -1;
-    if (!stralloc_append(&data,' ')) return -1;
+    if (!stralloc_append(&data," ")) return -1;
     if (!stralloc_copys(rules,"?:")) return -1;
     i = 0;
     for (j = 0;j < data.len;++j)
@@ -67,7 +67,7 @@ static int init(stralloc *rules)
   if (k == -1) return -1;
 
   if (k) {
-    if (!stralloc_append(&data,'\n')) return -1;
+    if (!stralloc_append(&data,"\n")) return -1;
     i = 0;
     for (j = 0;j < data.len;++j)
       if (data.s[j] == '\n') {

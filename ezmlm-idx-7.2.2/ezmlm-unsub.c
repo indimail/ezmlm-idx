@@ -1,5 +1,3 @@
-#include "hasattribute.h"
-
 const char FATAL[] = "ezmlm-unsub: fatal: ";
 const char USAGE[] =
 "ezmlm-unsub: usage: ezmlm-unsub [-HmMnNvV] [-h hash] [-t tag] dir [subdir] [box@domain ...]";

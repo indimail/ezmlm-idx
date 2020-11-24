@@ -8,7 +8,7 @@
 #include "error.h"
 #include "strerr.h"
 #include "substdio.h"
-#include "lock.h"
+#include "lockfile.h"
 #include "open.h"
 #include "messages.h"
 #include "die.h"

@@ -1,6 +1,5 @@
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <stdio.h>
 #include <unistd.h>
 #include "alloc.h"
 #include "error.h"
@@ -13,10 +12,10 @@
 #include "strerr.h"
 #include "byte.h"
 #include "getln.h"
+#include "gethdrln.h"
 #include "case.h"
 #include "qmail.h"
 #include "substdio.h"
-#include "readwrite.h"
 #include "seek.h"
 #include "quote.h"
 #include "datetime.h"
@@ -31,7 +30,7 @@
 #include "subdb.h"
 #include "hdr.h"
 #include "open.h"
-#include "lock.h"
+#include "lockfile.h"
 #include "scan.h"
 #include "idxthread.h"
 #include "die.h"
@@ -627,7 +626,7 @@ void digest(msgentry *msgtable,
             if (!stralloc_copys(&line,"")) die_nomem();
           if (!stralloc_cats(&line,"\t")) die_nomem();
           if (!stralloc_catb(&line,strnum,fmt_ulong(strnum,msg))) die_nomem();
-          if (!stralloc_append(&line,' ')) die_nomem();
+          if (!stralloc_append(&line," ")) die_nomem();
           if (pmsgt->authnum) {
 	    author.len = 0;
 	    cp = authtable[pmsgt->authnum - 1].auth;
@@ -640,7 +639,7 @@ void digest(msgentry *msgtable,
 	    if (!stralloc_0(&author)) die_nomem();
 	  }
           if (!stralloc_cats(&line,MSG1(TXT_BY,author.s))) die_nomem();
-	  if (!stralloc_append(&line,'\n')) die_nomem();
+	  if (!stralloc_append(&line,"\n")) die_nomem();
           code_qput(line.s,line.len);
         }
         pmsgt++;
@@ -919,7 +918,7 @@ int main(int argc,char **argv)
       if (num.s[pos] == ':') pos++;
       pos += 1 + scan_ulong(num.s+pos,&cumsize);	/* last cumsize */
       if (num.s[pos] == ':') pos++;
-      scan_ulong(num.s+pos,&digwhen);			/* last reg dig */
+      scan_ulong(num.s+pos, (unsigned long *) &digwhen);			/* last reg dig */
     } else {
       prevmax = 0L;
       cumsize = 0L;

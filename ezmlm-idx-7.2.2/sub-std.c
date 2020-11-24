@@ -15,12 +15,11 @@
 #include "fmt.h"
 #include "getln.h"
 #include "idx.h"
-#include "lock.h"
+#include "lockfile.h"
 #include "log.h"
 #include "makehash.h"
 #include "open.h"
 #include "qmail.h"
-#include "readwrite.h"
 #include "scan.h"
 #include "slurp.h"
 #include "str.h"
@@ -252,7 +251,7 @@ static void lineout(const stralloc *line, int subwrite())
   struct datetime dt;
   char date[DATE822FMT];
 
-  (void) scan_ulong(line->s,&when);
+  (void) scan_ulong(line->s,(unsigned long *)&when);
   datetime_tai(&dt,when);		/* there is always at least a '\n' */
   if (!stralloc_copyb(&outline,date,date822fmt(date,&dt) - 1))
 	die_nomem();

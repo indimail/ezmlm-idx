@@ -15,10 +15,7 @@
 #include "scan.h"
 #include "str.h"
 #include "fmt.h"
-#include "readwrite.h"
-#include "fork.h"
 #include "wait.h"
-#include "exit.h"
 #include "substdio.h"
 #include "getconf.h"
 #include "gen_alloc.h"
@@ -2053,7 +2050,7 @@ int main(int argc,char **argv)
   unsigned int pos,l;
   int flagindex = 0;
   int flagchroot = 1;		/* chroot listdir if SUID root */
-  int ret;
+  int ret = 0;
   char sep;
 
 /******************** we may be SUID ROOT ******************************/

@@ -7,8 +7,6 @@
 #include "sgetopt.h"
 #include "stralloc.h"
 #include "strerr.h"
-#include "exit.h"
-#include "readwrite.h"
 #include "byte.h"
 #include "open.h"
 #include "substdio.h"
@@ -18,7 +16,7 @@
 #include "auto_bin.h"
 #include "getln.h"
 #include "error.h"
-#include "lock.h"
+#include "lockfile.h"
 #include "messages.h"
 #include "die.h"
 #include "idx.h"
@@ -87,10 +85,10 @@ static char sz = '?';
 void keyadd(unsigned long u)
 {
   char ch;
-  ch = (char) u; if (!stralloc_append(&key,ch)) die_nomem(); u >>= 8;
-  ch = (char) u; if (!stralloc_append(&key,ch)) die_nomem(); u >>= 8;
-  ch = (char) u; if (!stralloc_append(&key,ch)) die_nomem(); u >>= 8;
-  ch = (char) u; if (!stralloc_append(&key,ch)) die_nomem();
+  ch = (char) u; if (!stralloc_append(&key,&ch)) die_nomem(); u >>= 8;
+  ch = (char) u; if (!stralloc_append(&key,&ch)) die_nomem(); u >>= 8;
+  ch = (char) u; if (!stralloc_append(&key,&ch)) die_nomem(); u >>= 8;
+  ch = (char) u; if (!stralloc_append(&key,&ch)) die_nomem();
 }
 
 void keyaddtime(void)
@@ -483,7 +481,7 @@ int main(int argc,char **argv)
       sz = 'a' + ch;
     else
       sz = 'A' + ch;
-    if (!stralloc_append(&f,sz)) die_nomem();
+    if (!stralloc_append(&f,&sz)) die_nomem();
   }
 
   fdin = -1;	/* assure failure for .ezmlmrc in case flags['c'-'a'] = 0 */

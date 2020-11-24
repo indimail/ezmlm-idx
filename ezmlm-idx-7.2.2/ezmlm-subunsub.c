@@ -8,7 +8,6 @@
 #include "stralloc.h"
 #include "substdio.h"
 #include "subfd.h"
-#include "readwrite.h"
 #include "getln.h"
 #include "scan.h"
 #include "messages.h"

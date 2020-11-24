@@ -38,7 +38,7 @@ int dns_txt_packet(stralloc *out,const char *buf,unsigned int len)
 	    --txtlen;
 	    if (ch < 32) ch = '?';
 	    if (ch > 126) ch = '?';
-	    if (!stralloc_append(out,ch)) return -1;
+	    if (!stralloc_append(out,&ch)) return -1;
 	  }
 	}
       }

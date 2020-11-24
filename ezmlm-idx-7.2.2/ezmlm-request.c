@@ -11,13 +11,12 @@
 #include "sig.h"
 #include "open.h"
 #include "getln.h"
+#include "gethdrln.h"
 #include "case.h"
 #include "str.h"
 #include "datetime.h"
 #include "now.h"
 #include "quote.h"
-#include "readwrite.h"
-#include "exit.h"
 #include "substdio.h"
 #include "getconf.h"
 #include "constmap.h"
@@ -254,7 +253,7 @@ static void parseline(char *cp)
 int main(int argc,char **argv)
 {
   const char *local;
-  char *action;
+  char *action = (char *) 0;
   char *def;
   const char *sender;
   char *psz;
