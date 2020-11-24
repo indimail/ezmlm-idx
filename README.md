@@ -79,7 +79,7 @@ If you want to use DNF / YUM / apt-get, the corresponding install instructions f
 * [Experimental](https://software.opensuse.org/download.html?project=home%3Ambhangui&package=ezmlm-idx)
 
 ```
-Currently, the list of supported distributions for IndiMail is
+Currently, the list of supported distributions for ezmlm-idx is
 
     * SUSE
           o openSUSE_Leap_15.0
