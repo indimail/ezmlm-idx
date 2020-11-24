@@ -66,11 +66,9 @@ $ make
 $ sudo make install-strip
 ```
 
-## CREDITS
+# Binary Installation
 
-The IDX patches add: Indexing, (Remote) Moderation, digest, make patches, multi-language, MIME, global interface, SQL database support.
-
-Fred Lindberg <lindberg@id.wustl.edu>, Fred B. Ringel <fredr@rivertown.net>, Bruce Guenter <bruce@untroubled.org>, and many others
+binaries for ezmlm-idx is available for most linux distributions at [openSUSE Build Service](https://software.opensuse.org//download.html?project=home%3Aindimail&package=ezmlm-idx). You just need to click and follow the instructions to install and setup ezmlm-idx with ease.
 
 # SUPPORT INFORMATION
 
@@ -91,3 +89,9 @@ There are four Mailing Lists for IndiMail
 4. Archive at [Google Groups](http://groups.google.com/group/indimail). This groups acts as a remote archive for indimail-support and indimail-devel.
 
 There is also a [Project Tracker](http://sourceforge.net/tracker/?group_id=230686) for IndiMail (Bugs, Feature Requests, Patches, Support Requests)
+
+## CREDITS
+
+The IDX patches add: Indexing, (Remote) Moderation, digest, make patches, multi-language, MIME, global interface, SQL database support.
+
+Fred Lindberg <lindberg@id.wustl.edu>, Fred B. Ringel <fredr@rivertown.net>, Bruce Guenter <bruce@untroubled.org>, and many others
