@@ -28,7 +28,7 @@ ezmlm-idx originated as an add-on to [ezmlm](https://cr.yp.to/ezmlm.html). It no
 
 ## Download / clone / compile libqmail
 
-libqmail uses GNU autotools. You need to haave autoconf, automake, libtool and pkg config package. Follow the instructions below to have them installed in case you don't have them.
+ezmlm-idx uses functions from libqmail library. libqmail uses GNU autotools. You need to haave autoconf, automake, libtool and pkg config package. Follow the instructions below to have them installed in case you don't have them.
 
 ```
 $ cd /usr/local/src
