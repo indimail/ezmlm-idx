@@ -9,7 +9,7 @@
 #include "gethdrln.h"
 #include "getconfopt.h"
 #include "getconf.h"
-#include "constmap.h"
+#include "constmap_idx.h"
 #include "fmt.h"
 #include "qmail.h"
 #include "seek.h"
@@ -66,9 +66,9 @@ static stralloc mimeremove = {0};
 static stralloc mimereject = {0};
 static stralloc headerreject = {0};
 
-static struct constmap mimeremovemap;
-static struct constmap mimerejectmap;
-static struct constmap headerrejectmap;
+static struct constmap_idx mimeremovemap;
+static struct constmap_idx mimerejectmap;
+static struct constmap_idx headerrejectmap;
 static int mimeremoveflag = 0;
 
 struct qmail qq;
@@ -226,20 +226,20 @@ int main(int argc,char **argv)
       mimeremoveflag = 1;
     else
       getconf(&mimeremove,"mimeremove",0);
-    constmap_init(&mimeremovemap,mimeremove.s,mimeremove.len,0);
+    constmap_idx_init(&mimeremovemap,mimeremove.s,mimeremove.len,0);
     getconf(&mimereject,"mimereject",0);
-    constmap_init(&mimerejectmap,mimereject.s,mimereject.len,0);
+    constmap_idx_init(&mimerejectmap,mimereject.s,mimereject.len,0);
   }
   if (flagheaderreject && dir) {
     getconf(&headerreject,"headerreject",0);
-    constmap_init(&headerrejectmap,headerreject.s,headerreject.len,0);
+    constmap_idx_init(&headerrejectmap,headerreject.s,headerreject.len,0);
   }
   for (;;) {
     if (gethdrln(&ssin,&line,&match,'\n') == -1)
       strerr_die2sys(111,FATAL,MSG(ERR_READ_INPUT));
     if (!match) break;
     if (flagheaderreject && dir)
-      if (constmap(&headerrejectmap,line.s,byte_chr(line.s,line.len,':')))
+      if (constmap_idx(&headerrejectmap,line.s,byte_chr(line.s,line.len,':')))
         strerr_die2x(100,FATAL,MSG(ERR_MAILING_LIST));
 
     if (line.len == 1) break;
@@ -338,8 +338,8 @@ int main(int argc,char **argv)
     }
 
     if (flagparsemime)
-      if ((!!constmap(&mimeremovemap,cpstart,cp-cpstart) ^ mimeremoveflag) ||
-	  constmap(&mimerejectmap,cpstart,cp-cpstart)) {
+      if ((!!constmap_idx(&mimeremovemap,cpstart,cp-cpstart) ^ mimeremoveflag) ||
+	  constmap_idx(&mimerejectmap,cpstart,cp-cpstart)) {
 	*(cp) = (char) 0;
 	strerr_die2x(100,FATAL,MSG1(ERR_BAD_TYPE,cpstart));
       }
@@ -391,7 +391,7 @@ int main(int argc,char **argv)
 	    ++cp; --len;
 	  }
         }
-	if (flagparsemime && constmap(&mimerejectmap,cpstart,cp-cpstart)) {
+	if (flagparsemime && constmap_idx(&mimerejectmap,cpstart,cp-cpstart)) {
           *cp = '\0';
           strerr_die2x(100,FATAL,MSG1(ERR_BAD_PART,cpstart));
         }

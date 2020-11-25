@@ -9,3 +9,7 @@ Release 1.1 Start 22/03/2017
 	make-load.sh: use CFLAGS, LDFLAGS from the build system (rpm/debian)
 03/11/2020
 06. ezmlmrc.template: fixed version identifier
+25/11/2020
+07. use libqmail for common functions
+08. add constmap_idx.c, constmap_idx.h for renamed constmap functions to avoid
+    clash with libqmail

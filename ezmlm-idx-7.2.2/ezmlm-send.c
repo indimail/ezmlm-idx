@@ -20,7 +20,7 @@
 #include "fmt.h"
 #include "substdio.h"
 #include "getconf.h"
-#include "constmap.h"
+#include "constmap_idx.h"
 #include "byte.h"
 #include "getconfopt.h"
 #include "quote.h"
@@ -124,10 +124,10 @@ static char archivebuf[1024];
 static int flagsublist;
 static stralloc sublist = {0};
 static stralloc headerremove = {0};
-static struct constmap headerremovemap;
+static struct constmap_idx headerremovemap;
 static int headerremoveflag = 0;
 static stralloc mimeremove = {0};
-static struct constmap mimeremovemap;
+static struct constmap_idx mimeremovemap;
 static int mimeremoveflag = 0;
 
 struct qmail qq;
@@ -429,7 +429,7 @@ int main(int argc,char **argv)
     headerremoveflag = 1;
   else
     getconf(&headerremove,"headerremove",1);
-  if (!constmap_init(&headerremovemap,headerremove.s,headerremove.len,0))
+  if (!constmap_idx_init(&headerremovemap,headerremove.s,headerremove.len,0))
 	die_nomem();
 
   if (!stralloc_copys(&mydtline,"Delivered-To: mailing list ")) die_nomem();
@@ -582,7 +582,7 @@ int main(int argc,char **argv)
                if (!stralloc_catb(&sboundary,cpstart,cp-cpstart))
 			die_nomem();
 	       flagfoundokpart = 0;
-               if (!constmap_init(&mimeremovemap,mimeremove.s,mimeremove.len,0))
+               if (!constmap_idx_init(&mimeremovemap,mimeremove.s,mimeremove.len,0))
 			die_nomem();
                flagbadpart = 1;		/* skip before first boundary */
                qa_puts("\n");		/* to make up for the lost '\n' */
@@ -594,7 +594,7 @@ int main(int argc,char **argv)
         flagarchiveonly = 0;
 	if (flagreplytolist && case_startb(line.s,line.len,"reply-to:"))
 	  flagbadfield = 1;
-	else if (constmap(&headerremovemap,line.s,byte_chr(line.s,line.len,':')))
+	else if (constmap_idx(&headerremovemap,line.s,byte_chr(line.s,line.len,':')))
 	  flagbadfield = !headerremoveflag;
         if ((flagnoreceived || !flagsawreceived) &&
 		case_startb(line.s,line.len,"Received:")) {
@@ -671,7 +671,7 @@ int main(int argc,char **argv)
           while (*cp == ' ' || *cp == '\t') ++cp;
           cpstart = cp;			/* end of type */
           while (*cp != '\n' && *cp != '\t' && *cp != ' ' && *cp != ';') ++cp;
-	  flagbadpart = constmap(&mimeremovemap,cpstart,cp-cpstart)
+	  flagbadpart = constmap_idx(&mimeremovemap,cpstart,cp-cpstart)
 	    ? !mimeremoveflag
 	    : mimeremoveflag;
 	  if (!flagbadpart) {

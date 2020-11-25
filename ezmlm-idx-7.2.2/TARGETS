@@ -225,3 +225,4 @@ wrap_fork.lo
 wrap_rename.lo
 wrap_stat.lo
 wrap_waitpid.lo
+constmap_idx.lo

@@ -102,6 +102,10 @@ make-compile warn-auto.sh systype
 	( cat warn-auto.sh; ./make-compile "`cat systype`" ) > compile
 	chmod 755 compile
 
+constmap_idx.lo: \
+libcompile constmap_idx.c constmap_idx.h
+	./libcompile constmap_idx.c
+
 concatHDR.lo: \
 libcompile concatHDR.c \
 mime.h messages.h die.h idx.h
@@ -266,7 +270,7 @@ load ezmlm-cgi.o libezmlm.a
 	./load ezmlm-cgi -lezmlm -lqmail
 
 ezmlm-cgi.o: \
-compile ezmlm-cgi.c direntry.h \
+compile ezmlm-cgi.c direntry.h constmap_idx.h \
 getconf.h subdb.h messages.h makehash.h mime.h wrap.h \
 die.h idx.h yyyymm.h cgi.h auto_etc.h
 	./compile ezmlm-cgi.c
@@ -335,7 +339,7 @@ load ezmlm-get.o libezmlm.a dl.lib
 	./load ezmlm-get -lezmlm `cat dl.lib` -lqmail
 
 ezmlm-get.o: compile ezmlm-get.c auto_version.h config.h cookie.h \
-copy.h date822fmt.h die.h getconf.h getconfopt.h \
+copy.h date822fmt.h die.h getconf.h getconfopt.h constmap_idx.h \
 hdr.h idx.h idxthread.h makehash.h messages.h mime.h sender.h \
 qmail.h quote.h subdb.h wrap.h lockfile.h gethdrln.h
 	./compile ezmlm-get.c
@@ -434,7 +438,7 @@ load ezmlm-reject.o libezmlm.a
 
 ezmlm-reject.o: compile ezmlm-reject.c getconfopt.h getconf.h \
 qmail.h sender.h messages.h mime.h die.h idx.h config.h \
-auto_version.h gethdrln.h
+auto_version.h gethdrln.h constmap_idx.h
 	./compile ezmlm-reject.c
 
 ezmlm-request: \
@@ -443,7 +447,8 @@ load ezmlm-request.o libezmlm.a dl.lib
 
 ezmlm-request.o: compile ezmlm-request.c qmail.h sender.h \
 quote.h getconf.h getconfopt.h messages.h copy.h cookie.h subdb.h \
-mime.h hdr.h die.h idx.h config.h auto_version.h gethdrln.h
+mime.h hdr.h die.h idx.h config.h auto_version.h gethdrln.h \
+constmap_idx.h
 	./compile ezmlm-request.c
 
 ezmlm-return: \
@@ -472,7 +477,7 @@ ezmlm-send.o: compile ezmlm-send.c qmail.h \
 sender.h getconf.h getconfopt.h quote.h subdb.h \
 mime.h messages.h makehash.h cookie.h dmarc.h hdr.h \
 die.h wrap.h idx.h copy.h cookie.h config.h \
-auto_version.h gethdrln.h
+auto_version.h gethdrln.h constmap_idx.h
 	./compile ezmlm-send.c
 
 ezmlm-split: \
@@ -862,7 +867,7 @@ make-libcompile warn-auto.sh systype
 libezmlm.a: \
 makelib altpath.lo author.lo auto_bin.lo \
 auto_cron.lo auto_etc.lo auto_lib.lo auto_qmail.lo auto_version.lo \
-concatHDR.lo config.lo getconf.lo \
+concatHDR.lo config.lo getconf.lo constmap_idx.lo \
 cookie.lo copy.lo date2yyyymm.lo date822fmt.lo \
 dateline.lo decodeB.lo decodeHDR.lo \
 decodeQ.lo die_badaddr.lo die_badformat.lo die_dow.lo die_nomem.lo \
@@ -885,7 +890,7 @@ wrap_exitcode.lo wrap_fork.lo wrap_rename.lo wrap_stat.lo wrap_waitpid.lo
 	./makelib libezmlm.a altpath.lo author.lo auto_bin.lo \
 	auto_cron.lo auto_etc.lo auto_lib.lo auto_qmail.lo auto_version.lo \
 	concatHDR.lo config.lo cookie.lo copy.lo date2yyyymm.lo date822fmt.lo \
-	dateline.lo decodeB.lo decodeHDR.lo getconf.lo \
+	dateline.lo decodeB.lo decodeHDR.lo getconf.lo constmap_idx.lo \
 	decodeQ.lo die_badaddr.lo die_badformat.lo die_dow.lo die_nomem.lo \
 	die_sender.lo die_usage.lo dmarc.lo dns_dfd.lo dns_domain.lo \
 	dns_dtda.lo dns_ip.lo dns_ipq.lo dns_mx.lo dns_name.lo dns_nd.lo \
@@ -986,7 +991,7 @@ lang/sv/text/messages
 
 messages.lo: \
 libcompile messages.c messages.h altpath.h config.h \
-copy.h cookie.h die.h slurp.h messages-txt.c
+copy.h cookie.h die.h slurp.h messages-txt.c constmap_idx.h
 	./libcompile messages.c
 
 messages-txt.c: \

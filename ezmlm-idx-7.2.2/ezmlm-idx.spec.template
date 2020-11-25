@@ -33,9 +33,7 @@ License: GPL-2.0+
 License: GPLv2
 %endif
 Group: Utilities/System
-BuildRequires: mysql-devel
-BuildRequires: postgresql-devel
-BuildRequires: sqlite-devel
+BuildRequires: mysql-devel postgresql-devel sqlite-devel libqmail-devel
 %if %{defined centos_version}
 BuildRequires: chkconfig
 %endif

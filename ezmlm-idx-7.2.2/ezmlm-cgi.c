@@ -20,7 +20,7 @@
 #include "getconf.h"
 #include "gen_alloc.h"
 #include "gen_allocdefs.h"
-#include "constmap.h"
+#include "constmap_idx.h"
 #include "byte.h"
 #include "subdb.h"
 #include "messages.h"
@@ -121,7 +121,7 @@ static stralloc encoding = {0};
 static stralloc content = {0};
 static stralloc curcharset = {0};
 static stralloc sainit = {0};
-static struct constmap headermap;
+static struct constmap_idx headermap;
 static unsigned long uid,euid;
 static int recursion_level;
 static int so = 0;
@@ -1550,7 +1550,7 @@ int show_message(struct msginfo *infop)
     if (*psz == '\\') *psz = '\0';
     ++psz;
   }
-  if (!constmap_init(&headermap,headers.s,headers.len,0))
+  if (!constmap_idx_init(&headermap,headers.s,headers.len,0))
 	die_nomem();
 
   (void) makefn(&fn,ITEM_MESSAGE,msginfo.target,"");
