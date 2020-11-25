@@ -244,7 +244,7 @@ void sub_sql_searchlog(struct subdbinfo *info,
   result = sql_select(info,&query,nparams,params);
   while (sql_fetch_row(info,result,2,params)) {
     if (!stralloc_0(&params[0])) die_nomem();
-    (void)scan_ulong(params[0].s,&when);
+    (void)scan_ulong(params[0].s, (unsigned long *) &when);
     datetime_tai(&dt,when);
     if (!stralloc_copyb(&params[0],date,date822fmt(date,&dt)-1)) die_nomem();
     if (!stralloc_cats(&params[0],": ")) die_nomem();
