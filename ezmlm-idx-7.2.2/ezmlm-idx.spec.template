@@ -25,7 +25,6 @@ Name: ezmlm-idx
 Version: @version@
 Release: @release@%{?dist}
 Summary: Easy Mailing List Manager + IDX patches
-BuildRequires: rpm >= 3.0.2
 Buildroot: %{_tmppath}/%{name}-%{version}-root
 %if %build_on_obs == 1
 License: GPL-2.0+
@@ -34,6 +33,9 @@ License: GPLv2
 %endif
 Group: Utilities/System
 BuildRequires: mysql-devel postgresql-devel sqlite-devel libqmail-devel
+BuildRequires: rpm >= 3.0.2 gcc gcc-c++ make
+BuildRequires: sed findutils diffutils gzip coreutils grep
+BuildRequires: glibc glibc-devel binutils
 %if %{defined centos_version}
 BuildRequires: chkconfig
 %endif

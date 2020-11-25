@@ -4,7 +4,7 @@ Version: @version@-@release@
 Binary: ezmlm-idx, ezmlm-idx-mysql, ezmlm-idx-pgsql, ezmlm-idx-sqlite, ezmlm-idx-cgi
 Maintainer: Manvendra Bhangui <manvendra@indimail.org>
 Architecture: any
-Build-Depends: debhelper (>= 9), libmysqlclient-dev, libpq-dev, libsqlite3-dev, libqmail-dev
+Build-Depends: cdbs, debhelper (>= 9), gcc, binutils, coreutils, automake, libmysqlclient-dev, libpq-dev, libsqlite3-dev, libqmail-dev
 Debtransform-Files-Tar: debian.tar.gz
 Debtransform-Tar: ezmlm-idx-@version@.tar.gz
 Standards-Version: 3.9.1
