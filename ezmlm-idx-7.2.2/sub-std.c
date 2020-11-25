@@ -1,5 +1,4 @@
 #include <sys/types.h>
-#include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include "byte.h"
@@ -517,19 +516,19 @@ static const char *_mktab(struct subdbinfo *info)
 {
   if (mkdir("subscribers", 0777) < 0
       && errno != error_exist)
-    return strerror(errno);
+    return error_str(errno);
   if (mkdir("allow/subscribers", 0777) < 0
       && errno != error_exist)
-    return strerror(errno);
+    return error_str(errno);
   if (mkdir("deny/subscribers", 0777) < 0
       && errno != error_exist)
-    return strerror(errno);
+    return error_str(errno);
   if (mkdir("digest/subscribers", 0777) < 0
       && errno != error_exist)
-    return strerror(errno);
+    return error_str(errno);
   if (mkdir("mod/subscribers", 0777) < 0
       && errno != error_exist)
-    return strerror(errno);
+    return error_str(errno);
   return 0;
   (void)info;
 }
@@ -544,7 +543,7 @@ static const char *rmsubs(const char *subdir)
   makepath(&fn,subdir,"/subscribers",0);
   if (rmdir(fn.s) < 0
       && errno != error_noent)
-    return strerror(errno);
+    return error_str(errno);
   return 0;
 }
 

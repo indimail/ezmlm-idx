@@ -6,7 +6,6 @@
 #include <sys/types.h>
 #include <libpq-fe.h>
 #include <stdlib.h>
-#include <string.h>
 
 static stralloc line = {0};
 
