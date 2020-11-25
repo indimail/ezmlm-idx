@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "byte.h"
 #include "die.h"
 #include "str.h"

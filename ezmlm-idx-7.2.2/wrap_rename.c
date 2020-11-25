@@ -1,8 +1,9 @@
-#include <stdio.h>
 #include "die.h"
 #include "messages.h"
 #include "strerr.h"
 #include "wrap.h"
+
+int rename(const char *old, const char *new);
 
 void wrap_rename(const char *oldpath,const char *newpath)
 {

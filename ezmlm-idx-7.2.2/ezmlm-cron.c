@@ -1,7 +1,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <pwd.h>
-#include <stdio.h>
 #include <unistd.h>
 #include "strerr.h"
 #include "stralloc.h"
