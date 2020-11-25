@@ -1,6 +1,7 @@
 #include "die.h"
 #include "fmt.h"
 #include "scan.h"
+#include "str.h"
 #include "strerr.h"
 #include "sub_sql.h"
 #include <sys/types.h>
@@ -99,7 +100,7 @@ int sql_exec(struct subdbinfo *info,
   default:
     /* This is ugly, but I can't find another good way of doing this */
     err = PQresultErrorMessage(result);
-    if (strstr(err, "duplicate") != 0)
+    if (str_str(err, "duplicate") != 0)
       rows = 0;
     else
       die_sqlresulterror(result);
