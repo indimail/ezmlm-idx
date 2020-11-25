@@ -167,9 +167,9 @@ echo %{mandir}                     >conf-man
 echo %{ezmlmlibdir}                >conf-lib
 
 %if 0%{?build_cflags:1}
-  echo %{_cc} -g %{build_cflags} -Wall -O -fPIC -I%{_includedir}/mysql -I%{_includedir}/pgsql > conf-cc
+  echo %{_cc} -g %{build_cflags} -Wall -fPIC -O2 -I%{_includedir}/mysql -I%{_includedir}/pgsql -I/usr/include/qmail> conf-cc
 %else
-  echo %{_cc} -g %{optflags} -Wall -O -fPIC -I%{_includedir}/mysql -I%{_includedir}/pgsql     > conf-cc
+  echo %{_cc} -g %{optflags} -Wall -fPIC -O2 -I%{_includedir}/mysql -I%{_includedir}/pgsql -I/usr/include/qmail    > conf-cc
 %endif
 
 %if %{defined nodebug}

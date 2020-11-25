@@ -33,7 +33,7 @@ build-stamp:
 	echo $(SBINDIR)             >conf-sbin
 	echo $(MANDIR)              >conf-man
 	echo $(LIBDIR)              >conf-lib
-	echo "$(CC) $(CFLAGS) -I/usr/include/mysql -I/usr/include/postgresql" >conf-cc
+	echo "$(CC) $(CFLAGS) -I/usr/include/mysql -I/usr/include/postgresql -I/usr/include/qmail" >conf-cc
 	echo "$(CC) $(LDFLAGS) -L/usr/lib/mysql" >conf-ld
 	make clean
 	make all
