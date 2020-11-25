@@ -4,8 +4,6 @@
 #include "substdio.h"
 #include "stralloc.h"
 #include "getln.h"
-#include "readwrite.h"
-#include "exit.h"
 #include "open.h"
 #include "error.h"
 #include "strerr.h"
