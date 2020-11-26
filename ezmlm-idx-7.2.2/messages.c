@@ -2,7 +2,7 @@
 #include "messages.h"
 #include "altpath.h"
 #include "config.h"
-#include "constmap_idx.h"
+#include "constmap.h"
 #include "copy.h"
 #include "die.h"
 #include "slurp.h"
@@ -15,7 +15,7 @@
 struct messages
 {
   stralloc text;
-  struct constmap_idx map;
+  struct constmap map;
 };
 
 static const char internal[] =
@@ -65,7 +65,7 @@ static int readit(stralloc *sa,const char *fn)
 
 static void init_map(struct messages *m)
 {
-  if (!constmap_idx_init(&m->map,m->text.s,m->text.len,SPLIT))
+  if (!constmap_init(&m->map,m->text.s,m->text.len,SPLIT))
     die_nomem();
 }
 
@@ -104,12 +104,12 @@ const char *messages_getn(const char *msg,const char *params[10])
 
   msg_len = str_len(msg);
   if (msg_local.map.num == 0
-      || (xmsg = constmap_idx(&msg_local.map,msg,msg_len)) == 0)
+      || (xmsg = constmap(&msg_local.map,msg,msg_len)) == 0)
     if (msg_alt.map.num == 0
-	|| (xmsg = constmap_idx(&msg_alt.map,msg,msg_len)) == 0)
+	|| (xmsg = constmap(&msg_alt.map,msg,msg_len)) == 0)
       if (msg_default.map.num == 0
-	  || (xmsg = constmap_idx(&msg_default.map,msg,msg_len)) == 0)
-	if ((xmsg = constmap_idx(&msg_internal.map,msg,msg_len)) == 0)
+	  || (xmsg = constmap(&msg_default.map,msg,msg_len)) == 0)
+	if ((xmsg = constmap(&msg_internal.map,msg,msg_len)) == 0)
 	  xmsg = msg;
 
   if (!stralloc_copys(&data,xmsg)) die_nomem();

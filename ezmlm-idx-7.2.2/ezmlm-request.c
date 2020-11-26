@@ -19,7 +19,7 @@
 #include "quote.h"
 #include "substdio.h"
 #include "getconf.h"
-#include "constmap_idx.h"
+#include "constmap.h"
 #include "fmt.h"
 #include "getconfopt.h"
 #include "byte.h"
@@ -60,9 +60,9 @@ static stralloc hostname = {0};
 stralloc quoted = {0};
 char boundary[COOKIE] = "zxcaeedrqcrtrvthbdty";	/* cheap "rnd" MIME boundary */
 
-static struct constmap_idx headerremovemap;
+static struct constmap headerremovemap;
 static int headerremoveflag = 0;
-static struct constmap_idx commandmap;
+static struct constmap commandmap;
 static int flaggotsub = 0;		/* Found a subject */
 	/* cmdstring has all commands separated by '\'. cmdxlate maps each */
 	/* command alias to the basic command, which is used to construct  */
@@ -326,7 +326,7 @@ int main(int argc,char **argv)
     headerremoveflag = 1;
   else
     getconf(&headerremove,"headerremove",1);
-  constmap_idx_init(&headerremovemap,headerremove.s,headerremove.len,0);
+  constmap_init(&headerremovemap,headerremove.s,headerremove.len,0);
 
   if (!stralloc_copys(&mydtline,
        "Delivered-To: request processor for ")) die_nomem();
@@ -429,7 +429,7 @@ int main(int argc,char **argv)
     if (*psz == '\\') *psz = '\0';
     ++psz;
   }
-  if (!constmap_idx_init(&commandmap,cmds.s,cmds.len,0)) die_nomem();
+  if (!constmap_init(&commandmap,cmds.s,cmds.len,0)) die_nomem();
   cmdidx = cmdxlate[constmap_index(&commandmap,command,str_len(command))];
   if (cmdidx == EZREQ_BAD) {	/* recognized, but not supported -> help */
     listlocal = 0;		/* needed 'cause arguments are who-knows-what */
@@ -553,7 +553,7 @@ int main(int argc,char **argv)
           flaginheader = 0;
         if ((line.s[0] != ' ') && (line.s[0] != '\t')) {
           flagbadfield = headerremoveflag;
-          if (constmap_idx(&headerremovemap,line.s,byte_chr(line.s,line.len,':')))
+          if (constmap(&headerremovemap,line.s,byte_chr(line.s,line.len,':')))
 	    flagbadfield = !headerremoveflag;
         }
       }

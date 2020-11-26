@@ -26,7 +26,7 @@
 #include "cookie.h"
 #include "makehash.h"
 #include "copy.h"
-#include "constmap_idx.h"
+#include "constmap.h"
 #include "subdb.h"
 #include "hdr.h"
 #include "open.h"
@@ -81,7 +81,7 @@ static stralloc mydtline = {0};
 static stralloc digheaders = {0};
 static stralloc seed = {0};
 static stralloc digestcodefile = {0};
-static struct constmap_idx digheadersmap;
+static struct constmap digheadersmap;
 
 static char schar[] = "00_";
 
@@ -395,7 +395,7 @@ void copymsg(int fd,char format)
             if (line.len == 1) {
               flaginheader = 0;
             } else {
-              if (constmap_idx(&digheadersmap,line.s,
+              if (constmap(&digheadersmap,line.s,
 			   byte_chr(line.s,line.len,':'))) {
 		qmail_put(&qq,line.s,line.len);		/* header */
 		msgsize += line.len;
@@ -842,7 +842,7 @@ int main(int argc,char **argv)
         ++psz;
       }
     }
-    if (!constmap_idx_init(&digheadersmap,digheaders.s,digheaders.len,0))
+    if (!constmap_init(&digheadersmap,digheaders.s,digheaders.len,0))
 	die_nomem();
   }
   if (act != AC_DIGEST) {
