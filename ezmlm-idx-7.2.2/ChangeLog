@@ -11,5 +11,3 @@ Release 1.1 Start 22/03/2017
 06. ezmlmrc.template: fixed version identifier
 25/11/2020
 07. use libqmail for common functions
-08. add constmap_idx.c, constmap_idx.h for renamed constmap functions to avoid
-    clash with libqmail

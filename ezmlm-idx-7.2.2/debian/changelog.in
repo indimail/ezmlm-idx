@@ -7,4 +7,3 @@ ezmlm-idx (@version@-@release@) stable; urgency=low
   * ezmlm-idx.spec, debian/rules, make-compile.sh, make-libcompile.sh, make-load.sh: use CFLAGS, LDFLAGS from the build system (rpm/debian)
   * ezmlmrc.template: fixed version identifier
   * use libqmail for common functions
-  * add constmap_idx.c, constmap_idx.h for renamed constmap functions to avoid clash with libqmail
