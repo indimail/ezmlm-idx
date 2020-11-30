@@ -6,7 +6,8 @@ release=$(shell cat ../conf-release)
 sysconfdir=/etc/indimail
 #
 
-all: rules debian.tar.gz dummy.tar.gz ezmlm-idx.dsc _service
+all: rules debian.tar.gz dummy.tar.gz ezmlm-idx.dsc \
+	ezmlm-idx-Debian_10.dsc ezmlm-idx-Debian_9.0.dsc _service
 
 clean:
 	/bin/rm -f *.dsc debian.tar.gz dummy.tar.gz _service
@@ -20,6 +21,10 @@ edit = sed \
 	-e 's,@prefix\@,$(prefix),g'
 
 ezmlm-idx.dsc: ezmlm-idx.dsc.in ../conf-release ../VERSION Makefile
+	$(edit) $@.in > $@
+ezmlm-idx-Debian_10.dsc: ezmlm-idx-Debian_10.dsc.in ../conf-release ../VERSION Makefile
+	$(edit) $@.in > $@
+ezmlm-idx-Debian_9.0.dsc: ezmlm-idx-Debian_9.0.dsc.in ../conf-release ../VERSION Makefile
 	$(edit) $@.in > $@
 _service: _service.in
 	$(edit) $@.in > $@

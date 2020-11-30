@@ -5,6 +5,8 @@ debian/control
 debian/debian.tar.gz
 debian/dummy.tar.gz
 debian/ezmlm-idx.dsc
+debian/ezmlm-idx-Debian_10.dsc
+debian/ezmlm-idx-Debian_9.0.dsc
 ezmlm-idx.spec
 VERSION
 altpath.lo
