@@ -2,7 +2,7 @@
 
 Easy Mailing List Manager for [indimail-mta](https://github.com/mbhangui/indimail-mta), [qmail](https://cr.yp.to/qmail.html)
 
-This has been forked from [ezmlm-idx Project Homepage](https://untroubled.org/ezmlm/) to adapt it to work with indimail-mta's muti-queues architecture.
+This has been forked from [ezmlm-idx Project Homepage](https://untroubled.org/ezmlm/) to adapt it to work with indimail-mta's multi-queue architecture.
 
 ezmlm is an easy-to-use, high-speed mailing list manager for qmail.
 
