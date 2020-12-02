@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Manvendra Bhangui <manvendra@indimail.org>
 Standards-Version: 3.9.1
 Homepage: http://indimail.sourceforge.net/
-Build-Depends: debhelper (>= 4.1.16), libpq-dev, libsqlite3-dev, libqmail-dev
+Build-Depends: debhelper (>= 9), libpq-dev, libsqlite3-dev, libqmail-dev
 
 Package: ezmlm-idx
 Architecture: any
@@ -72,28 +72,28 @@ Description: Easy Mailing List Manager for qmail
 
 Package: ezmlm-idx-mysql
 Architecture: any
-Depends: ${shlibs:Depends}, ezmlm-idx (=@version@-@release@)
+Depends: ${shlibs:Depends}, ezmlm-idx (= @version@)
 Description: MySQL support module for ezmlm-idx.
  A detailed explanation can be found here:
  http://www.ezmlm.org/faq/ezmlm-support-for-SQL-databases.html
 
 Package: ezmlm-idx-pgsql
 Architecture: any
-Depends: ${shlibs:Depends}, ezmlm-idx (=@version@-@release@)
+Depends: ${shlibs:Depends}, ezmlm-idx (= @version@)
 Description: PostgreSQL support module for ezmlm-idx.
  A detailed explanation can be found here:
  http://www.ezmlm.org/faq/ezmlm-support-for-SQL-databases.html
 
 Package: ezmlm-idx-sqlite
 Architecture: any
-Depends: ${shlibs:Depends}, ezmlm-idx (=@version@-@release@)
+Depends: ${shlibs:Depends}, ezmlm-idx (= @version@)
 Description: SQLite support module for ezmlm-idx.
  A detailed explanation can be found here:
  http://www.ezmlm.org/faq/ezmlm-support-for-SQL-databases.html
 
 Package: ezmlm-idx-cgi
 Architecture: any
-Depends: ${shlibs:Depends}, ezmlm-idx (=@version@-@release@)
+Depends: ${shlibs:Depends}, ezmlm-idx (= @version@)
 Description: www archiver for ezmlm-idx.
  After installation change the SUID permission as follows:
   chmod 4755 /srv/www/cgi-bin/ezmlm-cgi
