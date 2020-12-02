@@ -1,3 +1,7 @@
+if [ ! -x PREFIX/sbin/qmail-multi ] ; then
+	exec qmail-queue
+	exit 111
+fi
 if [ -d $HOME/.defaultqueue ] ; then
 	exec env -i PATH=$PATH PREFIX/bin/envdir $HOME/.defaultqueue PREFIX/sbin/qmail-multi
 else
