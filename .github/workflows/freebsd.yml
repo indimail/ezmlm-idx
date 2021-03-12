@@ -26,4 +26,4 @@ jobs:
         prepare: pkg install -y curl automake autoconf libtool pkgconf mysql80-server mysql80-client
         run: |
           cd libqmail; ./default.configure; make; make install-strip
-          cd ../main/ezmlm-idx-x; env CFLAGS="-I/usr/local/include/qmail" ./default.configure; env CFLAGS="-I/usr/local/include/qmail" make
+          cd ../main/ezmlm-idx-x; env CFLAGS="-I/usr/local/include/qmail" LDFLAGS="-L/usr/local/lib" ./default.configure; env CFLAGS="-I/usr/local/include/qmail" LDFLAGS="-L/usr/local/lib" make
