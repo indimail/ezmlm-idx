@@ -1,0 +1,16 @@
+* Thu Apr 23 2020 14:07:08 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
+Release 1.1 Start 22/03/2017
+01. ezmlm-queue for handling indimail queue
+02. Added Pre-Depends daemontools
+03. Fixed defaultqueue path in ezmlm-queue
+04. removed catted man pages
+05/07/2020
+05. ezmlm-idx.spec, debian/rules, make-compile.sh, make-libcompile.sh,
+	make-load.sh: use CFLAGS, LDFLAGS from the build system (rpm/debian)
+03/11/2020
+06. ezmlmrc.template: fixed version identifier
+25/11/2020
+07. use libqmail for common functions
+12/03/2021
+08. Modified build system for uniform compilation on Linux, Darwin and
+    FreeBSD
