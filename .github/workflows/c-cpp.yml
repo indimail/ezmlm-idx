@@ -36,4 +36,6 @@ jobs:
     - name: install_qmail
       run: cd libqmail;env CPPFLAGS="-I/usr/local/opt/openssl@1.1/include" LDFLAGS="-L/usr/local/opt/openssl@1.1/lib" ./default.configure; env CPPFLAGS="-I/usr/local/opt/openssl@1.1/include" LDFLAGS="-L/usr/local/opt/openssl@1.1/lib" make; sudo make install-strip
     - name: build_ezmlm-idx
-      run: cd main/ezmlm-idx-x; >conf-cclo;echo "ld -bundle -undefined dynamic_lookup" > conf-ld; env CFLAGS="-I/opt/local/include/qmail" LDFLAGS="-L/opt/local/lib" ./default.configure; env CFLAGS="-I/opt/local/include/qmail" LDFLAGS="-L/opt/local/lib -L/usr/local/lib" LDSO="-L/opt/local/lib -L/usr/local/lib" make
+      run: |
+        if [ "${OS}" = "macos-latest" ] ; then echo "ld -bundle -undefined dynamic_lookup" > conf-cclo; fi
+        cd main/ezmlm-idx-x; env CFLAGS="-I/opt/local/include/qmail" LDFLAGS="-L/opt/local/lib" ./default.configure; env CFLAGS="-I/opt/local/include/qmail" LDFLAGS="-L/opt/local/lib -L/usr/local/lib" LDSO="-L/opt/local/lib -L/usr/local/lib" make
