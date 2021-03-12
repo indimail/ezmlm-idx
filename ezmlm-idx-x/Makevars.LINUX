@@ -1,0 +1,2 @@
+CFLAGS=-I/usr/include/qmail -I/usr/include/mysql
+LDFLAGS=-L/opt/local/lib -L/usr/lib64/mysql

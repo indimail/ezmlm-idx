@@ -237,3 +237,9 @@ wrap_rename.lo
 wrap_stat.lo
 wrap_waitpid.lo
 constmap_idx.lo
+Makevars.
+sub-mysql.lo
+sub-mysql.so
+sub-pgsql.lo
+sub-pgsql.so
+sub_sql.lo
