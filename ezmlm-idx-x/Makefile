@@ -27,9 +27,9 @@ auto-ccld.sh: \
 conf-cc conf-cclo conf-ld conf-ldso warn-auto.sh
 	( cat warn-auto.sh; \
 	echo CC=\'`head -n 1 conf-cc`\'; \
-	echo CCLO=\'`head -n 1 conf-cclo`\'; \
+	echo CCLO=\"\$$CLFAGS `head -n 1 conf-cclo`\"; \
 	echo LD=\'`head -n 1 conf-ld`\'; \
-	echo LDSO=\'`head -n 1 conf-ldso`\'; \
+	echo LDSO=\"\$$LDSO `head -n 1 conf-ldso`\"; \
 	) > auto-ccld.sh
 
 auto_cron.c: \
