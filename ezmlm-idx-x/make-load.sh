@@ -1,7 +1,7 @@
 echo 'main="$1"; shift'
 set $LD
-shift
 ld_args=$1
+shift
 if [ -d /usr/lib64/mysql ] ; then
 	mysql_libdir=-L/usr/lib64/mysql
 elif [ -d /usr/local/mysql ] ; then
