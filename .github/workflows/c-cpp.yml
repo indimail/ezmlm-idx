@@ -43,3 +43,5 @@ jobs:
         if [ "${OS}" = "macos-latest" ] ; then echo "ld -bundle -undefined dynamic_lookup" > conf-cclo; fi
         cat conf-cclo
         env CFLAGS="-I/opt/local/include/qmail" LDFLAGS="-L/opt/local/lib" ./default.configure; env CFLAGS="-I/opt/local/include/qmail" LDFLAGS="-L/opt/local/lib -L/usr/local/lib" LDSO="-L/opt/local/lib -L/usr/local/lib" make
+      env:
+        OS: ${{ matrix.host }}
