@@ -1075,7 +1075,8 @@ libcompile sub-mysql.c die.h sub_sql.h subdb.h subdb.h
 
 sub-mysql.so: \
 makeso sub-mysql.lo sub_sql.lo libezmlm.a
-	./makeso sub-mysql.so sub-mysql.lo sub_sql.lo -lezmlm -lmysqlclient
+	./makeso sub-mysql.so sub-mysql.lo sub_sql.lo -lezmlm \
+	-lqmail -lmysqlclient
 
 sub-pgsql.lo: \
 libcompile sub-pgsql.c die.h sub_sql.h subdb.h
@@ -1083,7 +1084,8 @@ libcompile sub-pgsql.c die.h sub_sql.h subdb.h
 
 sub-pgsql.so: \
 makeso sub-pgsql.lo sub_sql.lo libezmlm.a
-	./makeso sub-pgsql.so sub-pgsql.lo sub_sql.lo -lezmlm -lpq
+	./makeso sub-pgsql.so sub-pgsql.lo sub_sql.lo -lqmail \
+	-lezmlm -lpq
 
 sub-sqlite3.lo: \
 libcompile sub-sqlite3.c die.h sub_sql.h subdb.h subdb.h
@@ -1091,7 +1093,8 @@ libcompile sub-sqlite3.c die.h sub_sql.h subdb.h subdb.h
 
 sub-sqlite3.so: \
 makeso sub-sqlite3.lo sub_sql.lo libezmlm.a
-	./makeso sub-sqlite3.so sub-sqlite3.lo sub_sql.lo -lezmlm -lsqlite3
+	./makeso sub-sqlite3.so sub-sqlite3.lo sub_sql.lo -lqmail \
+	-lezmlm -lsqlite3
 
 sub_sql.lo: libcompile sub_sql.c cookie.h date822fmt.h die.h \
 log.h messages.h sub_sql.h subdb.h subdb.h subhash.h
@@ -1104,7 +1107,7 @@ subdb.h wrap.h
 
 sub-std.so: \
 makeso sub-std.lo libezmlm.a
-	./makeso sub-std.so sub-std.lo -lezmlm
+	./makeso sub-std.so sub-std.lo -lezmlm -lqmail
 
 surf.lo: \
 libcompile surf.c surf.h
