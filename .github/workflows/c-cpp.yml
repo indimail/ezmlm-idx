@@ -38,10 +38,6 @@ jobs:
     - name: build_ezmlm-idx
       run: |
         cd ezmlm-idx/ezmlm-idx-x
-        pwd
-        echo "OS is [${OS}]"
-        if [ "${OS}" = "macos-latest" ] ; then echo "ld -bundle -undefined dynamic_lookup" > conf-ldso; fi
-        cat conf-cclo
-        env CFLAGS="-I/opt/local/include/qmail" LDFLAGS="-L/opt/local/lib" ./default.configure; env CFLAGS="-I/opt/local/include/qmail" LDFLAGS="-L/opt/local/lib -L/usr/local/lib" LDSO="-L/opt/local/lib -L/usr/local/lib" make
+        ./default.configure; ./qmake
       env:
         OS: ${{ matrix.host }}
