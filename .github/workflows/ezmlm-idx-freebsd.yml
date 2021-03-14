@@ -1,4 +1,4 @@
-name: FreeBSD
+name: ezmlm-idx FreeBSD
 
 on: [push]
 
@@ -17,7 +17,7 @@ jobs:
       with:
         repository: mbhangui/libqmail
         path: libqmail
-    - name: install ezmlm-idx
+    - name: build ezmlm-idx
       id: FreeBSD
       uses: vmactions/freebsd-vm@v0.1.2
       with:

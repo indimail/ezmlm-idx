@@ -11,3 +11,8 @@ sed -i -e '1 s{^.*${/usr/share/man{'          conf-man
 sed -i -e '1 s{^.*${/usr{'                    conf-prefix
 sed -i -e '1 s{^.*${/var/indimail{'           conf-qmail
 sed -i -e '1 s{^.*${/etc/indimail{'           conf-sysconfdir
+SYSTEM=`uname -s | tr "[:lower:]" "[:upper:]"`
+if [ -f Makevars.$SYSTEM ] ; then
+	/bin/rm -f Makevars.
+	ln -s Makevars.$SYSTEM Makevars.
+fi

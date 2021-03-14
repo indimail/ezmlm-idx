@@ -28,8 +28,8 @@ ezmlm-idx originated as an add-on to [ezmlm](https://cr.yp.to/ezmlm.html). It no
 
 ## Download / clone / compile libqmail
 
-[![Ubuntu, Mac OSX CI](https://github.com/mbhangui/ezmlm-idx/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/mbhangui/ezmlm-idx/actions/workflows/c-cpp.yml)
-[![FreeBSD CI](https://github.com/mbhangui/ezmlm-idx/actions/workflows/freebsd.yml/badge.svg)](https://github.com/mbhangui/ezmlm-idx/actions/workflows/freebsd.yml)
+[![ezmlm-idx Ubuntu, Mac OSX CI](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-c-cpp.yml/badge.svg)](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-c-cpp.yml)
+[![ezmlm-idx FreeBSD CI](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-freebsd.yml/badge.svg)](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-freebsd.yml)
 
 ezmlm-idx uses functions from libqmail library. libqmail uses GNU autotools. You need to haave autoconf, automake, libtool and pkg config package. Follow the instructions below to have them installed in case you don't have them.
 
@@ -63,7 +63,7 @@ NOTE: For Darwin (Mac OSX), install [MacPorts](https://www.macports.org/) or bre
 ```
 $ cd /usr/local/src
 $ git clone https://github.com/mbhangui/ezmlm-idx.git
-$ cd /usr/local/src/ezmlm-idx/ezmlm-idx-7.2.2
+$ cd /usr/local/src/ezmlm-idx/ezmlm-idx-x
 $ ./default.configure
 $ make
 $ sudo make install-strip

@@ -187,7 +187,7 @@ echo %{ezmlmlibdir}                >conf-lib
 %if 0%{?build_ldflags:1}
   LDFLAGS="%{build_ldflags} $LDFLAGS"
 %endif
-%{__make} -s %{?_smp_mflags} CC="%{__cc}" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" all
+%{__make} SYSTEM=LINUX -s %{?_smp_mflags} CC="%{__cc}" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" all
 
 # Create INSTALL file for how to set up ezmlm-cgi
 

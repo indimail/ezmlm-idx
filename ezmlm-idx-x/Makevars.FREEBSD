@@ -1,2 +1,2 @@
-CFLAGS=-I/usr/local/include/qmail -I/usr/local/include/mysql/
-LDFLAGS=-L/usr/local/lib -L/usr/local/lib/mysql
+CFLAGS_ADD=-I/usr/local/include/qmail -I/usr/local/include/mysql/
+LDFLAGS_ADD=-L/usr/local/lib -L/usr/local/lib/mysql

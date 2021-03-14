@@ -36,7 +36,7 @@ build-stamp:
 	echo "$(CC) $(CFLAGS) -I/usr/include/mysql -I/usr/include/postgresql -I/usr/include/qmail" >conf-cc
 	echo "$(CC) $(LDFLAGS) -L/usr/lib/mysql" >conf-ld
 	make clean
-	make all
+	make SYSTEM=LINUX all
 	# --- end custom part for compiling
 	touch build-stamp
 

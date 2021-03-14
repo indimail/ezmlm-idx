@@ -1,4 +1,4 @@
-name: Ubuntu, Mac OSX CI
+name: ezmlm-idx Ubuntu, Mac OSX CI
 
 on:
   push:

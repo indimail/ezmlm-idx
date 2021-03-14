@@ -243,3 +243,9 @@ sub-mysql.so
 sub-pgsql.lo
 sub-pgsql.so
 sub_sql.lo
+INSTALL.cgi
+ezmlm-queue.1
+installer
+installer.o
+sub-sqlite3.lo
+sub-sqlite3.so

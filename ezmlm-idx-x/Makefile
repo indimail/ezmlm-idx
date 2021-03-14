@@ -27,13 +27,13 @@ libcompile auto_bin.c
 auto-ccld.sh: \
 conf-cc conf-cclo conf-ld conf-ldso warn-auto.sh
 	( cat warn-auto.sh; \
-	echo CC=\"`head -n 1 conf-cc` $(CFLAGS)\"; \
-	echo CCLO=\"$(CFLAGS) `head -n 1 conf-cclo`\"; \
-	echo LD=\"`head -n 1 conf-ld` $(LDFLAGS)\"; \
+	echo CC=\"`head -n 1 conf-cc` $(CFLAGS_ADD)\"; \
+	echo CCLO=\"$(CFLAGS_ADD) `head -n 1 conf-cclo`\"; \
+	echo LD=\"`head -n 1 conf-ld` $(LDFLAGS_ADD)\"; \
 	if test -n "$(LDSO)" ; then \
-		echo LDSO=\"$(LDSO) $(LDFLAGS)\"; \
+		echo LDSO=\"$(LDSO) $(LDFLAGS_ADD)\"; \
 	else \
-		echo LDSO=\"`head -n 1 conf-ldso` $(LDFLAGS)\"; \
+		echo LDSO=\"`head -n 1 conf-ldso` $(LDFLAGS_ADD)\"; \
 	fi ) > auto-ccld.sh
 
 auto_cron.c: \
