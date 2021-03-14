@@ -359,7 +359,7 @@ config.h auto_version.h
 	./compile ezmlm-idx.c
 
 ezmlm-idx.spec: \
-ezmlm-idx.spec.template VERSION fill-template conf-release ChangeLog
+ezmlm-idx.spec.template VERSION fill-template conf-release doc/ChangeLog
 	(cat ezmlm-idx.spec.template;./catChangeLog) | ./fill-template > $@
 
 ezmlm-import: \
@@ -708,7 +708,7 @@ it man installer conf-bin conf-etc conf-lang conf-lib conf-man BIN SBIN ETC LIB 
 	mv $(DESTDIR)"`head -n 1 conf-bin`"/ezmlm-cgi $(DESTDIR)"`head -n 1 conf-cgidir`"
 	chmod 4755 "$(DESTDIR)"`head -n 1 conf-cgidir`"/ezmlm-cgi"
 	cp README.mysql README.pgsql $(DESTDIR)$(prefix)/share/docs/ezmlm-idx
-	cp BLURB CHANGES* FAQ README README.std ChangeLog $(DESTDIR)$(prefix)/share/docs/ezmlm-idx
+	cp BLURB CHANGES* FAQ README README.std doc/ChangeLog $(DESTDIR)$(prefix)/share/docs/ezmlm-idx
 	cp LICENSE THANKS TODO UPGRADE DOWNGRADE ezmlmrc.template $(DESTDIR)$(prefix)/share/docs/ezmlm-idx
 	cp INSTALL.source INSTALL.cgi $(DESTDIR)$(prefix)/share/docs/ezmlm-idx
 

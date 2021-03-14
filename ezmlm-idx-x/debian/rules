@@ -90,7 +90,7 @@ binary-arch: build install
 	dh_install --sourcedir=$(DESTDIR) -pezmlm-idx-mysql
 	dh_install --sourcedir=$(DESTDIR) -pezmlm-idx-pgsql
 	dh_install --sourcedir=$(DESTDIR) -pezmlm-idx-sqlite
-	dh_installdocs BLURB CHANGES* FAQ INSTALL.source README README.std ChangeLog THANKS TODO UPGRADE DOWNGRADE ezmlmrc.template LICENSE
+	dh_installdocs BLURB CHANGES* FAQ INSTALL.source README README.std doc/ChangeLog THANKS TODO UPGRADE DOWNGRADE ezmlmrc.template LICENSE
 	dh_installexamples
 	dh_installcron
 	dh_installman
