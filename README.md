@@ -101,9 +101,7 @@ Currently, the list of supported distributions for ezmlm-idx is
     * Red Hat
           o Fedora 32
           o Fedora 33
-          o Red Hat Enterprise Linux 6
           o Red Hat Enterprise Linux 7
-          o CentOS 6
           o CentOS 7
           o CentOS 8
 
