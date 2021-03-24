@@ -71,6 +71,10 @@ $ sudo make install-strip
 
 # Binary Builds on openSUSE Build Service
 
+**Build Status on [Open Build Service](https://build.opensuse.org/project/show/home:mbhangui)**
+
+[![ezmlm-idx obs trigger](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-obs.yml/badge.svg)](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-obs.yml)
+
 You can get binary RPM / Debian packages at
 
 * [Stable Releases](http://download.opensuse.org/repositories/home:/indimail/)
