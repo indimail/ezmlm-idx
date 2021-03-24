@@ -1,6 +1,16 @@
 name: ezmlm-idx FreeBSD
 
-on: [push]
+on:
+  push:
+    paths:
+      - '**/ezmlm-idx-x/**'
+      - .github/workflows/ezmlm-idx-freebsd.yml
+      - '!**/ezmlm-idx-x/debian/*'
+      - '!**/ezmlm-idx-x/ezmlm-idx.spec.template'
+      - '!**/doc/*'
+      - '!**.md'
+      - '!**/ezmlm-idx-c-cpp.yml'
+      - '!**/ezmlm-idx-obs.yml'
 
 jobs:
   testfreebsd:
