@@ -2,10 +2,15 @@ name: ezmlm-idx Ubuntu, Mac OSX CI
 
 on:
   push:
-    branches:
-      - '*'
-  pull_request:
-    branches: [ master ]
+    paths:
+      - '**/ezmlm-idx-x/**'
+      - .github/workflows/ezmlm-idx-c-cpp.yml
+      - '!**/ezmlm-idx-x/debian/*'
+      - '!**/ezmlm-idx-x/ezmlm-idx.spec.template'
+      - '!**/doc/*'
+      - '!**.md'
+      - '!**/ezmlm-idx-freebsd.yml'
+      - '!**/ezmlm-idx-obs.yml'
 
 jobs:
   build:
