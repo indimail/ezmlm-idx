@@ -2027,11 +2027,15 @@ void drop_priv(int flagchroot)
 {
   if (!uid) strerr_die2x(100,FATAL,MSG(ERR_SUID));		/* not as root */
   if (!euid) {
-    if (flagchroot)
-      if (chroot(dir) == -1)				/* chroot listdir */
+    if (flagchroot) {
+      if (chroot(dir) == -1) {/* chroot listdir */
+        if (chdir("/")) /*- keep rpmlint happy */
+          strerr_die2sys(111,FATAL,MSG1(ERR_CHDIR,dir));
         strerr_die2sys(111,FATAL,MSG1(ERR_CHROOT,dir));
-	if (chdir("/"))
-        strerr_die2sys(111,FATAL,MSG1(ERR_CHDIR,dir));
+      }
+	}
+    if (chdir("/"))
+      strerr_die2sys(111,FATAL,MSG1(ERR_CHDIR,dir));
     if (setuid(uid) == -1)				/* setuid */
       strerr_die2sys(111,FATAL,MSG(ERR_SETUID));
   }
