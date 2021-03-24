@@ -1,6 +1,8 @@
 %undefine _missing_build_ids_terminate_build
 %define _unpackaged_files_terminate_build 1
+%if %{defined nodebug}
 %global debug_package %{nil}
+%endif
 
 %if %{defined _project}
 # define if building on openSUSE build service
@@ -226,11 +228,18 @@ find %{buildroot}/%{mandir} -type f | sed -e "s}%{buildroot}}}" -e "s}$}*}" > ma
 
 # copy documents
 for i in BLURB CHANGES FAQ README README.mysql README.pgsql README.std \
-  THANKS TODO UPGRADE ChangeLog INSTALL.cgi ezcgirc ezcgi.css LICENSE \
+  THANKS TODO UPGRADE doc/ChangeLog INSTALL.cgi ezcgirc ezcgi.css LICENSE \
   INSTALL.source
 do
   install -m 0644 $i %{buildroot}%{ezdocdir}
 done
+
+%if %{undefined nodebug}
+ /bin/chmod -R 755 %{buildroot}%{_prefix}/bin
+ /bin/chmod -R 755 %{buildroot}%{_prefix}/sbin
+ /bin/chmod -R 755 %{buildroot}%{ezcgidir}
+ /bin/chmod -R 755 %{buildroot}%{_prefix}/lib/indimail/ezmlm
+%endif
 
 %post
 echo For currently supported languages, see the INSTALL
