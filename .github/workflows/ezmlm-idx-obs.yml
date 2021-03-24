@@ -5,8 +5,6 @@ on:
     paths:
       - '**/ezmlm-idx-x/**'
       - .github/workflows/ezmlm-idx-obs.yml
-      - '!**/ezmlm-idx-x/debian/*'
-      - '!**/ezmlm-idx-x/ezmlm-idx.spec.template'
       - '!**/doc/*'
       - '!**.md'
       - '!**/ezmlm-idx-freebsd.yml'
