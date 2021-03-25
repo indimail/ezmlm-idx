@@ -129,6 +129,8 @@ For this forked version of ezmlm-idx, you can contact on IRC or mailing list
 
 ## IRC / Matrix
 
+![Matrix](https://img.shields.io/matrix/indimail:matrix.org)
+
 * Join me [#indimail:matrix.org](https://matrix.to/#/#indimail:matrix.org)
 * IndiMail has an IRC channel #indimail-mta
 
