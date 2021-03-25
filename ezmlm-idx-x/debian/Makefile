@@ -1,8 +1,9 @@
 indimaildir=/var/indimail
 prefix=/usr
 cgibindir=/var/www/cgi-bin
-version=$(shell sed -e 's/^.*-//' -e q ../VERSION )
+version=$(shell cat ../conf-version)
 release=$(shell cat ../conf-release)
+email=$(shell cat ../conf-email)
 sysconfdir=/etc/indimail
 #
 
@@ -18,21 +19,25 @@ edit = sed \
 	-e 's,@cgibindir\@,$(cgibindir),g' \
 	-e 's,@version\@,$(version),g' \
 	-e 's,@release\@,$(release),g' \
+	-e 's,@email\@,$(email),g' \
 	-e 's,@prefix\@,$(prefix),g'
 
-ezmlm-idx.dsc: ezmlm-idx.dsc.in ../conf-release ../VERSION Makefile
+ezmlm-idx.dsc: ezmlm-idx.dsc.in ../conf-release ../conf-version Makefile
 	$(edit) $@.in > $@
-ezmlm-idx-Debian_10.dsc: ezmlm-idx-Debian_10.dsc.in ../conf-release ../VERSION Makefile
+ezmlm-idx-Debian_10.dsc: ezmlm-idx-Debian_10.dsc.in ../conf-release ../conf-version Makefile
 	$(edit) $@.in > $@
-ezmlm-idx-Debian_9.0.dsc: ezmlm-idx-Debian_9.0.dsc.in ../conf-release ../VERSION Makefile
+ezmlm-idx-Debian_9.0.dsc: ezmlm-idx-Debian_9.0.dsc.in ../conf-release ../conf-version Makefile
 	$(edit) $@.in > $@
 _service: _service.in
 	$(edit) $@.in > $@
-control: control.in ../conf-release ../VERSION
+changelog: ../doc/ChangeLog Makefile ../conf-version ../conf-release \
+../conf-email
+	../catChangeLog --debian --name=ezmlm-idx --state=unstable \
+		--urgency=low ../doc/ChangeLog > $@
+copyright: copyright.in ../conf-email
 	$(edit) $@.in > $@
-changelog: changelog.in ../conf-release ../VERSION
-	(cat $@.in; echo "";\
-	echo " -- Manvendra Bhangui <manvendra@indimail.org>  `date +'%a, %d %b %Y %H:%M:%S %z'`" )| $(edit) > $@
+control: control.in ../conf-release ../conf-version ../conf-email
+	$(edit) $@.in > $@
 dummy.tar.gz: README
 	tar cf - README |gzip > $@
 debian.tar.gz: copyright rules control changelog compat
