@@ -361,6 +361,8 @@ config.h auto_version.h
 ezmlm-idx.spec: \
 ezmlm-idx.spec.template VERSION fill-template conf-release doc/ChangeLog
 	(cat ezmlm-idx.spec.template;./catChangeLog) | ./fill-template > $@
+ezmlm-idx.changes: doc/ChangeLog conf-version conf-release conf-email
+	./catChangeLog --changes doc/ChangeLog > $@
 
 ezmlm-import: \
 load ezmlm-import.o libezmlm.a
@@ -736,7 +738,8 @@ ezmlm-accept ezmlm-archive ezmlm-check ezmlm-checksub ezmlm-cgi ezmlm-clean ezml
 ezmlm-cron ezmlm-dispatch ezmlm-gate ezmlm-get ezmlm-glconf ezmlm-idx ezmlm-import ezmlm-issubn \
 ezmlm-limit ezmlm-list ezmlm-make ezmlm-manage ezmlm-moderate ezmlm-reject ezmlm-request ezmlm-return \
 ezmlm-rmtab ezmlm-send ezmlm-split ezmlm-store ezmlm-sub ezmlm-tstdig ezmlm-unsub ezmlm-warn \
-ezmlm-queue ezmlm-weed ezmlm-test sub-std.so ezmlmrc.all messages.all ezmlm-idx.spec test-getconfopt
+ezmlm-queue ezmlm-weed ezmlm-test sub-std.so ezmlmrc.all messages.all ezmlm-idx.spec ezmlm-idx.changes \
+test-getconfopt
 
 lang/ch_GB/ezmlmrc: \
 makelang ezmlmrc

@@ -1,7 +1,7 @@
 Source: ezmlm-idx
 Section: mail
 Priority: optional
-Maintainer: Manvendra Bhangui <manvendra@indimail.org>
+Maintainer: @email@
 Standards-Version: 3.9.1
 Homepage: http://indimail.sourceforge.net/
 Build-Depends: debhelper (>= 9), libpq-dev, libsqlite3-dev, libqmail-dev
