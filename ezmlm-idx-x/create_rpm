@@ -70,6 +70,8 @@ if [ $copy_src -eq 1 ] ; then
 	if [ $? -ne 0 ] ; then
 		exit 1
 	fi
+	/bin/rm -f stage/ezmlm-idx-$version/catChangeLog
+	cp ezmlm-idx-x/catChangeLog stage/ezmlm-idx-$version/catChangeLog
 	cd stage/ezmlm-idx-$version
 	if [ $? -ne 0 ] ; then
 		exit 1

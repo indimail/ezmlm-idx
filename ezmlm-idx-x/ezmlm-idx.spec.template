@@ -167,6 +167,14 @@ echo %{_bindir}                    >conf-bin
 echo %{_sbindir}                   >conf-sbin
 echo %{mandir}                     >conf-man
 echo %{ezmlmlibdir}                >conf-lib
+(
+echo "NAME=%{name}"
+echo "Description=\"Easy MailingList Manager for indimail-mta\""
+echo "ezmlm-idx_version="%{version}""
+echo "ID=%{name}"
+echo "HOME_URL=\"https://github.com/mbhangui/ezmlm-idx\""
+echo "PACKAGE_BUGREPORT=\"'@email@'\""
+) > %{name}-release
 
 %if 0%{?build_cflags:1}
   echo %{_cc} -g %{build_cflags} -Wall -fPIC -O2 -I%{_includedir}/mysql -I%{_includedir}/pgsql -I/usr/include/qmail> conf-cc

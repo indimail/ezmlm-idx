@@ -38,6 +38,14 @@ build-stamp:
 	make clean
 	make SYSTEM=LINUX all
 	# --- end custom part for compiling
+	( \
+	echo NAME=ezmlm-idx; \
+	echo Description=\"Easy Mailing List Manager for indimail-mta\"; \
+	echo ezmlm-idx_version=$(version); \
+	echo ID=ezmlm-idx; \
+	echo HOME_URL="https://github.com/mbhangui/ezmlm-idx"; \
+	echo PACKAGE_BUGREPORT=\"'@email@'\"; \
+	) > ezmlm-idx-release
 	touch build-stamp
 
 clean:
@@ -75,6 +83,8 @@ install: build
 	install -m 0644 README.mysql README.pgsql INSTALL.cgi ezcgirc ezcgi.css "$(DESTDIR)$(DOCDIR)"
 	mv $(DESTDIR)$(BINDIR)/ezmlm-cgi   $(DESTDIR)$(CGIDIR)
 	# --- end custom part for installing
+	install -m 0644 ezmlm-idx-release "$(DESTDIR)$(RCDIR)"/ezmlm-idx-release
+	/bin/rm -f ezmlm-idx-release 
 
 # Build architecture-independent files here.
 binary-indep: build install
