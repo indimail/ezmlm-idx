@@ -359,8 +359,8 @@ config.h auto_version.h
 	./compile ezmlm-idx.c
 
 ezmlm-idx.spec: \
-ezmlm-idx.spec.template VERSION fill-template conf-release doc/ChangeLog
-	(cat ezmlm-idx.spec.template;./catChangeLog) | ./fill-template > $@
+ezmlm-idx.spec.in VERSION fill-template conf-release doc/ChangeLog
+	(cat ezmlm-idx.spec.in;./catChangeLog) | ./fill-template > $@
 ezmlm-idx.changes: doc/ChangeLog conf-version conf-release conf-email
 	./catChangeLog --changes doc/ChangeLog > $@
 
