@@ -44,18 +44,22 @@ $ sudo make install-strip
 
 (check version in libqmail/conf-version)
 
-NOTE: for FreeBSD, install packages using pkg
+**NOTES**
+
+For Darwin (Mac OSX), install [MacPorts](https://www.macports.org/) or brew. You can look at this [document](https://paolozaino.wordpress.com/2015/05/05/how-to-install-and-use-autotools-on-mac-os-x/) for installing MacPorts.
 
 ```
-# pkg install automake autoconf libtool pkgconf
-```
+FreeBSD
+# pkg install automake autoconf libtool pkgconf mysql80-server mysql80-client
 
-NOTE: For Darwin (Mac OSX), install [MacPorts](https://www.macports.org/) or brew. You can look at this [document](https://paolozaino.wordpress.com/2015/05/05/how-to-install-and-use-autotools-on-mac-os-x/) for installing MacPorts.
-
-```
-# port install autoconf libtool automake pkgconfig
-# port install openssl
+Darwin
+# port install autoconf libtool automake pkgconfig openssl mysql
 # port update outdated
+
+Arch Linux
+# pacman -S --refresh --sysupgrade
+# pacman -S --needed archlinux-keyring
+# pacman -S base-devel diffutils coreutils openssl mysql
 ```
 
 ## Download / clone / compile ezmlm-idx
