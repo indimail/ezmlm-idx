@@ -1,0 +1,53 @@
+# Maintainer: @email@
+pkgname=ezmlm-idx
+pkgver=@version@
+pkgrel=@release@
+pkgdesc="Easy Mailing List Manager + IDX for indimail-mta"
+arch=('i686' 'x86_64')
+url="https://github.com/mbhangui/indimail-mta"
+license=('GPL3')
+groups=('base-devel')
+depends=('coreutils' 'findutils' 'sed')
+makedepends=('mariadb-libs' 'postgresql-libs' 'libqmail' 'sqlite')
+source=("$pkgname-${pkgver}.tar.gz")
+sha256sums=('SKIP')
+provides=("pkgname")
+options=('strip' '!libtool' 'docs' 'staticlibs' 'zipman' 'debug')
+backup=('etc/indimail/ezmlm')
+changelog=$pkgname.changes
+_prefix=/usr
+_ezcgidir=/var/www/cgi-bin
+_mandir=${_prefix}/share/man
+_ezdocdir=${_prefix}/share/doc/ezmlm-idx
+_sysconfdir=/etc/indimail
+_rcdir=${_sysconfdir}/ezmlm
+_ezmlmlibdir=${_prefix}/lib/indimail/ezmlm
+
+build() {
+  cd $srcdir/$pkgname-${pkgver}
+  echo ${_sysconfdir}                >conf-sysconfdir
+  echo ${_rcdir}                     >conf-etc
+  echo ${_prefix}                    >conf-prefix
+  echo ${_prefix}/bin                >conf-bin
+  echo ${_prefix}/bin                >conf-sbin
+  echo ${_mandir}                    >conf-man
+  echo ${_ezmlmlibdir}               >conf-lib
+  ./qmake -s
+}
+
+package() {
+  depends=('indimail-mta>=2.0')
+  cd $srcdir/$pkgname-${pkgver}
+  ./qmake DESTDIR=${pkgdir} install
+  install -D -m 0644 ${pkgname}.changes "$pkgdir"${_ezdocdir}/${pkgname}.changes
+  cd $srcdir
+  (
+  echo "NAME=%{pkgname}"
+  echo "Description=\"Easy MailingList Manager + IDX for indimail-mta\""
+  echo "ezmlm-idx_version="${pkgver}-${pkgrel}""
+  echo "ID=%{name}"
+  echo "HOME_URL=\"https://github.com/mbhangui/ezmlm-idx\""
+  echo "PACKAGE_BUGREPORT=\"'@email@'\""
+  ) > ${pkgname}-release
+  install -D -m 0644 ${pkgname}-release "$pkgdir"${_rcdir}/${pkgname}-release
+}

@@ -231,3 +231,4 @@ sub-mysql.so
 sub-pgsql.lo
 sub-pgsql.so
 sub_sql.lo
+PKGBUILD

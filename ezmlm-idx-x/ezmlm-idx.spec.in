@@ -26,7 +26,7 @@
 Name: ezmlm-idx
 Version: @version@
 Release: @release@%{?dist}
-Summary: Easy Mailing List Manager + IDX patches
+Summary: Easy Mailing List Manager + IDX for indimail-mta
 Buildroot: %{_tmppath}/%{name}-%{version}-root
 %if %build_on_obs == 1
 License: GPL-2.0+
@@ -170,7 +170,7 @@ echo %{ezmlmlibdir}                >conf-lib
 (
 echo "NAME=%{name}"
 echo "Description=\"Easy MailingList Manager for indimail-mta\""
-echo "ezmlm-idx_version="%{version}""
+echo "ezmlm-idx_version="%{version}-%{release}""
 echo "ID=%{name}"
 echo "HOME_URL=\"https://github.com/mbhangui/ezmlm-idx\""
 echo "PACKAGE_BUGREPORT=\"'@email@'\""
@@ -214,7 +214,7 @@ echo "PACKAGE_BUGREPORT=\"'@email@'\""
 /bin/rm -rf %buildroot
 
 %{__mkdir_p} %{buildroot}%{_bindir} 
-%{__mkdir_p} %{buildroot}%{_prefix}/sbin
+%{__mkdir_p} %{buildroot}%{_sbindir}
 %{__mkdir_p} %{buildroot}%{ezmlmlibdir}
 %{__mkdir_p} %{buildroot}%{rcdir}
 %{__mkdir_p} %{buildroot}%{ezcgidir}
@@ -275,7 +275,7 @@ echo file, section 7.
 %attr(644,root,root) %{ezdocdir}/ChangeLog
 
 %{_bindir}/*
-%{_prefix}/sbin/*
+%{_sbindir}/*
 %{_prefix}/lib/indimail/ezmlm/sub-std.so
 
 %files cgi

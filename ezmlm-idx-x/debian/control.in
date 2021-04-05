@@ -10,7 +10,7 @@ Package: ezmlm-idx
 Architecture: any
 Depends: ${shlibs:Depends}
 Pre-Depends: indimail-mta (>= 2.0 )
-Description: Easy Mailing List Manager for qmail
+Description: Easy Mailing List Manager + IDX for indimail-mta
  .
  ezmlm lets users set up their own mailing lists within qmail's address
  hierarchy. A user, Joe, types
