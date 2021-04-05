@@ -4,7 +4,7 @@ pkgver=@version@
 pkgrel=@release@
 pkgdesc="Easy Mailing List Manager + IDX for indimail-mta"
 arch=('i686' 'x86_64')
-url="https://github.com/mbhangui/indimail-mta"
+url="https://github.com/mbhangui/ezmlm-idx"
 license=('GPL3')
 groups=('base-devel')
 depends=('coreutils' 'findutils' 'sed')
@@ -42,10 +42,10 @@ package() {
   install -D -m 0644 ${pkgname}.changes "$pkgdir"${_ezdocdir}/${pkgname}.changes
   cd $srcdir
   (
-  echo "NAME=%{pkgname}"
+  echo "NAME=${pkgname}"
   echo "Description=\"Easy MailingList Manager + IDX for indimail-mta\""
   echo "ezmlm-idx_version="${pkgver}-${pkgrel}""
-  echo "ID=%{name}"
+  echo "ID=${pkgname}"
   echo "HOME_URL=\"https://github.com/mbhangui/ezmlm-idx\""
   echo "PACKAGE_BUGREPORT=\"'@email@'\""
   ) > ${pkgname}-release

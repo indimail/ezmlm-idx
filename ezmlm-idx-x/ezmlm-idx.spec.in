@@ -154,7 +154,6 @@ Requires: ezmlm-idx
 
 %description cgi
 www archiver for %name.
- 
 
 %prep 
 %setup -q
@@ -227,6 +226,7 @@ echo "PACKAGE_BUGREPORT=\"'@email@'\""
 ./installer %buildroot/%{mandir}                   < MAN
 ./installer %buildroot/%_prefix/lib/indimail/ezmlm < LIB
 %{__mv} %{buildroot}/%{_bindir}/ezmlm-cgi   %{buildroot}/%{ezcgidir}/ezmlm-cgi
+%{__mv} %{name}-release %{buildroot}%{rcdir}
 ln -s `head -n 1 conf-lang` %{buildroot}/%{rcdir}/default
 
 # Compress the man pages
