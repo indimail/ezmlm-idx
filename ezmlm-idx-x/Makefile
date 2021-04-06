@@ -363,6 +363,9 @@ ezmlm-idx.spec.in VERSION fill-template conf-release doc/ChangeLog
 	(cat ezmlm-idx.spec.in;./catChangeLog) | ./fill-template > $@
 ezmlm-idx.changes: doc/ChangeLog conf-version conf-release conf-email
 	./catChangeLog --changes doc/ChangeLog > $@
+PKGBUILD: PKGBUILD.in VERSION fill-template conf-release doc/ChangeLog \
+conf-email ezmlm-idx.changes
+	cat $@.in | ./fill-template > PKGBUILD
 
 ezmlm-import: \
 load ezmlm-import.o libezmlm.a
@@ -698,7 +701,6 @@ it man installer conf-bin conf-etc conf-lang conf-lib conf-man BIN SBIN ETC LIB 
 	mkdir -p $(DESTDIR)"`head -n 1 conf-man`"
 	mkdir -p $(DESTDIR)"`head -n 1 conf-lib`"
 	mkdir -p $(DESTDIR)"`head -n 1 conf-cgidir`"
-	mkdir -p $(DESTDIR)$(prefix)/sbin
 	mkdir -p $(DESTDIR)$(prefix)/share/docs/ezmlm-idx
 	./installer $(DESTDIR)"`head -n 1 conf-bin`" < BIN
 	./installer $(DESTDIR)"`head -n 1 conf-sbin`" < SBIN
@@ -739,7 +741,7 @@ ezmlm-cron ezmlm-dispatch ezmlm-gate ezmlm-get ezmlm-glconf ezmlm-idx ezmlm-impo
 ezmlm-limit ezmlm-list ezmlm-make ezmlm-manage ezmlm-moderate ezmlm-reject ezmlm-request ezmlm-return \
 ezmlm-rmtab ezmlm-send ezmlm-split ezmlm-store ezmlm-sub ezmlm-tstdig ezmlm-unsub ezmlm-warn \
 ezmlm-queue ezmlm-weed ezmlm-test sub-std.so ezmlmrc.all messages.all ezmlm-idx.spec ezmlm-idx.changes \
-test-getconfopt
+test-getconfopt PKGBUILD
 
 lang/ch_GB/ezmlmrc: \
 makelang ezmlmrc

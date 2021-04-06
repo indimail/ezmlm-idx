@@ -251,3 +251,4 @@ installer
 installer.o
 sub-sqlite3.lo
 sub-sqlite3.so
+PKGBUILD
