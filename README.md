@@ -75,7 +75,7 @@ $ sudo make install-strip
 
 # Binary Builds on openSUSE Build Service
 
-**Build Status on [Open Build Service](https://build.opensuse.org/project/show/home:mbhangui)**
+**[Build Status on](https://build.opensuse.org/project/monitor/home:mbhangui) [Open Build Service](https://build.opensuse.org/project/show/home:mbhangui)**
 
 [![ezmlm-idx obs trigger](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-obs.yml/badge.svg)](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-obs.yml)
 
