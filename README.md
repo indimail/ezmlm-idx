@@ -133,6 +133,8 @@ Currently, the list of supported distributions for ezmlm-idx is
           o Ubuntu 20.10
 ```
 
+NOTE: You can also build local binary packages. To generate RPM packages locally for all components refer to [Binary Packages](.github/CREATE-Packages.md)
+
 # SUPPORT INFORMATION
 
 For this forked version of ezmlm-idx, you can contact on IRC or mailing list
