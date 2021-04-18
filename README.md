@@ -60,6 +60,13 @@ Arch Linux
 # pacman -S --refresh --sysupgrade
 # pacman -S --needed archlinux-keyring
 # pacman -S base-devel diffutils coreutils openssl mysql
+
+Gentoo Linux
+# emaint -a sync
+# emerge-webrsync
+# emerge -a app-portage/eix
+# eix-sync
+# etc-update
 ```
 
 ## Download / clone / compile ezmlm-idx
