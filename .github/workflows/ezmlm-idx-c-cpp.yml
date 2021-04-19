@@ -6,7 +6,7 @@ on:
       - '**/ezmlm-idx-x/**'
       - .github/workflows/ezmlm-idx-c-cpp.yml
       - '!**/ezmlm-idx-x/debian/*'
-      - '!**/ezmlm-idx-x/ezmlm-idx.spec.template'
+      - '!**/ezmlm-idx-x/ezmlm-idx.spec.in'
       - '!**/doc/*'
       - '!**.md'
       - '!**/ezmlm-idx-freebsd.yml'
