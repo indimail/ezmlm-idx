@@ -1,7 +1,23 @@
 #include <unistd.h>
+#include <ctype.h>
 #include "str.h"
 #include "subfd.h"
 #include "substdio.h"
+
+/* 
+ * check if a given character can be printed unquoted in a C string
+ * does not accept digits as they may be hardly visible between octal
+ * encoded chars
+ */
+static int
+is_legible(unsigned char ch)
+{
+    if (isascii(ch))
+        return 1;
+    if (ch == '/' || ch == '_' || ch == '-' || ch == '.')
+        return 1;
+    return 0;
+}
 
 void subputs(const char *s)
 {
@@ -13,12 +29,17 @@ void subputsbin(const char *s)
   char octal[5];
   unsigned char ch;
   while ((ch = *s++) != 0) {
-    octal[4] = 0;
-    octal[3] = '0' + (ch & 7); ch >>= 3;
-    octal[2] = '0' + (ch & 7); ch >>= 3;
-    octal[1] = '0' + (ch & 7);
-    octal[0] = '\\';
-    subputs(octal);
+    if (is_legible(ch)) {
+      if (substdio_put(subfdout, (char *) &ch, 1) == -1)
+        _exit(111);
+    } else {
+      octal[4] = 0;
+      octal[3] = '0' + (ch & 7); ch >>= 3;
+      octal[2] = '0' + (ch & 7); ch >>= 3;
+      octal[1] = '0' + (ch & 7);
+      octal[0] = '\\';
+      subputs(octal);
+    }
   }
 }
 
