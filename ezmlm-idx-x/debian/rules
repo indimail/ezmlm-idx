@@ -21,6 +21,7 @@ SYSCONFDIR=/etc/indimail
 RCDIR=$(SYSCONFDIR)/ezmlm
 CGIDIR=/var/www/cgi-bin
 DESTDIR=$(CURDIR)/debian/ezmlm-idx.tmp
+version=$(shell cat ../conf-version)
 
 build: build-stamp
 build-stamp:
@@ -104,7 +105,7 @@ binary-arch: build install
 	dh_installexamples
 	dh_installcron
 	dh_installman
-	dh_installchangelogs
+	dh_installchangelogs --exclude ChangeLog
 	dh_link
 	dh_compress
 	dh_fixperms
