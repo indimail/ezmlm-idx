@@ -21,7 +21,7 @@ SYSCONFDIR=/etc/indimail
 RCDIR=$(SYSCONFDIR)/ezmlm
 CGIDIR=/var/www/cgi-bin
 DESTDIR=$(CURDIR)/debian/ezmlm-idx.tmp
-version=$(shell cat ../conf-version)
+version=$(shell cat conf-version)
 
 build: build-stamp
 build-stamp:
