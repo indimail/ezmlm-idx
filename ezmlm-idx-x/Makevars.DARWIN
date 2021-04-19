@@ -1,3 +1,4 @@
+mandir = $(shell [ -d "`head -1 conf-prefix`"/share/man ] && echo "`head -1 conf-prefix`/share/man" || echo "`head -1 conf-prefix`/man")
 CFLAGS_ADD=-I/opt/local/include/qmail -I/usr/local/mysql/include
 LDFLAGS_ADD=-L/opt/local/lib -L/usr/local/mysql/lib
 LDSO=ld -bundle -undefined dynamic_lookup

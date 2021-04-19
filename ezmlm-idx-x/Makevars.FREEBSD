@@ -1,2 +1,3 @@
+mandir != [ -d "`head -1 conf-prefix`"/man ] && echo "`head -1 conf-prefix`/man" || echo "`head -1 conf-prefix`/share/man"
 CFLAGS_ADD=-I/usr/local/include/qmail -I/usr/local/include/mysql/
 LDFLAGS_ADD=-L/usr/local/lib -L/usr/local/lib/mysql
