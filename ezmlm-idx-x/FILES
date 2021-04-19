@@ -1030,7 +1030,7 @@ uint64.h1
 uint64.h2
 unfoldHDR.c
 UPGRADE
-VERSION
+conf-version
 wait.3
 wait.h
 wait_pid.c
