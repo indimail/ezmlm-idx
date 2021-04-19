@@ -92,6 +92,7 @@ ezmlm-manage.o
 ezmlm-moderate
 ezmlm-moderate.o
 ezmlm-queue
+ezmlm-queue.1
 ezmlm-reject
 ezmlm-reject.o
 ezmlm-request
@@ -231,4 +232,6 @@ sub-mysql.so
 sub-pgsql.lo
 sub-pgsql.so
 sub_sql.lo
+sub-sqlite3.lo
+installer.o
 PKGBUILD
