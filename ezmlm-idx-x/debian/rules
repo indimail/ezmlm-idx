@@ -22,6 +22,7 @@ RCDIR=$(SYSCONFDIR)/ezmlm
 CGIDIR=/var/www/cgi-bin
 DESTDIR=$(CURDIR)/debian/ezmlm-idx.tmp
 version=$(shell cat conf-version)
+email=$(shell cat conf-email)
 
 build: build-stamp
 build-stamp:
@@ -45,7 +46,7 @@ build-stamp:
 	echo ezmlm-idx_version=$(version); \
 	echo ID=ezmlm-idx; \
 	echo HOME_URL="https://github.com/mbhangui/ezmlm-idx"; \
-	echo PACKAGE_BUGREPORT=\"'@email@'\"; \
+	echo PACKAGE_BUGREPORT=\"'$(email)'\"; \
 	) > ezmlm-idx-release
 	touch build-stamp
 
