@@ -135,10 +135,6 @@ date2yyyymm.lo: \
 libcompile date2yyyymm.c yyyymm.h
 	./libcompile date2yyyymm.c
 
-date822fmt.lo: \
-libcompile date822fmt.c date822fmt.h
-	./libcompile date822fmt.c
-
 dateline.lo: \
 libcompile dateline.c yyyymm.h cgi.h
 	./libcompile dateline.c
@@ -339,7 +335,7 @@ load ezmlm-get.o libezmlm.a dl.lib
 	./load ezmlm-get -lezmlm `cat dl.lib` -lqmail
 
 ezmlm-get.o: compile ezmlm-get.c auto_version.h config.h cookie.h \
-copy.h date822fmt.h die.h getconf.h getconfopt.h \
+copy.h die.h getconf.h getconfopt.h \
 hdr.h idx.h idxthread.h makehash.h messages.h mime.h sender.h \
 qmail.h quote.h subdb.h wrap.h lockfile.h gethdrln.h
 	./compile ezmlm-get.c
@@ -663,7 +659,7 @@ libcompile hdr_ctboundary.c hdr.h qmail.h
 	./libcompile hdr_ctboundary.c
 
 hdr_datemsgid.lo: libcompile hdr_datemsgid.c hdr.h qmail.h \
-date822fmt.h makehash.h die.h idx.h
+makehash.h die.h idx.h
 	./libcompile hdr_datemsgid.c
 
 hdr_from.lo: libcompile hdr_from.c hdr.h qmail.h \
@@ -872,7 +868,7 @@ libezmlm.a: \
 makelib altpath.lo author.lo auto_bin.lo \
 auto_cron.lo auto_etc.lo auto_lib.lo auto_qmail.lo auto_version.lo \
 concatHDR.lo config.lo getconf.lo \
-cookie.lo copy.lo date2yyyymm.lo date822fmt.lo \
+cookie.lo copy.lo date2yyyymm.lo \
 dateline.lo decodeB.lo decodeHDR.lo \
 decodeQ.lo die_badaddr.lo die_badformat.lo die_dow.lo die_nomem.lo \
 die_sender.lo die_usage.lo dmarc.lo dns_dfd.lo dns_domain.lo \
@@ -893,7 +889,7 @@ unfoldHDR.lo wrap_chdir.lo wrap_execbin.lo wrap_execsh.lo wrap_execv.lo \
 wrap_exitcode.lo wrap_fork.lo wrap_rename.lo wrap_stat.lo wrap_waitpid.lo
 	./makelib libezmlm.a altpath.lo author.lo auto_bin.lo \
 	auto_cron.lo auto_etc.lo auto_lib.lo auto_qmail.lo auto_version.lo \
-	concatHDR.lo config.lo cookie.lo copy.lo date2yyyymm.lo date822fmt.lo \
+	concatHDR.lo config.lo cookie.lo copy.lo date2yyyymm.lo \
 	dateline.lo decodeB.lo decodeHDR.lo getconf.lo \
 	decodeQ.lo die_badaddr.lo die_badformat.lo die_dow.lo die_nomem.lo \
 	die_sender.lo die_usage.lo dmarc.lo dns_dfd.lo dns_domain.lo \
@@ -1105,11 +1101,11 @@ makeso sub-sqlite3.lo sub_sql.lo libezmlm.a
 	./makeso sub-sqlite3.so sub-sqlite3.lo sub_sql.lo -lqmail \
 	-lezmlm -lsqlite3
 
-sub_sql.lo: libcompile sub_sql.c cookie.h date822fmt.h die.h \
+sub_sql.lo: libcompile sub_sql.c cookie.h die.h \
 log.h messages.h sub_sql.h subdb.h subdb.h subhash.h
 	./libcompile sub_sql.c
 
-sub-std.lo: libcompile sub-std.c config.h cookie.h date822fmt.h die.h \
+sub-std.lo: libcompile sub-std.c config.h cookie.h die.h \
 messages.h idx.h log.h makehash.h qmail.h slurp.h sub_std.h subhash.h \
 subdb.h wrap.h
 	./libcompile sub-std.c
