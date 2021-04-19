@@ -39,5 +39,5 @@ control: control.in ../conf-release ../conf-version ../conf-email
 	$(edit) $@.in > $@
 dummy.tar.gz: README
 	tar cf - README |gzip > $@
-debian.tar.gz: copyright rules control changelog compat docs
-	tar cf - copyright rules control changelog compat docs | gzip > $@
+debian.tar.gz: copyright rules control changelog compat
+	tar cf - copyright rules control changelog compat | gzip > $@
