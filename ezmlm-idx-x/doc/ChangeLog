@@ -16,3 +16,5 @@ Release 1.1 Start 22/03/2017
     FreeBSD
 - 18/04/2021
 09. use date822fmt() from libqmail
+- 02/05/2021
+10. added -Wno-array-parameter to CFLAGS

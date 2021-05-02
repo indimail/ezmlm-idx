@@ -177,9 +177,9 @@ echo "PACKAGE_BUGREPORT=\"'@email@'\""
 ) > %{name}-release
 
 %if 0%{?build_cflags:1}
-  echo %{_cc} -g %{build_cflags} -Wall -fPIC -O2 -I%{_includedir}/mysql -I%{_includedir}/pgsql -I/usr/include/qmail> conf-cc
+  echo %{_cc} -g %{build_cflags} -Wall -fPIC -O2 -Wno-array-parameter -I%{_includedir}/mysql -I%{_includedir}/pgsql -I/usr/include/qmail> conf-cc
 %else
-  echo %{_cc} -g %{optflags} -Wall -fPIC -O2 -I%{_includedir}/mysql -I%{_includedir}/pgsql -I/usr/include/qmail    > conf-cc
+  echo %{_cc} -g %{optflags} -Wall -fPIC -O2 -Wno-array-parameter -I%{_includedir}/mysql -I%{_includedir}/pgsql -I/usr/include/qmail    > conf-cc
 %endif
 
 %if %{defined nodebug}
