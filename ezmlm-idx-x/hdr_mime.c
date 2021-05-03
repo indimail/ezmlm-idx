@@ -5,7 +5,8 @@
 #include "str.h"
 
 extern struct qmail qq;
-extern char boundary[HASHLEN];
+/*- extern char boundary[HASHLEN]; -*/
+extern char *boundary; /*- this is of HASHLEN length */
 extern stralloc charset;
 
 static const char *ctype_names[] = {
