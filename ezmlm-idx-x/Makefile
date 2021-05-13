@@ -183,12 +183,6 @@ die_usage.lo: \
 libcompile die_usage.c messages.h die.h
 	./libcompile die_usage.c
 
-direntry.h: \
-compile trydrent.c direntry.h1 direntry.h2
-	( ./compile trydrent.c >/dev/null 2>&1 \
-	&& cat direntry.h2 || cat direntry.h1 ) > direntry.h
-	rm -f trydrent.o
-
 dl.lib: \
 compile load trylib.c
 	( ( ./compile trylib.c && ./load trylib -ldl ) >/dev/null 2>&1 && echo -ldl || exit 0 ) >dl.lib
@@ -275,7 +269,7 @@ load ezmlm-cgi.o libezmlm.a
 	./load ezmlm-cgi -lezmlm -lqmail
 
 ezmlm-cgi.o: \
-compile ezmlm-cgi.c direntry.h \
+compile ezmlm-cgi.c \
 getconf.h subdb.h messages.h makehash.h mime.h wrap.h \
 die.h idx.h yyyymm.h cgi.h auto_etc.h
 	./compile ezmlm-cgi.c
@@ -298,7 +292,7 @@ load ezmlm-clean.o libezmlm.a
 	./load ezmlm-clean -lezmlm -lqmail
 
 ezmlm-clean.o: compile ezmlm-clean.c getconf.h getconfopt.h \
-qmail.h quote.h direntry.h cookie.h messages.h lockfile.h \
+qmail.h quote.h cookie.h messages.h lockfile.h \
 copy.h cookie.h hdr.h die.h idx.h mime.h \
 config.h auto_version.h
 	./compile ezmlm-clean.c
@@ -464,7 +458,7 @@ ezmlm-return: \
 load ezmlm-return.o libezmlm.a dl.lib
 	./load ezmlm-return -lezmlm `cat dl.lib` -lqmail
 
-ezmlm-return.o: compile ezmlm-return.c direntry.h sender.h \
+ezmlm-return.o: compile ezmlm-return.c sender.h \
 slurpclose.h quote.h cookie.h getconfopt.h subdb.h messages.h \
 die.h wrap.h config.h idx.h auto_version.h
 	./compile ezmlm-return.c
@@ -567,7 +561,7 @@ ezmlm-warn: \
 load ezmlm-warn.o libezmlm.a dl.lib
 	./load ezmlm-warn -lezmlm `cat dl.lib` -lqmail
 
-ezmlm-warn.o: compile ezmlm-warn.c direntry.h slurp.h getconfopt.h getconf.h \
+ezmlm-warn.o: compile ezmlm-warn.c slurp.h getconfopt.h getconf.h \
 cookie.h qmail.h messages.h quote.h copy.h \
 mime.h hdr.h die.h wrap.h idx.h config.h subdb.h
 	./compile ezmlm-warn.c
