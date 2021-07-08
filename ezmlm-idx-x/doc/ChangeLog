@@ -6,7 +6,7 @@ Release 1.1 Start 22/03/2017
 04. removed catted man pages
 - 05/07/2020
 05. ezmlm-idx.spec, debian/rules, make-compile.sh, make-libcompile.sh,
-	make-load.sh: use CFLAGS, LDFLAGS from the build system (rpm/debian)
+    make-load.sh: use CFLAGS, LDFLAGS from the build system (rpm/debian)
 - 03/11/2020
 06. ezmlmrc.template: fixed version identifier
 - 25/11/2020
