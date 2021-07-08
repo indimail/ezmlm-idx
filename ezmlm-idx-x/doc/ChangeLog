@@ -20,3 +20,6 @@ Release 1.1 Start 22/03/2017
 10. added -Wno-array-parameter to CFLAGS
 11. removed -Wno-array-parameter from CFLAGS
 12. dns.h, ip4.h, socket.h: fixed warnings from -Warray-parameter
+- 08/07/2021
+13. ezmlm-queue: use qmail-qmqpc if qmail-queue is missing (indimail-mini
+    installation)

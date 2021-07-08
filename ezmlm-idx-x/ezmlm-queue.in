@@ -1,5 +1,9 @@
 if [ ! -x PREFIX/sbin/qmail-multi ] ; then
-	exec qmail-queue
+	if [ ! -x PREFIX/sbin/qmail-queue ] ; then
+		exec qmail-queue
+	elif [ ! -x PREFIX/sbin/qmail-qmqpc ] ; then
+		exec qmail-qmqpc
+	fi
 	exit 111
 fi
 if [ -d $HOME/.defaultqueue ] ; then
