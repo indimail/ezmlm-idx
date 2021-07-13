@@ -5,6 +5,7 @@ Binary: ezmlm-idx, ezmlm-idx-mysql, ezmlm-idx-pgsql, ezmlm-idx-sqlite, ezmlm-idx
 Maintainer: @email@
 Architecture: any
 Build-Depends: cdbs, debhelper (>= 9), gcc, binutils, coreutils, automake, libmysqlclient-dev, libpq-dev, libsqlite3-dev, libqmail-dev
+Debtransform-Release: 1
 Debtransform-Files-Tar: debian.tar.gz
 Debtransform-Tar: ezmlm-idx-@version@.tar.gz
 Standards-Version: 3.9.1
