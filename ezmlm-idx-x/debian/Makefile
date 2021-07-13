@@ -31,7 +31,7 @@ ezmlm-idx-Debian_9.0.dsc: ezmlm-idx-Debian_9.0.dsc.in ../conf-release ../conf-ve
 _service: _service.in
 	$(edit) $@.in > $@
 changelog: ../doc/ChangeLog ../conf-version ../conf-release ../conf-email
-	../catChangeLog --debian --name=ezmlm-idx --state=unstable \
+	../catChangeLog --debian --name=ezmlm-idx --state=stable \
 		--urgency=low ../doc/ChangeLog > $@
 copyright: copyright.in ../conf-email
 	$(edit) $@.in > $@
