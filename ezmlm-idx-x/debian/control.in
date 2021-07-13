@@ -72,28 +72,28 @@ Description: Easy Mailing List Manager + IDX for indimail-mta
 
 Package: ezmlm-idx-mysql
 Architecture: any
-Depends: ${shlibs:Depends}, ezmlm-idx (= @version@)
+Depends: ${shlibs:Depends}, ezmlm-idx (>= @version@)
 Description: MySQL support module for ezmlm-idx.
  A detailed explanation can be found here:
  http://www.ezmlm.org/faq/ezmlm-support-for-SQL-databases.html
 
 Package: ezmlm-idx-pgsql
 Architecture: any
-Depends: ${shlibs:Depends}, ezmlm-idx (= @version@)
+Depends: ${shlibs:Depends}, ezmlm-idx (>= @version@)
 Description: PostgreSQL support module for ezmlm-idx.
  A detailed explanation can be found here:
  http://www.ezmlm.org/faq/ezmlm-support-for-SQL-databases.html
 
 Package: ezmlm-idx-sqlite
 Architecture: any
-Depends: ${shlibs:Depends}, ezmlm-idx (= @version@)
+Depends: ${shlibs:Depends}, ezmlm-idx (>= @version@)
 Description: SQLite support module for ezmlm-idx.
  A detailed explanation can be found here:
  http://www.ezmlm.org/faq/ezmlm-support-for-SQL-databases.html
 
 Package: ezmlm-idx-cgi
 Architecture: any
-Depends: ${shlibs:Depends}, ezmlm-idx (= @version@)
+Depends: ${shlibs:Depends}, ezmlm-idx (>= @version@)
 Description: www archiver for ezmlm-idx.
  After installation change the SUID permission as follows:
   chmod 4755 /srv/www/cgi-bin/ezmlm-cgi
