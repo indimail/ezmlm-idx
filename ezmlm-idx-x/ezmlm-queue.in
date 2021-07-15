@@ -1,23 +1,12 @@
-
-pathexec_run()
-{
-	if [ -d $HOME/.defaultqueue ] ; then
-		exec PREFIX/bin/envdir -c $HOME/.defaultqueue \
-			PREFIX/bin/envdir SYSCONFDIR/control/defaultqueue $1
-	else
-		exec PREFIX/bin/envdir -c SYSCONFDIR/control/defaultqueue $1
-	fi
-}
-
 if [ -f SYSCONFDIR/control/qmqpservers ] ; then
 	if [ -x PREFIX/sbin/qmail-qmqpc ] ; then
-		pathexec_run PREFIX/sbin/qmail-qmqpc
+		exec PREFIX/sbin/qmail-qmqpc
 	fi
 fi
 if [ -x PREFIX/sbin/qmail-multi ] ; then
-	pathexec_run PREFIX/sbin/qmail-multi
+	exec PREFIX/sbin/qmail-multi
 fi
 if [ -x PREFIX/sbin/qmail-queue ] ; then
-	pathexec_run PREFIX/sbin/qmail-queue
+	exec PREFIX/sbin/qmail-queue
 fi
 exit 111

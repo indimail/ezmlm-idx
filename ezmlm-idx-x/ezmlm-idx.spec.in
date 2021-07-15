@@ -217,6 +217,7 @@ echo "PACKAGE_BUGREPORT=\"'@email@'\""
 %{__mkdir_p} %{buildroot}%{_sbindir}
 %{__mkdir_p} %{buildroot}%{ezmlmlibdir}
 %{__mkdir_p} %{buildroot}%{rcdir}
+%{__mkdir_p} %{buildroot}%{rcdir}/global_vars
 %{__mkdir_p} %{buildroot}%{ezcgidir}
 %{__mkdir_p} %{buildroot}%{ezdocdir}
 %{__mkdir_p} %{buildroot}%{mandir}

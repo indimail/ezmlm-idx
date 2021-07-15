@@ -1025,8 +1025,7 @@ libcompile qmail_copy.c qmail.h
 	./libcompile qmail_copy.c
 
 qmail.lo: \
-libcompile qmail.c die.h \
-getconf.h qmail.h auto_qmail.h idx.h
+libcompile qmail.c qmail.h auto_qmail.h auto_etc.h
 	./libcompile qmail.c
 
 quote.lo: \

@@ -10,10 +10,11 @@ ezmlm-queue \- queue messages using qmail-qmqpc, qmail-multi or qmail-queue
 messages to be delivered by indimail-mini's \fBqmail-qmqpc\fR(8),
 indimail-mta's \fBqmail-multi\fR(8) or \fBqmail-queue\fR(8). It sets
 environment variables using \fBenvdir\fR(8) using files in the directory
-$HOME/.defaultqueue followed by files in the directory
-\fISYSCONFDIR/control/defaultqueue\fR. These environment varables can
-configure \fBqmail-qmqpc\fR(8), \fBqmail-multi\fR(8) or
-\fBqmail-queue\fR(8).
+\fISYSCONFDIR/ezmlm/global_vars\fR. These environment varables can be used
+to configure \fBqmail-qmqpc\fR(8), \fBqmail-multi\fR(8) or
+\fBqmail-queue\fR(8). You can use .\fIenvdir\fR and .\fIenvfile\fR to
+set additional environment variables. See \fBenvdir\fR(8) for more
+information.
 
 \fBqmail-multi\fR(8) uses \fBQUEUE_BASE\fR, \fBQUEUE_START\fR and
 \fBQUEUE_COUNT\fR to use indimail-mta's multi-queue environment in

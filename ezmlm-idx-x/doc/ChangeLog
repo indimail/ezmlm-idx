@@ -28,3 +28,5 @@ Release 1.1 Start 22/03/2017
 15. ezmlm-queue: use qmail-qmqpc, qmail-multi, qmail-queue in order to
     deliver/queue mails.
 16. qmail.c: added custom error code
+17. qmail.c: use envdir function to load environent variables from
+    /etc/indimail/ezmlm/global_vars
