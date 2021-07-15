@@ -153,11 +153,13 @@ create a ``List-ID:'' header by placing the contents after the
 text ``List-ID: ''. 
 
 If
-.I dir\fB/qmqpservers
+.I /etc/indimail/control\fB/qmqpservers
 exists,
 .B ezmlm-get will use
-.B qmail-qmqp(1)
-to send messages.
+.B qmail-qmqpc(1)
+to send messages. Server IP addresses listed one per line in
+.I /etc/indimail/control/\fB/qmqpservers
+will be tried in order.
 
 If
 .I dir\fB/public

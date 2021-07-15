@@ -1180,14 +1180,17 @@ wrap_waitpid.lo: \
 libcompile wrap_waitpid.c messages.h wrap.h die.h idx.h
 	./libcompile wrap_waitpid.c
 
-ezmlm-queue: ezmlm-queue.in conf-prefix conf-sysconfdir warn-auto.sh
+ezmlm-queue: ezmlm-queue.in conf-prefix conf-sysconfdir conf-qmail \
+warn-auto.sh
 	cat warn-auto.sh ezmlm-queue.in \
 	| sed s}PREFIX}"`head -1 conf-prefix`"}g \
 	| sed s}SYSCONFDIR}"`head -1 conf-sysconfdir`"}g \
+	| sed s}QMAIL}"`head -1 conf-qmail`"}g \
 	> ezmlm-queue
 	chmod 755 ezmlm-queue
 
-ezmlm-queue.1: ezmlm-queue.9 conf-sysconfdir
+ezmlm-queue.1: ezmlm-queue.9 conf-sysconfdir conf-qmail
 	cat ezmlm-queue.9 \
 	| sed s}SYSCONFDIR}"`head -1 conf-sysconfdir`"}g \
+	| sed s}QMAIL}"`head -1 conf-qmail`"}g \
 	> ezmlm-queue.1

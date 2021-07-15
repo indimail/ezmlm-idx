@@ -213,21 +213,18 @@
 /* buffer overrun holes and the address is user-controlled */
 #define DOMAIN_LENGTH 3
 
-/* programs used for outgoing mail. Normally, qmail-queue is used. Replace */
-/* with qmail-qmqpc to use only qmqp for outgoing mail. QMQPC is for */
-/* large lists when DIR/qmqpservers is present. Only posts and digests will */
-/* use QMQP. If the normal qmail-qmqpc is used the contents of */
-/* DIR/qmqpcservers are ignored. With a patch, qmail-qmqpc will use the */
-/* servers on it's command line. In this case, the IP addresses listed one */
-/* per line in DIR/qmqpservers will be tried until a working one is found. */
-/* the option is mainly to allow large list clusters on a single host to use */
-/* different QMQPC hosts as exploders.*/
+/*-
+ * programs used for outgoing mail. Normally, qmail-queue is used.
+ * ezmlm-queue uses qmail-multi to use indimail-mta's multi-queue
+ * architecture. If qmail-multi is not found qmail-queeu willl be used
+ * if qmail-queeu is not found, qmail-qmqpc will be used.
+ * If all three qmail-multi, qmail-queue, qmail-qmqpc are missing,
+ * ezmlm-queue will exit 111
+ */
+
 #define PROG_QMAIL_QUEUE "sbin/ezmlm-queue"
-#define PROG_QMAIL_QMQPC "sbin/qmail-qmqpc"
 
 /*---------- Things below this line are not configurable -----------*/
-/* file in DIR that has the qmqpc servers (if any) */
-#define QMQPSERVERS "qmqpservers"
 /* database types */
 #define FLD_DIGEST 1
 #define FLD_ALLOW 2

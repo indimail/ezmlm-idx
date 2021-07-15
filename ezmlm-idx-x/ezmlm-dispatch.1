@@ -49,12 +49,14 @@ used to have
 .B ezmlm-dispatch
 control the operations of a single list.
 
-If
-.I dir\fB/qmqpservers
+.I /etc/indimail/control\fB/qmqpservers
 exists,
 .B ezmlm-dispatch will use
-.B qmail-qmqp(1)
-to forward messages.
+.B qmail-qmqpc(1)
+to send messages. Server IP addresses listed one per line in
+.I /etc/indimail/control/\fB/qmqpservers
+will be tried in order.
+
 .SH OPTIONS
 .TP
 .B -v

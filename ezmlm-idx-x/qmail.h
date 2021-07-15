@@ -4,12 +4,14 @@
 #include "substdio.h"
 #include "stralloc.h"
 
+#define CUSTOM_ERR_FD 2
 struct qmail {
   int flagerr;
   long pid;
   unsigned long msgbytes;
   int fdm;
   int fde;
+  int fdc;
   substdio ss;
   char buf[1024];
 } ;

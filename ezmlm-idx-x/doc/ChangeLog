@@ -23,3 +23,8 @@ Release 1.1 Start 22/03/2017
 - 08/07/2021
 13. ezmlm-queue: use qmail-qmqpc if qmail-queue is missing (indimail-mini
     installation)
+- 15/07/2021
+14. qmail.c, idx.h: removed qmail-qmqpc code. use ezmlm-queue instead
+15. ezmlm-queue: use qmail-qmqpc, qmail-multi, qmail-queue in order to
+    deliver/queue mails.
+16. qmail.c: added custom error code

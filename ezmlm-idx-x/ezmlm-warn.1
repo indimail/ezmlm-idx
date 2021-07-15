@@ -93,11 +93,14 @@ exists,
 exits without taking any action.
 
 If
-.I dir\fB/qmqpservers
+.I /etc/indimail/control\fB/qmqpservers
 exists,
 .B ezmlm-warn will use
-.B qmail-qmqp(1)
-to send messages.
+.B qmail-qmqpc(1)
+to send messages. Server IP addresses listed one per line in
+.I /etc/indimail/control/\fB/qmqpservers
+will be tried in order.
+
 .SH OPTIONS
 .TP
 .B \-d

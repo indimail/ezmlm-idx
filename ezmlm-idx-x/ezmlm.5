@@ -993,15 +993,12 @@ This affects the behavior of
 .BR ezmlm-send .
 
 If
-.I dir\fB/qmqpservers
+.I /etc/indimail/control\fB/qmqpservers
 exists, all ezmlm programs will use
 .B qmail-qmqpc(1)
-to send messages.  If
-.B qmail-qmqpc
-is modified correctly, server IP addresses listed one per line in
-.I dir\fB/qmqpsevers
-will be tried in order, rather than the default servers specified in
-.IR /var/qmail/control .
+to send messages. Server IP addresses listed one per line in
+.I /etc/indimail/control/\fB/qmqpservers
+will be tried in order.
 
 If
 .I dir\fB/msgsize

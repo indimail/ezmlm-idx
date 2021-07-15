@@ -186,11 +186,13 @@ is ignored as of ezmlm-idx-0.32. Use
 with substitution to achieve the same goal.
 
 If
-.I dir\fB/qmqpservers
+.I /etc/indimail/control\fB/qmqpservers
 exists,
 .B ezmlm-send will use
-.B qmail-qmqp(1)
-to send messages.
+.B qmail-qmqpc(1)
+to send messages. Server IP addresses listed one per line in
+.I /etc/indimail/control/\fB/qmqpservers
+will be tried in order.
 
 .B ezmlm-send
 does not distribute bounce messages:
