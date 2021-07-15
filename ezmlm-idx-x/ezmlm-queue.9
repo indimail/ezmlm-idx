@@ -7,20 +7,23 @@ ezmlm-queue \- queue messages using qmail-qmqpc, qmail-multi or qmail-queue
 
 .SH DESCRIPTION
 \fBezmlm-queue\fR is used by ezmlm/ezmlm-idx programs to deliver or queue
-messages to be delivered by indimail-mini's qmail-qmqpc(8), indimail-mta's
-\fBqmail-multi\fR(8) or \fBqmail-queue\fR(8). It sets environment variables
-using \fBenvdir\fR(8) using files in the directory $HOME/.defaultqueue
-followed by files in the directory \fISYSCONFDIR/control/defaultqueue\fR.
-These environment varables can configure \fBqmail-qmqpc\fR(8),
-\fBqmail-multi\fR(8) or \fBqmail-queue\fR(8). \fBqmail-multi\fR(8) and
-\fBqmail-multi\fR(8) cannot work without these environment variables.
+messages to be delivered by indimail-mini's \fBqmail-qmqpc\fR(8),
+indimail-mta's \fBqmail-multi\fR(8) or \fBqmail-queue\fR(8). It sets
+environment variables using \fBenvdir\fR(8) using files in the directory
+$HOME/.defaultqueue followed by files in the directory
+\fISYSCONFDIR/control/defaultqueue\fR. These environment varables can
+configure \fBqmail-qmqpc\fR(8), \fBqmail-multi\fR(8) or
+\fBqmail-queue\fR(8).
 
-\fBqmail-multi\fR(8) requires \fBQUEUE_BASE\fR, \fBQUEUE_START\fR and
+\fBqmail-multi\fR(8) uses \fBQUEUE_BASE\fR, \fBQUEUE_START\fR and
 \fBQUEUE_COUNT\fR to use indimail-mta's multi-queue environment in
 QMAIL/queue directory.
 
-\fBqmail-queue\fR(8) requires \fBQUEUEDIR\fR, else it will use the
-default queue QMAIL/queue
+\fBqmail-queue\fR(8) uses \fBQUEUEDIR\fR, else it will use the
+default queue QMAIL/queue.
+
+\fBqmail-qmqpc\fR(8) uses \fBPORT_QMQP\fR, \fBOUTGOINGIP\fR,
+\fBCONTROLDIR\fR environment variables.
 
 \fBezmlm-queue\fR first checks if SYSCONFDIR/control/qmqpservers is
 present and uses \fBqmail-qmqpc\fR(8). if \fBqmqpservers\fR is absent, it
@@ -30,11 +33,13 @@ with 111 exit code if it finds none of the three binaries.
 
 Following programs use \fBezmlm-queue\fR(1).
 
-.EX
- ezmlm-clean(1), ezmlm-dispatch(1), ezmlm-get(1), ezmlm-manage(1),
- ezmlm-moderate(1), ezmlm-reject(1), ezmlm-request(1), ezmlm-send(1),
- ezmlm-split(1), ezmlm-store(1), ezmlm-warn(1)
-.EE
+\fBezmlm-clean\fR(1), \fBezmlm-dispatch\fR(1), \fBezmlm-get\fR(1),
+\fBezmlm-manage\fR(1), \fBezmlm-moderate\fR(1), \fBezmlm-reject\fR(1),
+\fBezmlm-request\fR(1), \fBezmlm-send\fR(1), \fBezmlm-split\fR(1),
+\fBezmlm-store\fR(1), \fBezmlm-warn\fR(1)
+
+You can make the above program to use a different program instead of
+\fBezmlm-queue\fR(1), by setting \fBQMAILQUEUE\fR environment variable.
 
 .SH "SEE ALSO"
 envdir(8),
