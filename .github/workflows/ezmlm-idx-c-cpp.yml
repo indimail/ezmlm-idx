@@ -7,6 +7,10 @@ on:
       - .github/workflows/ezmlm-idx-c-cpp.yml
       - '!**/ezmlm-idx-x/debian/*'
       - '!**/ezmlm-idx-x/ezmlm-idx.spec.in'
+      - '!**/*.9'
+      - '!**/*.8'
+      - '!**/*.5'
+      - '!**/*.1'
       - '!**/doc/*'
       - '!**.md'
       - '!**/ezmlm-idx-freebsd.yml'
