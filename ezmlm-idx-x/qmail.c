@@ -1,83 +1,49 @@
 #include <unistd.h>
 #include "substdio.h"
 #include "wait.h"
-#include "die.h"
 #include "env.h"
-#include "stralloc.h"
-#include "getconf.h"
 #include "str.h"
+#include "scan.h"
 #include "fd.h"
 #include "qmail.h"
 #include "auto_qmail.h"
-#include "alloc.h"
-#include "stralloc.h"
-#include "idx.h"
-
-static const char *binqqargs[2] = { PROG_QMAIL_QUEUE, 0 } ;
-
-static stralloc filename;
-static stralloc qmqpservers;
 
 int qmail_open(struct qmail *qq)
 {
-  int pim[2];
-  int pie[2];
-  unsigned i,j;
-  const char *cp;
-  const char **cpp;
-
-  if (!stralloc_copys(&filename,QMQPSERVERS)) die_nomem();
-  if (!stralloc_cats(&filename,"/0")) die_nomem();
-  if (!stralloc_0(&filename)) die_nomem();
-  if (!getconf(&qmqpservers,filename.s,0)) {
-    if (!stralloc_copys(&filename,QMQPSERVERS)) die_nomem();
-    if (!stralloc_0(&filename)) die_nomem();
-    getconf(&qmqpservers,filename.s,0);
-  }
+  int pim[2], pie[2];
+  int pic[2], errfd; /*- custom message */
+  char *x, *binqqargs[2] = { 0, 0 };
 
   qq->msgbytes = 0L;
   if (pipe(pim) == -1) return -1;
   if (pipe(pie) == -1) { close(pim[0]); close(pim[1]); return -1; }
+  if (pipe(pic) == -1) { close(pim[0]); close(pim[1]); close(pie[0]); close(pie[1]); return -1; }
 
   switch(qq->pid = fork()) {
     case -1:
       close(pim[0]); close(pim[1]);
       close(pie[0]); close(pie[1]);
+      close(pic[0]); close(pic[1]);
       return -1;
     case 0:
       close(pim[1]);
       close(pie[1]);
+      close(pic[0]); /*- we want to receive data */
       if (fd_move(0,pim[0]) == -1) _exit(120);
       if (fd_move(1,pie[0]) == -1) _exit(120);
-      if ((cp = env_get("QMAILHOME")) == 0)
-	cp = auto_qmail;
-      if (chdir(cp) == -1) _exit(61);
-      if ((cp = env_get("QMAILQUEUE")) != 0)
-	binqqargs[0] = cp;
-      else if (qmqpservers.len > 0) {	/* count args */
-	j = 2;				/* empty sa - qmqpc c control args */
-	for (i = 0; i < qmqpservers.len; i++) {
-	  if (qmqpservers.s[i] == '\0') j++;
-	}				/* make space */
-	if (!(cpp = (const char **) alloc(j * sizeof (char *)))) _exit(51);
-	cpp[0] = PROG_QMAIL_QMQPC;
-	cp = qmqpservers.s;
-	j = 1;
-	for (i = 0; i < qmqpservers.len; i++) {
-	  if (qmqpservers.s[i]) continue;
-	  cpp[j++] = cp;
-	  cp = qmqpservers.s + i + 1;
-	}
-	cpp[j] = (char *) 0;
-	execv(*cpp,(char**)cpp);
-	_exit(120);
-      }
-      execv(*binqqargs,(char**)binqqargs);
+      if (!(x = env_get("ERROR_FD"))) errfd = CUSTOM_ERR_FD;
+      else scan_int(x, &errfd);
+      if (fd_move(errfd, pic[1]) == -1) _exit(120);
+      if (chdir(auto_qmail) == -1) _exit(120);
+      if (!binqqargs[0]) binqqargs[0] = env_get("QMAILQUEUE");
+      if (!binqqargs[0]) binqqargs[0] = "sbin/ezmlm-queue";
+      execv(*binqqargs,binqqargs);
       _exit(120);
   }
 
   qq->fdm = pim[1]; close(pim[0]);
   qq->fde = pie[1]; close(pie[0]);
+  qq->fdc = pic[0]; close(pic[1]);
   substdio_fdbuf(&qq->ss,write,qq->fdm,qq->buf,sizeof(qq->buf));
   qq->flagerr = 0;
   return 0;
@@ -95,14 +61,16 @@ void qmail_fail(struct qmail *qq)
 
 void qmail_put(struct qmail *qq, const char *s, int len)
 {
-  if (!qq->flagerr) if (substdio_put(&qq->ss,s,len) == -1) qq->flagerr = 1;
+  if (!qq->flagerr && substdio_put(&qq->ss,s,len) == -1) qq->flagerr = 1;
   qq->msgbytes += len;
 }
 
 void qmail_puts(struct qmail *qq, const char *s)
 {
-  if (!qq->flagerr)
-    qmail_put(qq,s,str_len(s));
+  int len;
+  len = str_len(s);
+  if (!qq->flagerr && substdio_put(&qq->ss,s,len) == -1) qq->flagerr = 1;
+  qq->msgbytes += len;
 }
 
 void qmail_from(struct qmail *qq, const char *s)
@@ -122,48 +90,121 @@ void qmail_to(struct qmail *qq, const char *s)
   qmail_put(qq,"",1);
 }
 
-const char *qmail_close(struct qmail *qq)
+const char     *
+qmail_close(struct qmail *qq)
 {
-  int wstat;
-  int exitcode;
+	int             wstat, exitcode, len = 0;
+	char            ch;
+	static char     errstr[1024];
 
-  qmail_put(qq,"",1);
-  if (!qq->flagerr) if (substdio_flush(&qq->ss) == -1) qq->flagerr = 1;
-  close(qq->fde);
-
-  if (wait_pid(&wstat,qq->pid) != qq->pid)
-    return "Zqq waitpid surprise (#4.3.0)";
-  if (wait_crashed(wstat))
-    return "Zqq crashed (#4.3.0)";
-  exitcode = wait_exitcode(wstat);
-
-  switch(exitcode) {
-    case 115: /* compatibility */
-    case 11: return "Denvelope address too long for qq (#5.1.3)";
-    case 31: return "Dmail server permanently rejected message (#5.3.0)";
-    case 51: return "Zqq out of memory (#4.3.0)";
-    case 52: return "Zqq timeout (#4.3.0)";
-    case 53: return "Zqq write error or disk full (#4.3.0)";
-    case 0: if (!qq->flagerr) return ""; /* fall through */
-    case 54: return "Zqq read error (#4.3.0)";
-    case 55: return "Zqq unable to read configuration (#4.3.0)";
-    case 56: return "Zqq trouble making network connection (#4.3.0)";
-    case 61: return "Zqq trouble in home directory (#4.3.0)";
-    case 63:
-    case 64:
-    case 65:
-    case 66:
-    case 62: return "Zqq trouble creating files in queue (#4.3.0)";
-    case 71: return "Zmail server temporarily rejected message (#4.3.0)";
-    case 72: return "Zconnection to mail server timed out (#4.4.1)";
-    case 73: return "Zconnection to mail server rejected (#4.4.1)";
-    case 74: return "Zcommunication with mail server failed (#4.4.2)";
-    case 91: /* fall through */
-    case 81: return "Zqq internal bug (#4.3.0)";
-    case 120: return "Zunable to exec qq (#4.3.0)";
-    default:
-      if ((exitcode >= 11) && (exitcode <= 40))
-	return "Dqq permanent problem (#5.3.0)";
-      return "Zqq temporary problem (#4.3.0)";
-  }
+	qmail_put(qq, "", 1);
+	if (!qq->flagerr && substdio_flush(&qq->ss) == -1)
+		qq->flagerr = 1;
+	close(qq->fde);
+	substdio_fdbuf(&qq->ss, read, qq->fdc, qq->buf, sizeof(qq->buf));
+	while (substdio_bget(&qq->ss, &ch, 1) && len < (sizeof(errstr) - 1)) {
+		errstr[len] = ch;
+		len++;
+	}
+	if (len > 0)
+		errstr[len] = 0; /*- terminate errstr */
+	close(qq->fdc);
+	if (wait_pid(&wstat, qq->pid) != qq->pid)
+		return "Zqq waitpid surprise (#4.3.0)";
+	if (wait_crashed(wstat))
+		return "Zqq crashed (#4.3.0)";
+	exitcode = wait_exitcode(wstat);
+	switch (exitcode)
+	{
+	case 115: /*- compatibility */
+	case 11:
+		return "Denvelope address too long for qq (#5.1.3)";
+	case 31:
+		return "Dmail server permanently rejected message (#5.3.0)";
+	case 32: /*-*/
+		return "DSPAM or junk mail threshold exceeded (#5.7.1)";
+	case 33: /*-*/
+		return "DMessage contains virus (#5.7.1)";
+	case 34: /*-*/
+		return "DMessage contains banned attachment (#5.7.1)";
+	case 35: /*-*/
+		return "DPrivate key file does not exist (#5.3.5)";
+	case 50: /*-*/
+		return "Zunable to set uid/gid (#4.3.0)";
+	case 51:
+		return "Zqq out of memory (#4.3.0)";
+	case 52:
+		return "Zqq timeout (#4.3.0)";
+	case 53:
+		return "Zqq write error or disk full (#4.3.0)";
+	case 0:
+		if (!qq->flagerr)
+			return "";
+		/*- fall through */
+	case 54:
+		return "Zqq read error (#4.3.0)";
+	case 55:
+		return "Zqq unable to read configuration (#4.3.0)";
+	case 56:
+		return "Zqq trouble making network connection (#4.3.0)";
+	case 57: /*-*/
+		return "Zunable to open shared object/plugin (#4.3.0)";
+	case 58: /*-*/
+		return "Zunable to resolve symbol in shared object/plugin (#4.3.0)";
+	case 59: /*-*/
+		return "Zunable to close shared object/plugin (#4.3.0)";
+	case 60: /*-*/
+		return "Zqq trouble creating pipes/sockets (#4.3.0)";
+	case 61:
+		return "Zqq trouble in home directory (#4.3.0)";
+	case 62: /*-*/
+		return "Zqq unable to access mess file (#4.3.0)";
+	case 63:
+	case 64:
+	case 65:
+	case 66:
+		return "Zqq trouble creating files in queue (#4.3.0)";
+	case 67: /*-*/
+		return "Zqq trouble getting uids/gids (#4.3.0)";
+	case 68: /*-*/
+		return "Zqq trouble creating temporary files (#4.3.0)";
+	case 71:
+		return "Zmail server temporarily rejected message (#4.3.0)";
+	case 72:
+		return "Zconnection to mail server timed out (#4.4.1)";
+	case 73:
+		return "Zconnection to mail server rejected (#4.4.1)";
+	case 74:
+		return "Zcommunication with mail server failed (#4.4.2)";
+	case 75: /*-*/
+		return "Zunable to exec (#4.3.0)";
+	case 76: /*-*/
+		return "Ztemporary problem with SPAM filter (#4.3.0)";
+	case 77: /*- thanks to problem repoted by peter cheng */
+		return "Zqq unable to run QHPSI scanner (#4.3.0)";
+	case 79:
+		return "Zqq Envelope format error (#4.3.0)";
+	case 91:
+		/*- fall through */
+	case 81:
+		return "Zqq internal bug (#4.3.0)";
+	case 87: /*-*/
+		return "Zmail system incorrectly configured. (#4.3.5)";
+	case 82: /*- compatability with simscan, notqmail, etc */
+	case 88: /*- custom error */
+		if (len > 2)
+			return errstr;
+	case 120:
+		return "Zunable to exec qq (#4.3.0)";
+	case 121: /*-*/
+		return "Zunable to fork (#4.3.0)";
+	case 122: /*-*/
+		return "Zqq waitpid surprise (#4.3.0)";
+	case 123: /*-*/
+		return "Zqq crashed (#4.3.0)";
+	default:
+		if ((exitcode >= 11) && (exitcode <= 40))
+			return "Dqq permanent problem (#5.3.0)";
+		return "Zqq temporary problem (#4.3.0)";
+	}
 }
