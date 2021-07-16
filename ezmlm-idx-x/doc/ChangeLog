@@ -1,5 +1,13 @@
 * Thu Apr 23 2020 14:07:08 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
 Release 1.1 Start 22/03/2017
+======= Release Highlights ================================================
+o new queue program ezmlm-queue to queue mails to indimail-mta
+o standardized build system for compilation on Linux, Darwin and FreeBSD
+o Removed local libraries and use libqmail. Bulk of the code now comes from
+  libqmail
+o ezmlm-queue - handle qmail-qmqpc, qmail-multi and qmail-queue
+o load environment variables from /etc/indimail/ezmlm/global_vars
+===========================================================================
 01. ezmlm-queue for handling indimail queue
 02. Added Pre-Depends daemontools
 03. Fixed defaultqueue path in ezmlm-queue
