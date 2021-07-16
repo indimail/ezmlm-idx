@@ -2,11 +2,12 @@
 
 Easy Mailing List Manager for [indimail-mta](https://github.com/mbhangui/indimail-mta), [qmail](https://cr.yp.to/qmail.html)
 
-This has been forked from [ezmlm-idx Project Homepage](https://untroubled.org/ezmlm/) to adapt it to work with indimail-mta's multi-queue architecture. The three major changes that this version has made after the fork are
+This has been forked from [ezmlm-idx Project Homepage](https://untroubled.org/ezmlm/) to adapt it to work with indimail-mta's multi-queue architecture. The four major changes that this version has made after the fork are
 
-1. Ability to set environment variables in /etc/indimail/ezmlm/global_vars. You can create any file in this directory. The file name becomes the environment variable and the file content becomes the value of environment variable.
+1. Ability to set environment variables in /etc/indimail/ezmlm/global\_vars. You can create any file in this directory. The file name becomes the environment variable and the file content becomes the value of environment variable.
 2. New queue program ezmlm-queue which can use qmail-qmqpc to use [QMQP](http://cr.yp.to/proto/qmqp.html) protocol, [qmail-multi](https://github.com/mbhangui/indimail-virtualdomains/wiki/IndiMail#qmail-multi) to queue mails to indimail's multi-queue instance or [qmail-queue](https://github.com/mbhangui/indimail-virtualdomains/wiki/IndiMail#qmail-queue) to queue mails to any [qmta](https://github.com/mbhangui/indimail-virtualdomains/wiki/IndiMail#qmta---using-a-minimal-standalone-qmta-send-mta) / [qmail](http://cr.yp.to/qmail.html) / [netqmail](http://netqmail.org/) / [notqmail](https://github.com/notqmail/notqmail) instance.
 3. Configure mailing lists using indimail's web administration tool [iwebadmin](https://github.com/mbhangui/indimail-virtualdomains/wiki/IndiMail#iwebadmin--web-administration-of-indimail).
+4. Use all common libraries from [libqmail](https://github.com/mbhangui/libqmail).
 
 ezmlm is an easy-to-use, high-speed mailing list manager for qmail.
 
