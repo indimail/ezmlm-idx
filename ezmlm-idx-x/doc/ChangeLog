@@ -1,5 +1,5 @@
 * Thu Apr 23 2020 14:07:08 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
-Release 1.1 Start 22/03/2017
+Release 7.2.2 Start 22/03/2017
 ======= Release Highlights ================================================
 o new queue program ezmlm-queue to queue mails to indimail-mta
 o standardized build system for compilation on Linux, Darwin and FreeBSD
