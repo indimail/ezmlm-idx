@@ -1,4 +1,7 @@
-* Thu Apr 23 2020 14:07:08 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
+* Sun Jul 18 2021 00:06:02 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
+Release 7.2.3 Start 18/07/2021
+
+* Sat Jul 17 2021 23:15:14 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
 Release 7.2.2 Start 22/03/2017
 ======= Release Highlights ================================================
 o new queue program ezmlm-queue to queue mails to indimail-mta
