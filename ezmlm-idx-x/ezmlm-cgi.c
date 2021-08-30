@@ -187,7 +187,7 @@ void oputs(const char *s)
 void die_prog(const char *s) { strerr_die5x(100,FATAL,"program error (please send bug report to bugs@ezmlm.org): ",s," Command: ",cmd); }
 
 /* If we already issued a header than this will look ugly */
-void cgierr(const char *s,const char *s1,const char *s2)
+no_return void cgierr(const char *s,const char *s1,const char *s2)
 {
   strerr_warn4(FATAL,s,s1,s2,(struct strerr *)0);
   oputs("Content-type: text/plain\n");

@@ -1,6 +1,7 @@
 #ifndef CGI_H
 #define CGI_H
+#include <noreturn.h>
 
-extern void cgierr(const char *,const char *,const char *) __attribute((noreturn));
+extern no_return void cgierr(const char *,const char *,const char *);
 
 #endif

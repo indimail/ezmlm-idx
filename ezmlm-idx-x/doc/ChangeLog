@@ -41,3 +41,7 @@ o load environment variables from /etc/indimail/ezmlm/global_vars
 16. qmail.c: added custom error code
 17. qmail.c: use envdir function to load environent variables from
     /etc/indimail/ezmlm/global_vars
+- 30/08/2021
+18. die.h, cgi.h, die_badaddr.c, die_badformat.c, die_dow.c, die_nomem.c,
+	die_sender.c, die_usage.c, ezmlm-cgi.c: use __attribute__((noreturn))
+	by inluding noreturn.h
