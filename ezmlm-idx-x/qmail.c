@@ -68,6 +68,7 @@ int qmail_open(struct qmail *qq)
       } else
       if (errno != error_noent)
           _exit(55);
+      if (!binqqargs[0]) binqqargs[0] = env_get("EZMLMQUEUE");
       if (!binqqargs[0]) binqqargs[0] = env_get("QMAILQUEUE");
       if (!binqqargs[0]) binqqargs[0] = "sbin/ezmlm-queue";
       execv(*binqqargs,binqqargs);
