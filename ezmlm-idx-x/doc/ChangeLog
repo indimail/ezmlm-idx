@@ -6,6 +6,8 @@ Release 7.2.3 Start 18/07/2021
 01. die.h, cgi.h, die_badaddr.c, die_badformat.c, die_dow.c, die_nomem.c,
     die_sender.c, die_usage.c, ezmlm-cgi.c: use __attribute__((noreturn))
     by inluding noreturn.h
+- 31/01/2022
+02. qmail.c, ezmlm-cron.c, Makefile: removed use of auto_qmail
 
 * Sat Jul 17 2021 23:15:14 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
 Release 7.2.2 Start 22/03/2017

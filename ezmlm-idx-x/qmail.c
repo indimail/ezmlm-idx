@@ -10,7 +10,6 @@
 #include "envdir.h"
 #include "pathexec.h"
 #include "qmail.h"
-#include "auto_qmail.h"
 #include "auto_etc.h"
 
 static stralloc tmp = { 0 };
@@ -45,7 +44,7 @@ int qmail_open(struct qmail *qq)
       if (!(x = env_get("ERROR_FD"))) errfd = CUSTOM_ERR_FD;
       else scan_int(x, &errfd);
       if (fd_move(errfd, pic[1]) == -1) _exit(120);
-      if (chdir(auto_qmail) == -1) _exit(120);
+      if (chdir("/") == -1) _exit(120);
       etc_dir = auto_etc();
       if (!stralloc_copys(&tmp, etc_dir) ||
           !stralloc_catb(&tmp, "/global_vars", 12) ||

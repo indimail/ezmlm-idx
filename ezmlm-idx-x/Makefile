@@ -69,14 +69,6 @@ auto_lib.lo: \
 libcompile auto_lib.c
 	./libcompile auto_lib.c
 
-auto_qmail.c: \
-auto-str conf-qmail
-	./auto-str auto_qmail <conf-qmail >auto_qmail.c
-
-auto_qmail.lo: \
-libcompile auto_qmail.c
-	./libcompile auto_qmail.c
-
 auto-str: \
 load auto-str.o
 	./load auto-str -lqmail
@@ -312,7 +304,7 @@ load ezmlm-cron.o libezmlm.a
 	./load ezmlm-cron -lezmlm -lqmail
 
 ezmlm-cron.o: compile ezmlm-cron.c getconfopt.h \
-auto_qmail.h auto_cron.h auto_version.h messages.h die.h \
+auto_cron.h auto_version.h messages.h die.h \
 idx.h wrap.h lockfile.h
 	./compile ezmlm-cron.c
 
@@ -515,7 +507,7 @@ messages.h die.h idx.h config.h auto_version.h
 	./compile ezmlm-subunsub.c
 
 ezmlm-test: \
-warn-auto.sh conf-qmail VERSION Makefile tests/00-config tests/01-misc \
+warn-auto.sh VERSION Makefile tests/00-config tests/01-misc \
 tests/02-functions tests/09-getconfopt tests/100-ezmlm-make \
 tests/110-ezmlm-reject tests/115-ezmlm-sub tests/116-ezmlm-checksub \
 tests/119-ezmlm-nosql tests/119-ezmlm-sql tests/120-ezmlm-send \
@@ -869,7 +861,7 @@ make-libcompile warn-auto.sh systype
 
 libezmlm.a: \
 makelib altpath.lo author.lo auto_bin.lo \
-auto_cron.lo auto_etc.lo auto_lib.lo auto_qmail.lo auto_version.lo \
+auto_cron.lo auto_etc.lo auto_lib.lo auto_version.lo \
 concatHDR.lo config.lo getconf.lo \
 cookie.lo copy.lo date2yyyymm.lo \
 dateline.lo decodeB.lo decodeHDR.lo \
@@ -891,7 +883,7 @@ socket_tcp.lo socket_udp.lo subdb.lo subhash.lo surf.lo surfpcs.lo \
 unfoldHDR.lo wrap_chdir.lo wrap_execbin.lo wrap_execsh.lo wrap_execv.lo \
 wrap_exitcode.lo wrap_fork.lo wrap_rename.lo wrap_stat.lo wrap_waitpid.lo
 	./makelib libezmlm.a altpath.lo author.lo auto_bin.lo \
-	auto_cron.lo auto_etc.lo auto_lib.lo auto_qmail.lo auto_version.lo \
+	auto_cron.lo auto_etc.lo auto_lib.lo auto_version.lo \
 	concatHDR.lo config.lo cookie.lo copy.lo date2yyyymm.lo \
 	dateline.lo decodeB.lo decodeHDR.lo getconf.lo \
 	decodeQ.lo die_badaddr.lo die_badformat.lo die_dow.lo die_nomem.lo \
@@ -1025,7 +1017,7 @@ libcompile qmail_copy.c qmail.h
 	./libcompile qmail_copy.c
 
 qmail.lo: \
-libcompile qmail.c qmail.h auto_qmail.h auto_etc.h
+libcompile qmail.c qmail.h auto_etc.h
 	./libcompile qmail.c
 
 quote.lo: \
@@ -1179,12 +1171,11 @@ wrap_waitpid.lo: \
 libcompile wrap_waitpid.c messages.h wrap.h die.h idx.h
 	./libcompile wrap_waitpid.c
 
-ezmlm-queue: ezmlm-queue.in conf-prefix conf-sysconfdir conf-qmail \
+ezmlm-queue: ezmlm-queue.in conf-prefix conf-sysconfdir \
 warn-auto.sh
 	cat warn-auto.sh ezmlm-queue.in \
 	| sed s}PREFIX}"`head -1 conf-prefix`"}g \
 	| sed s}SYSCONFDIR}"`head -1 conf-sysconfdir`"}g \
-	| sed s}QMAIL}"`head -1 conf-qmail`"}g \
 	> ezmlm-queue
 	chmod 755 ezmlm-queue
 
