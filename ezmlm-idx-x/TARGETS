@@ -235,3 +235,5 @@ sub_sql.lo
 sub-sqlite3.lo
 installer.o
 PKGBUILD
+getln2_idx.lo
+ezmlm-make.1
