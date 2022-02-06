@@ -979,7 +979,7 @@ make-makeso warn-auto.sh systype
 	( cat warn-auto.sh; ./make-makeso "`cat systype`" ) > makeso
 	chmod 755 makeso
 
-man: ezmlm-queue.1 INSTALL.cgi
+man: ezmlm-queue.1 ezmlm-make.1 INSTALL.cgi
 
 messages.all: \
 lang/cs/text/messages lang/da/text/messages lang/de/text/messages \
@@ -1189,3 +1189,6 @@ ezmlm-queue.1: ezmlm-queue.9 conf-sysconfdir conf-qmail
 	| sed s}QMAILHOME}"`head -1 conf-qmail`"}g \
 	> ezmlm-queue.1
 ezmlm-make.1: ezmlm-make.9 conf-sysconfdir
+	cat ezmlm-make.9 \
+	| sed s}SYSCONFDIR}"`head -1 conf-sysconfdir`"}g \
+	> ezmlm-make.1
