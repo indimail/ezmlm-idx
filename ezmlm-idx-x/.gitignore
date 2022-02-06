@@ -255,3 +255,4 @@ sub-sqlite3.so
 PKGBUILD
 getln2_idx.lo
 ezmlm-make.1
+auto_prefix.lo

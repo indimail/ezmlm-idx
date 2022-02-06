@@ -237,3 +237,4 @@ installer.o
 PKGBUILD
 getln2_idx.lo
 ezmlm-make.1
+auto_prefix.lo

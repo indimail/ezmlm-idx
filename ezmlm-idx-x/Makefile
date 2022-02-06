@@ -33,6 +33,12 @@ auto_bin.lo: \
 libcompile auto_bin.c
 	./libcompile auto_bin.c
 
+auto_prefix.c: auto-str conf-prefix
+	./auto-str auto_prefix <conf-prefix >auto_prefix.c
+
+auto_prefix.lo: libcompile auto_prefix.c
+	./libcompile auto_prefix.c
+
 auto-ccld.sh: \
 conf-cc conf-cclo conf-ld conf-ldso warn-auto.sh
 	( cat warn-auto.sh; \
@@ -304,12 +310,12 @@ idx.h mime.h config.h auto_version.h
 	./compile ezmlm-confirm.c
 
 ezmlm-cron: \
-load ezmlm-cron.o libezmlm.a
-	./load ezmlm-cron -lezmlm -lqmail
+load ezmlm-cron.o auto_prefix.lo libezmlm.a
+	./load ezmlm-cron auto_prefix.lo -lezmlm -lqmail
 
 ezmlm-cron.o: compile ezmlm-cron.c getconfopt.h \
 auto_cron.h auto_version.h messages.h die.h \
-idx.h wrap.h lockfile.h
+auto_prefix.h idx.h wrap.h lockfile.h
 	./compile ezmlm-cron.c
 
 ezmlm-dispatch: \

@@ -19,6 +19,7 @@
 #include "getln.h"
 #include "auto_cron.h"
 #include "auto_version.h"
+#include "auto_prefix.h"
 #include "messages.h"
 #include "die.h"
 #include "idx.h"
@@ -102,7 +103,7 @@ int main(int argc,char **argv)
   unsigned long hh = 4L;		/* default time 04:12 */
   unsigned long mm = 12L;
   const char *dow = "*";		/* day of week */
-  const char *qmail_inject = "/usr/bin/qmail-inject ";
+  const char *qmail_inject = "/bin/qmail-inject ";
   char strnum[FMT_ULONG];
   unsigned long uid,euid = 0;
 
@@ -337,6 +338,7 @@ int main(int argc,char **argv)
     if (!stralloc_cats(&addr," * * ")) die_nomem();
     if (!stralloc_cats(&addr,dow)) die_nomem();
     if (!stralloc_cats(&addr," ")) die_nomem();
+    if (!stralloc_cats(&addr,auto_prefix)) die_nomem();
     if (!stralloc_cats(&addr,qmail_inject)) die_nomem();
     if (!stralloc_cats(&addr,local)) die_nomem();
     if (!stralloc_cats(&addr,"-dig-")) die_nomem();
@@ -389,6 +391,8 @@ int main(int argc,char **argv)
       if (line.s[pos] == '#')
         continue;			/* cron comment */
       pos = str_chr(line.s,'/');
+      if (!str_start(line.s+pos,auto_prefix)) continue;
+      pos += str_len(auto_prefix);
       if (!str_start(line.s+pos,qmail_inject)) continue;
       pos += str_len(qmail_inject);
       poslocal = pos;
