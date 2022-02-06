@@ -82,8 +82,7 @@ static stralloc from = {0};
 static stralloc received = {0};
 static stralloc prefix = {0};
 static stralloc content = {0};
-stralloc sboundary = {0};
-char *boundary = 0;
+stralloc boundary = {0};
 static stralloc dcprefix = {0};
 static stralloc dummy = {0};
 static stralloc author = {0};
@@ -578,8 +577,8 @@ int main(int argc,char **argv)
                  while (cp < cpafter && *cp != ';' &&
 			*cp != ' ' && *cp != '\t' && *cp != '\n') ++cp;
                }
-               if (!stralloc_copys(&sboundary,"--")) die_nomem();
-               if (!stralloc_catb(&sboundary,cpstart,cp-cpstart))
+               if (!stralloc_copys(&boundary,"--")) die_nomem();
+               if (!stralloc_catb(&boundary,cpstart,cp-cpstart))
 			die_nomem();
 	       flagfoundokpart = 0;
                if (!constmap_init(&mimeremovemap,mimeremove.s,mimeremove.len,0))
@@ -643,14 +642,13 @@ int main(int argc,char **argv)
       msgsize += line.len;		/* always for tstdig support */
 
     if (!(flaginheader && flagbadfield)) {
-      if (sboundary.len && line.len > sboundary.len &&
-		!str_diffn(line.s,sboundary.s,sboundary.len)) {
-        if (line.s[sboundary.len] == '-' && line.s[sboundary.len+1] == '-') {
+      if (boundary.len && line.len > boundary.len &&
+		!str_diffn(line.s,boundary.s,boundary.len)) {
+        if (line.s[boundary.len] == '-' && line.s[boundary.len+1] == '-') {
           flagbadpart = 0;		/* end boundary should be output */
           if (flagtrailer) {
             qmail_puts(&qq,"\n");
-	    hdr_add(sboundary.s,sboundary.len);
-		boundary = sboundary.s;
+	    hdr_add(boundary.s,boundary.len);
 	    hdr_ctype(CTYPE_TEXT);
             hdr_transferenc();		/* trailer for multipart message */
 	    copy(&qq,"text/trailer",flagcd);
@@ -695,7 +693,7 @@ int main(int argc,char **argv)
     if (!match)
       break;
   }
-  if (!sboundary.len && flagtrailer) {
+  if (!boundary.len && flagtrailer) {
     codeput(&qq,"\n",1,encin);		/* trailer for non-multipart message */
     copy(&qq,"text/trailer",encin);
     codeput(&qq,"\n",1,encin);		/* no need to flush for plain/QP */
