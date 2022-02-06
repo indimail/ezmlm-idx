@@ -102,7 +102,7 @@ int main(int argc,char **argv)
   unsigned long hh = 4L;		/* default time 04:12 */
   unsigned long mm = 12L;
   const char *dow = "*";		/* day of week */
-  const char *qmail_inject = "/usr/sbin/qmail-inject ";
+  const char *qmail_inject = "/usr/bin/qmail-inject ";
   char strnum[FMT_ULONG];
   unsigned long uid,euid = 0;
 
