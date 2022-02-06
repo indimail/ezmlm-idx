@@ -20,7 +20,7 @@ Release 7.2.3 Start 18/07/2021
 10. ezmlm-make man page use conf-sysconfdir for ezmlmrc path
 11. gethdrln.c, gethdrln.h, getln2_idx.c gethdradded modified getln2()
 	function to fix issue with mime
-
+12. ezmlm-cron.c: use auto_prefix for qmail-inject path
 
 * Sat Jul 17 2021 23:15:14 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
 Release 7.2.2 Start 22/03/2017
