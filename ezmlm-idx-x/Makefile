@@ -54,8 +54,8 @@ libcompile auto_cron.c
 	./libcompile auto_cron.c
 
 auto_etc.c: \
-auto-str conf-etc
-	./auto-str auto_etc EZMLM_ETC <conf-etc >auto_etc.c
+auto-str conf-sysconfdir
+	echo "`head -n 1 conf-sysconfdir`/ezmlm"|./auto-str auto_etc EZMLM_ETC >auto_etc.c
 
 auto_etc.lo: \
 libcompile auto_etc.c
@@ -131,6 +131,10 @@ crypt.lib: \
 compile load trylib.c
 	( ( ./compile trylib.c && ./load trylib -lcrypt ) >/dev/null 2>&1 && echo -lcrypt || exit 0 ) >crypt.lib
 	rm -f trylib.o trylib
+
+getln2_idx.lo: \
+libcompile getln2_idx.c
+	./libcompile getln2_idx.c
 
 date2yyyymm.lo: \
 libcompile date2yyyymm.c yyyymm.h
@@ -685,21 +689,21 @@ INSTALL.cgi: INSTALL.cgi.in conf-cgidir
 	> INSTALL.cgi
 
 install: \
-it man installer conf-bin conf-etc conf-lang conf-lib BIN SBIN ETC LIB MAN
+it man installer conf-bin conf-sysconfdir conf-lang conf-lib BIN SBIN ETC LIB MAN
 	mkdir -p $(DESTDIR)"`head -n 1 conf-bin`"
 	mkdir -p $(DESTDIR)"`head -n 1 conf-sbin`"
-	mkdir -p $(DESTDIR)"`head -n 1 conf-etc`"
+	mkdir -p $(DESTDIR)"`head -n 1 conf-sysconfdir`/ezmlm"
 	mkdir -p $(DESTDIR)$(mandir)
 	mkdir -p $(DESTDIR)"`head -n 1 conf-lib`"
 	mkdir -p $(DESTDIR)"`head -n 1 conf-cgidir`"
 	mkdir -p $(DESTDIR)$(prefix)/share/docs/ezmlm-idx
 	./installer $(DESTDIR)"`head -n 1 conf-bin`" < BIN
 	./installer $(DESTDIR)"`head -n 1 conf-sbin`" < SBIN
-	./installer $(DESTDIR)"`head -n 1 conf-etc`" < ETC
+	./installer $(DESTDIR)"`head -n 1 conf-sysconfdir`/ezmlm" < ETC
 	./installer $(DESTDIR)$(mandir) < MAN
 	./installer $(DESTDIR)"`head -n 1 conf-lib`" < LIB
-	rm -f $(DESTDIR)"`head -n 1 conf-etc`"/default
-	ln -sf "`head -n 1 conf-lang`" $(DESTDIR)"`head -n 1 conf-etc`"/default
+	rm -f $(DESTDIR)"`head -n 1 conf-sysconfdir`/ezmlm"/default
+	ln -sf "`head -n 1 conf-lang`" $(DESTDIR)"`head -n 1 conf-sysconfdir`/ezmlm"/default
 	mv $(DESTDIR)"`head -n 1 conf-bin`"/ezmlm-cgi $(DESTDIR)"`head -n 1 conf-cgidir`"
 	chmod 4755 "$(DESTDIR)"`head -n 1 conf-cgidir`"/ezmlm-cgi"
 	cp README.mysql README.pgsql $(DESTDIR)$(prefix)/share/docs/ezmlm-idx
@@ -870,7 +874,7 @@ die_sender.lo die_usage.lo dmarc.lo dns_dfd.lo dns_domain.lo \
 dns_dtda.lo dns_ip.lo dns_ipq.lo dns_mx.lo dns_name.lo dns_nd.lo \
 dns_packet.lo dns_random.lo dns_rcip.lo dns_rcrw.lo dns_resolve.lo \
 dns_sortip.lo dns_transmit.lo dns_txt.lo encodeB.lo encodeQ.lo \
-getconf_ulong.lo gethdrln.lo getconfopt.lo \
+getconf_ulong.lo gethdrln.lo getln2_idx.lo getconfopt.lo \
 getconfopt_copy.lo getconfopt_cstr.lo getconfopt_cstr_flag.lo \
 getconfopt_flag.lo getconfopt_str.lo getconfopt_ulong.lo \
 getconfopt_ulong_flag.lo getconfopt_version.lo hdr_add.lo \
@@ -891,7 +895,7 @@ wrap_exitcode.lo wrap_fork.lo wrap_rename.lo wrap_stat.lo wrap_waitpid.lo
 	dns_dtda.lo dns_ip.lo dns_ipq.lo dns_mx.lo dns_name.lo dns_nd.lo \
 	dns_packet.lo dns_random.lo dns_rcip.lo dns_rcrw.lo dns_resolve.lo \
 	dns_sortip.lo dns_transmit.lo dns_txt.lo encodeB.lo encodeQ.lo \
-	getconf_ulong.lo gethdrln.lo getconfopt.lo \
+	getconf_ulong.lo gethdrln.lo getln2_idx.lo getconfopt.lo \
 	getconfopt_copy.lo getconfopt_cstr.lo getconfopt_cstr_flag.lo \
 	getconfopt_flag.lo getconfopt_str.lo getconfopt_ulong.lo \
 	getconfopt_ulong_flag.lo getconfopt_version.lo hdr_add.lo \
@@ -1184,3 +1188,4 @@ ezmlm-queue.1: ezmlm-queue.9 conf-sysconfdir conf-qmail
 	| sed s}SYSCONFDIR}"`head -1 conf-sysconfdir`"}g \
 	| sed s}QMAILHOME}"`head -1 conf-qmail`"}g \
 	> ezmlm-queue.1
+ezmlm-make.1: ezmlm-make.9 conf-sysconfdir
