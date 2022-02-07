@@ -263,11 +263,14 @@ do
 done
 
 %postun
-for i in QUEUE_BASE QUEUE_COUNT QUEUE_START
-do
-    %{__rm} -f %{rcdir}/global_vars/$i
-done
-rmdir --ignore-fail-on-non-empty %{rcdir}/global_vars 2>/dev/null || true
+# we are doing erase
+if [ $1 -eq 0 ] ; then
+  for i in QUEUE_BASE QUEUE_COUNT QUEUE_START
+  do
+      %{__rm} -f %{rcdir}/global_vars/$i
+  done
+  rmdir --ignore-fail-on-non-empty %{rcdir}/global_vars 2>/dev/null || true
+fi
 
 %clean
 /bin/rm -rf %{buildroot}
