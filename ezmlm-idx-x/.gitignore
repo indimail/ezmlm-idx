@@ -9,6 +9,8 @@ debian/ezmlm-idx.dsc
 debian/ezmlm-idx-Debian_11.dsc
 debian/ezmlm-idx-Debian_10.dsc
 debian/ezmlm-idx-Debian_9.0.dsc
+debian/ezmlm-idx.postinst
+debian/ezmlm-idx.postrm
 ezmlm-idx.spec
 ezmlm-idx.changes
 VERSION

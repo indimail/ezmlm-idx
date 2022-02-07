@@ -21,6 +21,8 @@ Release 7.2.3 Start 18/07/2021
 11. gethdrln.c, gethdrln.h, getln2_idx.c gethdradded modified getln2()
 	function to fix issue with mime
 12. ezmlm-cron.c: use auto_prefix for qmail-inject path
+- 07/02/2022
+13. postinst, postrm: Create/remove queue variables in global_var
 
 * Sat Jul 17 2021 23:15:14 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
 Release 7.2.2 Start 22/03/2017
