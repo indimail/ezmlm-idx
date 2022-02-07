@@ -39,10 +39,10 @@ Following programs use \fBezmlm-queue\fR(1).
 \fBezmlm-request\fR(1), \fBezmlm-send\fR(1), \fBezmlm-split\fR(1),
 \fBezmlm-store\fR(1), \fBezmlm-warn\fR(1)
 
-The above programs use \fISYSCONFDIR/ezmlm/global_vars\fR. These
-environment varables can be used for setting queue related environment
-variables required by qmail-multi, qmail-queue, qmail-qmqpc or any other
-downstream programs that get invoked by calling ezmlm-queue.
+The above programs use \fISYSCONFDIR/ezmlm/global_vars\fR. Environment
+variables in this directory can be used for setting queue related
+environment variables required by qmail-multi, qmail-queue, qmail-qmqpc or
+any other downstream programs that get invoked by calling ezmlm-queue.
 
 You can make the above program to use a different program instead of
 \fBezmlm-queue\fR(1), by setting \fBEZMLMQUEUE\fR or \fBQMAILQUEUE\fR
