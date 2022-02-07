@@ -152,13 +152,17 @@ will assume that the format is correct and
 create a ``List-ID:'' header by placing the contents after the
 text ``List-ID: ''. 
 
+\fBezmlm-get\fR uses \fBezmlm-queue\fR(1) to send messages.
+\fBezmlm-get\fR sets environment variables from RCDIR/global_vars. This
+can be used to set queue related variables for \fBezmlm-queue\fR
+
 If
 .I /etc/indimail/control\fB/qmqpservers
 exists,
 .B ezmlm-get will use
 .B qmail-qmqpc(1)
 to send messages. Server IP addresses listed one per line in
-.I /etc/indimail/control/\fB/qmqpservers
+.I /etc/indimail/control\fB/qmqpservers
 will be tried in order.
 
 If
@@ -483,7 +487,10 @@ multipart/mixed.
 ezmlm-make(1),
 ezmlm-manage(1),
 ezmlm-send(1),
+qmail-multi(1),
+qmail-queue(1),
+ezmlm-queue(1),
+qmail-qmqpc(1),
 ezmlm(5),
-qmail-command(8),
-qmail-qmqp(1)
+qmail-command(8)
 

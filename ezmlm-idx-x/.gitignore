@@ -258,3 +258,14 @@ PKGBUILD
 getln2_idx.lo
 ezmlm-make.1
 auto_prefix.lo
+ezmlm-clean.1
+ezmlm-dispatch.1
+ezmlm-get.1
+ezmlm-manage.1
+ezmlm-moderate.1
+ezmlm-reject.1
+ezmlm-request.1
+ezmlm-send.1
+ezmlm-split.1
+ezmlm-store.1
+ezmlm-warn.1

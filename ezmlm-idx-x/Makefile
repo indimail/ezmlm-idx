@@ -985,7 +985,10 @@ make-makeso warn-auto.sh systype
 	( cat warn-auto.sh; ./make-makeso "`cat systype`" ) > makeso
 	chmod 755 makeso
 
-man: ezmlm-queue.1 ezmlm-make.1 INSTALL.cgi
+man: ezmlm-queue.1 ezmlm-make.1 ezmlm-clean.1 ezmlm-dispatch.1 \
+ezmlm-get.1 ezmlm-manage.1 ezmlm-moderate.1 ezmlm-reject.1 \
+ezmlm-request.1 ezmlm-send.1 ezmlm-split.1 ezmlm-store.1 \
+ezmlm-warn.1 INSTALL.cgi
 
 messages.all: \
 lang/cs/text/messages lang/da/text/messages lang/de/text/messages \
@@ -1198,3 +1201,48 @@ ezmlm-make.1: ezmlm-make.9 conf-sysconfdir
 	cat ezmlm-make.9 \
 	| sed s}SYSCONFDIR}"`head -1 conf-sysconfdir`"}g \
 	> ezmlm-make.1
+ezmlm-clean.1: ezmlm-clean.9 conf-sysconfdir
+	cat ezmlm-clean.9 \
+	| sed s}RCDIR}"`head -1 conf-sysconfdir`/ezmlm"}g \
+	> ezmlm-clean.1
+ezmlm-dispatch.1: ezmlm-dispatch.9 conf-sysconfdir
+	cat ezmlm-dispatch.9 \
+	| sed s}RCDIR}"`head -1 conf-sysconfdir`/ezmlm"}g \
+	> ezmlm-dispatch.1
+ezmlm-get.1: ezmlm-get.9 conf-sysconfdir
+	cat ezmlm-get.9 \
+	| sed s}RCDIR}"`head -1 conf-sysconfdir`/ezmlm"}g \
+	> ezmlm-get.1
+ezmlm-manage.1: ezmlm-manage.9 conf-sysconfdir
+	cat ezmlm-manage.9 \
+	| sed s}RCDIR}"`head -1 conf-sysconfdir`/ezmlm"}g \
+	> ezmlm-manage.1
+ezmlm-moderate.1: ezmlm-moderate.9 conf-sysconfdir
+	cat ezmlm-moderate.9 \
+	| sed s}RCDIR}"`head -1 conf-sysconfdir`/ezmlm"}g \
+	> ezmlm-moderate.1
+ezmlm-reject.1: ezmlm-reject.9 conf-sysconfdir
+	cat ezmlm-reject.9 \
+	| sed s}RCDIR}"`head -1 conf-sysconfdir`/ezmlm"}g \
+	> ezmlm-reject.1
+ezmlm-request.1: ezmlm-request.9 conf-sysconfdir
+	cat ezmlm-request.9 \
+	| sed s}RCDIR}"`head -1 conf-sysconfdir`/ezmlm"}g \
+	> ezmlm-request.1
+ezmlm-send.1: ezmlm-send.9 conf-sysconfdir
+	cat ezmlm-send.9 \
+	| sed s}RCDIR}"`head -1 conf-sysconfdir`/ezmlm"}g \
+	> ezmlm-send.1
+ezmlm-split.1: ezmlm-split.9 conf-sysconfdir
+	cat ezmlm-split.9 \
+	| sed s}RCDIR}"`head -1 conf-sysconfdir`/ezmlm"}g \
+	> ezmlm-split.1
+ezmlm-store.1: ezmlm-store.9 conf-sysconfdir
+	cat ezmlm-store.9 \
+	| sed s}RCDIR}"`head -1 conf-sysconfdir`/ezmlm"}g \
+	> ezmlm-store.1
+ezmlm-warn.1: ezmlm-warn.9 conf-sysconfdir
+	cat ezmlm-warn.9 \
+	| sed s}RCDIR}"`head -1 conf-sysconfdir`/ezmlm"}g \
+	> ezmlm-warn.1
+

@@ -78,13 +78,17 @@ outgoing message.  If this file is empty or not present, a value of
 .I 0
 is presumed, meaning that only the header is copied.
 
+\fBezmlm-reject\fR uses \fBezmlm-queue\fR(1) to send messages.
+\fBezmlm-reject\fR sets environment variables from RCDIR/global_vars. This
+can be used to set queue related variables for \fBezmlm-queue\fR
+
 If
 .I /etc/indimail/control\fB/qmqpservers
 exists,
 .B ezmlm-reject will use
 .B qmail-qmqpc(1)
 to send messages. Server IP addresses listed one per line in
-.I /etc/indimail/control/\fB/qmqpservers
+.I /etc/indimail/control\fB/qmqpservers
 will be tried in order.
 
 .SH OPTIONS
@@ -197,5 +201,9 @@ and
 .I mimereject
 will be applied to the outer MIME layer only.
 .SH "SEE ALSO"
+qmail-multi(1),
+qmail-queue(1),
+ezmlm-queue(1),
+qmail-qmqpc(1),
 ezmlm-send(1),
 qmail-command(8)

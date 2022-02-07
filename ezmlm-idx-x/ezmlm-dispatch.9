@@ -49,6 +49,10 @@ used to have
 .B ezmlm-dispatch
 control the operations of a single list.
 
+\fBezmlm-dispatch\fR uses \fBezmlm-queue\fR(1) to send messages.
+\fBezmlm-dispatch\fR sets environment variables from RCDIR/global_vars. This
+can be used to set queue related variables for \fBezmlm-queue\fR
+
 .I /etc/indimail/control\fB/qmqpservers
 exists,
 .B ezmlm-dispatch will use
@@ -72,8 +76,16 @@ version information.
 .B ezmlm-dispatch
 exits with the first non-zero exit code from any of the programs it
 executes, or zero otherwise.
+
 .SH SEE ALSO
-ezmlm-make(1), ezmlm-manage(1), ezmlm-send(1)
+ezmlm-make(1),
+ezmlm-manage(1),
+qmail-multi(1),
+qmail-queue(1),
+ezmlm-queue(1),
+qmail-qmqpc(1),
+ezmlm-send(1)
+
 .SH CAVEATS
 Unlike
 .BR qmail-local ,

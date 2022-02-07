@@ -65,6 +65,10 @@ and
 .I dir\fB/mod/rejected/
 are silently removed.
 
+\fBezmlm-clean\fR uses \fBezmlm-queue\fR(1) to send messages.
+\fBezmlm-clean\fR sets environment variables from RCDIR/global_vars. This
+can be used to set queue related variables for \fBezmlm-queue\fR
+
 .B ezmlm-clean
 logs errors to the mail log.
 Re-delivery should be avoided by suffixing any
@@ -94,7 +98,7 @@ exists,
 .B ezmlm-clean will use
 .B qmail-qmqpc(1)
 to send messages. Server IP addresses listed one per line in
-.I /etc/indimail/control/\fB/qmqpservers
+.I /etc/indimail/control\fB/qmqpservers
 will be tried in order.
 
 .SH OPTIONS
@@ -137,4 +141,8 @@ ezmlm-confirm(1),
 ezmlm-make(1),
 ezmlm-moderate(1),
 ezmlm-store(1),
+qmail-qmqpc(1),
+qmail-multi(1),
+qmail-queue(1),
+ezmlm-queue(1),
 ezmlm(5)

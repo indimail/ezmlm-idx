@@ -65,6 +65,10 @@ outgoing message.  If this file is empty or not present, a value of
 .I 0
 is presumed, meaning that only the header is copied.
 
+\fBezmlm-request\fR uses \fBezmlm-queue\fR(1) to send messages.
+\fBezmlm-request\fR sets environment variables from RCDIR/global_vars. This
+can be used to set queue related variables for \fBezmlm-queue\fR
+
 If
 .I /etc/indimail/control\fB/qmqpservers
 exists,
@@ -72,7 +76,7 @@ exists,
 will use
 .B qmail-qmqpc(1)
 to send messages. Server IP addresses listed one per line in
-.I /etc/indimail/control/\fB/qmqpservers
+.I /etc/indimail/control\fB/qmqpservers
 will be tried in order.
 
 .SH OPTIONS
@@ -231,5 +235,9 @@ will fail if this first part or the entire message is base64 encoded.
 .SH "SEE ALSO"
 ezmlm-get(1),
 ezmlm-manage(1),
+qmail-multi(1),
+qmail-queue(1),
+ezmlm-queue(1),
+qmail-qmqpc(1),
 ezmlm-send(1),
 ezmlm(5)

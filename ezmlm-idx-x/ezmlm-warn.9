@@ -92,13 +92,17 @@ exists,
 .B ezmlm-warn
 exits without taking any action.
 
+\fBezmlm-warn\fR uses \fBezmlm-queue\fR(1) to send messages.
+\fBezmlm-warn\fR sets environment variables from RCDIR/global_vars. This
+can be used to set queue related variables for \fBezmlm-queue\fR
+
 If
 .I /etc/indimail/control\fB/qmqpservers
 exists,
 .B ezmlm-warn will use
 .B qmail-qmqpc(1)
 to send messages. Server IP addresses listed one per line in
-.I /etc/indimail/control/\fB/qmqpservers
+.I /etc/indimail/control\fB/qmqpservers
 will be tried in order.
 
 .SH OPTIONS
@@ -139,4 +143,8 @@ out bouncing addresses from a (low quality) address list.
 .SH "SEE ALSO"
 ezmlm-make(1),
 ezmlm-return(1),
+qmail-multi(1),
+qmail-queue(1),
+ezmlm-queue(1),
+qmail-qmqpc(1),
 ezmlm(5)
