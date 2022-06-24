@@ -50,6 +50,7 @@ dummy.tar.gz: README
 	tar cf - README |gzip > $@
 
 debian.tar.gz: copyright rules control changelog compat \
-ezmlm-idx.postinst ezmlm-idx.postrm
-	tar cf - copyright rules control changelog compat \
-		ezmlm-idx.postinst ezmlm-idx.postrm | gzip > $@
+ezmlm-idx.postinst ezmlm-idx.postrm source/format Makefile
+	cd .. && tar cf - debian/copyright debian/rules debian/control \
+	debian/changelog debian/compat debian/ezmlm-idx.postinst debian/source \
+	debian/ezmlm-idx.postrm | gzip > debian/$@
