@@ -1,6 +1,6 @@
 [![Matrix](https://img.shields.io/matrix/indimail:matrix.org.svg)](https://matrix.to/#/#indimail:matrix.org)
 
-**Current Complation Status**
+**Current Compilation Status**
 
 [![ezmlm-idx Ubuntu, Mac OSX CI](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-c-cpp.yml/badge.svg)](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-c-cpp.yml)
 [![ezmlm-idx FreeBSD CI](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-freebsd.yml/badge.svg)](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-freebsd.yml)
