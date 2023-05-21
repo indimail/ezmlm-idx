@@ -21,14 +21,13 @@
 %global rcdir        %{sysconfdir}/ezmlm
 %global ezmlmlibdir  %{_prefix}/lib/indimail/ezmlm
 %if %build_on_obs == 1
-%global packager Manvendra Bhangui <manvendra@indimail.org>
+%global packager     Manvendra Bhangui <@email@>
 %endif
 
 Name: ezmlm-idx
 Version: @version@
 Release: @release@%{?dist}
 Summary: Easy Mailing List Manager + IDX for indimail-mta
-Buildroot: %{_tmppath}/%{name}-%{version}-root
 %if %build_on_obs == 1
 License: GPL-2.0+
 %else
@@ -211,8 +210,6 @@ echo "PACKAGE_BUGREPORT=\"'@email@'\""
 #) > INSTALL.cgi
 
 %install
-/bin/rm -rf %buildroot
-
 %{__mkdir_p} %{buildroot}%{_bindir} 
 %{__mkdir_p} %{buildroot}%{_sbindir}
 %{__mkdir_p} %{buildroot}%{ezmlmlibdir}
@@ -271,9 +268,6 @@ if [ $1 -eq 0 ] ; then
   done
   rmdir --ignore-fail-on-non-empty %{rcdir}/global_vars 2>/dev/null || true
 fi
-
-%clean
-/bin/rm -rf %{buildroot}
 
 %files -f man-list
 
