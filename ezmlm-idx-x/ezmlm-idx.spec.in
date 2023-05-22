@@ -34,7 +34,13 @@ License: GPL-2.0+
 License: GPLv2
 %endif
 Group: Utilities/System
-BuildRequires: mysql-devel postgresql-devel sqlite-devel libqmail-devel
+%if %{defined mgaversion}
+BuildRequires: lib64sqlite3-devel
+BuildArch: x86_64
+%else
+BuildRequires: sqlite-devel
+%endif
+BuildRequires: mysql-devel postgresql-devel libqmail-devel
 BuildRequires: rpm >= 3.0.2 gcc gcc-c++ make
 BuildRequires: sed findutils diffutils gzip coreutils grep
 BuildRequires: glibc glibc-devel binutils
@@ -228,11 +234,6 @@ echo "PACKAGE_BUGREPORT=\"'@email@'\""
 %{__mv} %{name}-release %{buildroot}%{rcdir}
 ln -s `head -n 1 conf-lang` %{buildroot}/%{rcdir}/default
 
-# Compress the man pages
-find %{buildroot}%{mandir} -type f -exec gzip -q {} \;
-# create file list for man pages
-find %{buildroot}/%{mandir} -type f | sed -e "s}%{buildroot}}}" -e "s}$}*}" > man-list
-
 # copy documents
 for i in BLURB CHANGES FAQ README README.mysql README.pgsql README.std \
   THANKS TODO UPGRADE doc/ChangeLog INSTALL.cgi ezcgirc ezcgi.css LICENSE \
@@ -269,7 +270,7 @@ if [ $1 -eq 0 ] ; then
   rmdir --ignore-fail-on-non-empty %{rcdir}/global_vars 2>/dev/null || true
 fi
 
-%files -f man-list
+%files
 
 %defattr(-,root,root)
 
@@ -290,6 +291,43 @@ fi
 %{_bindir}/*
 %{_sbindir}/*
 %{_prefix}/lib/indimail/ezmlm/sub-std.so
+%{mandir}/man1/ezmlm-accept.1.*
+%{mandir}/man1/ezmlm-archive.1.*
+%{mandir}/man1/ezmlm-cgi.1.*
+%{mandir}/man1/ezmlm-check.1.*
+%{mandir}/man1/ezmlm-checksub.1.*
+%{mandir}/man1/ezmlm-clean.1.*
+%{mandir}/man1/ezmlm-confirm.1.*
+%{mandir}/man1/ezmlm-cron.1.*
+%{mandir}/man1/ezmlm-dispatch.1.*
+%{mandir}/man1/ezmlm-gate.1.*
+%{mandir}/man1/ezmlm-get.1.*
+%{mandir}/man1/ezmlm-glconf.1.*
+%{mandir}/man1/ezmlm-idx.1.*
+%{mandir}/man1/ezmlm-import.1.*
+%{mandir}/man1/ezmlm-issubn.1.*
+%{mandir}/man1/ezmlm-limit.1.*
+%{mandir}/man1/ezmlm-list.1.*
+%{mandir}/man1/ezmlm-make.1.*
+%{mandir}/man1/ezmlm-manage.1.*
+%{mandir}/man1/ezmlm-moderate.1.*
+%{mandir}/man1/ezmlm-reject.1.*
+%{mandir}/man1/ezmlm-request.1.*
+%{mandir}/man1/ezmlm-return.1.*
+%{mandir}/man1/ezmlm-rmtab.1.*
+%{mandir}/man1/ezmlm-send.1.*
+%{mandir}/man1/ezmlm-split.1.*
+%{mandir}/man1/ezmlm-store.1.*
+%{mandir}/man1/ezmlm-sub.1.*
+%{mandir}/man1/ezmlm-tstdig.1.*
+%{mandir}/man1/ezmlm-unsub.1.*
+%{mandir}/man1/ezmlm-warn.1.*
+%{mandir}/man1/ezmlm-weed.1.*
+%{mandir}/man1/ezmlm-queue.1.*
+%{mandir}/man5/ezmlm.5.*
+%{mandir}/man5/ezmlmglrc.5.*
+%{mandir}/man5/ezmlmrc.5.*
+%{mandir}/man5/ezmlmsubrc.5.*
 
 %files cgi
 %defattr(-,root,root)
