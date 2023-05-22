@@ -40,7 +40,12 @@ BuildArch: x86_64
 %else
 BuildRequires: sqlite-devel
 %endif
-BuildRequires: mysql-devel postgresql-devel libqmail-devel
+%if %{defined amzn}
+BuildRequires: mariadb-connector-c-devel
+%else
+BuildRequires: mysql-devel
+%endif
+BuildRequires: postgresql-devel libqmail-devel
 BuildRequires: rpm >= 3.0.2 gcc gcc-c++ make
 BuildRequires: sed findutils diffutils gzip coreutils grep
 BuildRequires: glibc glibc-devel binutils
