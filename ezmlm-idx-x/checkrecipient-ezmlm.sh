@@ -1,5 +1,5 @@
 #
-# This is a Pluggable Address Module for qmail-smtpd
+# This is a Pluggable Address Verification Module for qmail-smtpd
 # recipients extension
 # This module reads an address from descriptor 3
 # if addr is an address configured in ezmlm/ezmlm-idx
