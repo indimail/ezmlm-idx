@@ -171,6 +171,7 @@ www archiver for %name.
 
 %build 
 echo %{sysconfdir}                 >conf-sysconfdir
+echo %{_libexecdir}                >conf-libexec
 echo %{rcdir}                      >conf-etc
 echo %{_prefix}                    >conf-prefix
 echo %{_bindir}                    >conf-bin
@@ -224,18 +225,20 @@ echo "PACKAGE_BUGREPORT=\"'@email@'\""
 %{__mkdir_p} %{buildroot}%{_bindir} 
 %{__mkdir_p} %{buildroot}%{_sbindir}
 %{__mkdir_p} %{buildroot}%{ezmlmlibdir}
+%{__mkdir_p} %{buildroot}%{_libexecdir}/ezmlm
 %{__mkdir_p} %{buildroot}%{rcdir}
 %{__mkdir_p} %{buildroot}%{rcdir}/global_vars
 %{__mkdir_p} %{buildroot}%{ezcgidir}
 %{__mkdir_p} %{buildroot}%{ezdocdir}
 %{__mkdir_p} %{buildroot}%{mandir}
 
-./installer %buildroot/%{rcdir}                    < ETC
-./installer %buildroot/%{_bindir}                  < BIN
-./installer %buildroot/%{_sbindir}                 < SBIN
-./installer %buildroot/%{mandir}                   < MAN
-./installer %buildroot/%_prefix/lib/indimail/ezmlm < LIB
-%{__mv} %{buildroot}/%{_bindir}/ezmlm-cgi   %{buildroot}/%{ezcgidir}/ezmlm-cgi
+./installer %buildroot%{rcdir}                    < ETC
+./installer %buildroot%{_bindir}                  < BIN
+./installer %buildroot%{_sbindir}                 < SBIN
+./installer %buildroot%{mandir}                   < MAN
+./installer %buildroot%_prefix/lib/indimail/ezmlm < LIB
+./installer %buildroot%_libexecdir/ezmlm          < LIBEXEC
+%{__mv} %{buildroot}%{_bindir}/ezmlm-cgi   %{buildroot}%{ezcgidir}/ezmlm-cgi
 %{__mv} %{name}-release %{buildroot}%{rcdir}
 ln -s `head -n 1 conf-lang` %{buildroot}/%{rcdir}/default
 
@@ -295,6 +298,7 @@ fi
 
 %{_bindir}/*
 %{_sbindir}/*
+%{_libexecdir}/ezmlm/*
 %{_prefix}/lib/indimail/ezmlm/sub-std.so
 %{mandir}/man1/ezmlm-accept.1.*
 %{mandir}/man1/ezmlm-archive.1.*

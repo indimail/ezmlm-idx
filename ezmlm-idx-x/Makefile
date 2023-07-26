@@ -257,6 +257,15 @@ warn-auto.sh ezmlm-accept.sh
 	cat warn-auto.sh ezmlm-accept.sh > ezmlm-accept
 	chmod 755 ezmlm-accept
 
+checkrecipient-ezmlm: warn-auto.sh checkrecipient-ezmlm.sh \
+conf-prefix conf-sysconfdir conf-libexec
+	cat warn-auto.sh checkrecipient-ezmlm.sh \
+	| sed s}PREFIX}"`head -1 conf-prefix`"}g \
+	| sed s}SYSCONFDIR}"`head -1 conf-sysconfdir`"}g \
+	| sed s}LIBEXEC}"`head -1 conf-libexec`"}g \
+	> checkrecipient-ezmlm
+	chmod 755 checkrecipient-ezmlm
+
 ezmlm-archive: \
 load ezmlm-archive.o libezmlm.a
 	./load ezmlm-archive -lezmlm -lqmail
@@ -695,10 +704,11 @@ INSTALL.cgi: INSTALL.cgi.in conf-cgidir
 	> INSTALL.cgi
 
 install: \
-it man installer conf-bin conf-sysconfdir conf-lang conf-lib BIN SBIN ETC LIB MAN
+it man installer conf-bin conf-sysconfdir conf-lang conf-lib BIN SBIN ETC LIBEXEC LIB MAN
 	mkdir -p $(DESTDIR)"`head -n 1 conf-bin`"
 	mkdir -p $(DESTDIR)"`head -n 1 conf-sbin`"
 	mkdir -p $(DESTDIR)"`head -n 1 conf-sysconfdir`/ezmlm"
+	mkdir -p $(DESTDIR)"`head -n 1 conf-libexec`/ezmlm"
 	mkdir -p $(DESTDIR)$(mandir)
 	mkdir -p $(DESTDIR)"`head -n 1 conf-lib`"
 	mkdir -p $(DESTDIR)"`head -n 1 conf-cgidir`"
@@ -706,6 +716,7 @@ it man installer conf-bin conf-sysconfdir conf-lang conf-lib BIN SBIN ETC LIB MA
 	./installer $(DESTDIR)"`head -n 1 conf-bin`" < BIN
 	./installer $(DESTDIR)"`head -n 1 conf-sbin`" < SBIN
 	./installer $(DESTDIR)"`head -n 1 conf-sysconfdir`/ezmlm" < ETC
+	./installer $(DESTDIR)"`head -n 1 conf-libexec`/ezmlm" < LIBEXEC
 	./installer $(DESTDIR)$(mandir) < MAN
 	./installer $(DESTDIR)"`head -n 1 conf-lib`" < LIB
 	rm -f $(DESTDIR)"`head -n 1 conf-sysconfdir`/ezmlm"/default
@@ -742,7 +753,7 @@ ezmlm-cron ezmlm-dispatch ezmlm-gate ezmlm-get ezmlm-glconf ezmlm-idx ezmlm-impo
 ezmlm-limit ezmlm-list ezmlm-make ezmlm-manage ezmlm-moderate ezmlm-reject ezmlm-request ezmlm-return \
 ezmlm-rmtab ezmlm-send ezmlm-split ezmlm-store ezmlm-sub ezmlm-tstdig ezmlm-unsub ezmlm-warn \
 ezmlm-queue ezmlm-weed ezmlm-test sub-std.so ezmlmrc.all messages.all ezmlm-idx.spec ezmlm-idx.changes \
-test-getconfopt PKGBUILD
+checkrecipient-ezmlm test-getconfopt PKGBUILD
 
 lang/ch_GB/ezmlmrc: \
 makelang ezmlmrc

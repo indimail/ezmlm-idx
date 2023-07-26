@@ -113,6 +113,7 @@ const char *messages_getn(const char *msg,const char *params[10])
 	  xmsg = msg;
 
   if (!stralloc_copys(&data,xmsg)) die_nomem();
+  if (!stralloc_catb(&data, ": ", 2)) die_nomem();
   copy_xlate(&xdata,&data,params,'H');
   if (!stralloc_0(&xdata)) die_nomem();
   return xdata.s;

@@ -24,6 +24,11 @@ Release 7.2.3 Start 18/07/2021
 - 07/02/2022
 13. postinst, postrm: Create/remove queue variables in global_var
 14. updated man pages for global_vars usage
+- 24/07/2023
+15. added checkrecipient-ezmlm Pluggable Address Module for qmail-smtpd
+    recipient extension
+- 26/07/2023
+16. messages.c: added white space separtor for error message string
 
 * Sat Jul 17 2021 23:15:14 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
 Release 7.2.2 Start 22/03/2017

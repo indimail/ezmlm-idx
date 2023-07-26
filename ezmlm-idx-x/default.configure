@@ -11,6 +11,7 @@ case "$SYSTEM" in
 	sed -i -e '1 s{^.*${/usr/local/etc/indimail/ezmlm{' conf-etc
 	sed -i -e '1 s{^.*${/usr/local/lib/indimail/ezmlm{' conf-lib
 	sed -i -e '1 s{^.*${/usr/local{'                    conf-prefix
+	sed -i -e '1 s{^.*${/usr/local/libexec{'            conf-libexec
 	sed -i -e '1 s{^.*${/var/indimail{'                 conf-qmail
 	sed -i -e '1 s{^.*${/usr/local/etc/indimail{'       conf-sysconfdir
 	;;
@@ -21,6 +22,7 @@ case "$SYSTEM" in
 	sed -i -e '1 s{^.*${/etc/indimail/ezmlm{'           conf-etc
 	sed -i -e '1 s{^.*${/usr/lib/indimail/ezmlm{'       conf-lib
 	sed -i -e '1 s{^.*${/usr{'                          conf-prefix
+	sed -i -e '1 s{^.*${/usr/libexec{'                  conf-libexec
 	sed -i -e '1 s{^.*${/var/indimail{'                 conf-qmail
 	sed -i -e '1 s{^.*${/etc/indimail{'                 conf-sysconfdir
 	;;
