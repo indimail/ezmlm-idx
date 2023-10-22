@@ -11,6 +11,29 @@
 # or
 # user|LIBEXEC/ezmlm/checkrecipient-ezmlm
 #
+
+check_addr()
+{
+	# user=$1
+	# dir=$2
+
+	# check if ezmlm list exists
+	[ -n "$2" -a -d "$2/$1" ] && return 0
+	i=1
+	found=0
+	cut_str=$i
+	while true
+	do
+		str=$(echo $1 | cut -d- -f"$cut_str")
+		[ "$str" = "$1" ] && break
+		# check if ezmlm list exists
+		[ -d $2/$str ] && return 0
+		i=$(expr $i + 1)
+		cut_str=$cut_str",$i"
+	done
+	return 1
+}
+
 exec 0<&3
 read addr
 
@@ -23,10 +46,11 @@ else
 	# check if this is one of our domains
 	grep $domain SYSCONFDIR/control/rcpthosts >/dev/null 2>&1
 	[ $? -ne 0 ] && exit 1
-	user=$(echo $addr | cut -d@ -f1)
+	user=$(echo $addr | cut -d@ -f1 | sed -e 's{-accept-.*{{' -e 's{-reject-.*{{')
 	# get the domain directory
 	dir=$(grep "+""$domain""-" SYSCONFDIR/users/assign | awk -F: '{print $5}' 2>/dev/null)
 fi
 
 # check if ezmlm list exists
-[ -n "$dir" -a -d "$dir/$user" ] && exit 0 || exit 1
+check_addr $user $dir
+exit $?
