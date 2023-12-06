@@ -29,6 +29,8 @@ Release 7.2.3 Start 18/07/2021
     recipient extension
 - 26/07/2023
 16. messages.c: added white space separtor for error message string
+- 22/10/2023
+17. checkrecipient-ezmlm: fix for ezmlm list addresses
 
 * Sat Jul 17 2021 23:15:14 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
 Release 7.2.2 Start 22/03/2017
