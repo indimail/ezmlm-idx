@@ -185,8 +185,6 @@ For this forked version of ezmlm-idx, you can contact on IRC or mailing list
 * [Matrix Invite Link #indimail:matrix.org](https://matrix.to/#/#indimail:matrix.org)
 * IndiMail has an [IRC channel on libera](https://libera.chat/) #indimail-mta
 
-The matrix room and libera.chat channel have been bridged so joining either one should be sufficient.
-
 ## Mailing list
 
 There are four Mailing Lists for IndiMail
