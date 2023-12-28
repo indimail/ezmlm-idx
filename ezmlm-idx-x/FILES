@@ -38,7 +38,6 @@ conf-bin
 conf-cc
 conf-cclo
 conf-cron
-conf-etc
 config.c
 config.h
 conf-lang
