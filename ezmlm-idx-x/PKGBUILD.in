@@ -26,7 +26,6 @@ _ezmlmlibdir=${_prefix}/lib/indimail/ezmlm
 build() {
   cd $srcdir/$pkgname-${pkgver}
   echo ${_sysconfdir}                >conf-sysconfdir
-  echo ${_rcdir}                     >conf-etc
   echo ${_prefix}                    >conf-prefix
   echo ${_prefix}/bin                >conf-bin
   echo ${_prefix}/bin                >conf-sbin

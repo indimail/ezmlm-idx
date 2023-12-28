@@ -172,7 +172,6 @@ www archiver for %name.
 %build 
 echo %{sysconfdir}                 >conf-sysconfdir
 echo %{_libexecdir}                >conf-libexec
-echo %{rcdir}                      >conf-etc
 echo %{_prefix}                    >conf-prefix
 echo %{_bindir}                    >conf-bin
 echo %{_sbindir}                   >conf-sbin
