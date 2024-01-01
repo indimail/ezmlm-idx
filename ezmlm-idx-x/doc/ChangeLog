@@ -1,7 +1,5 @@
-* Sun Jul 18 2021 00:06:02 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
-Release 7.2.3 Start 18/07/2021
-======= Release Highlights ================================================
-===========================================================================
+* Tue Jan 02 2024 00:09:59 +0530 Manvendra Bhangui <ezmlm-idx@indimail.org> 7.2.3-1.1%{?dist}
+Release 7.2.3 Start 18/07/2021 End 02/01/2024
 - 30/08/2021
 01. die.h, cgi.h, die_badaddr.c, die_badformat.c, die_dow.c, die_nomem.c,
     die_sender.c, die_usage.c, ezmlm-cgi.c: use __attribute__((noreturn))
