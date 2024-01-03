@@ -2,19 +2,19 @@
 
 **Current Compilation Status**
 
-[![ezmlm-idx Ubuntu, Mac OSX CI](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-c-cpp.yml/badge.svg)](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-c-cpp.yml)
-[![ezmlm-idx FreeBSD CI](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-freebsd.yml/badge.svg)](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-freebsd.yml)
+[![ezmlm-idx Ubuntu, Mac OSX CI](https://github.com/indimail/ezmlm-idx/actions/workflows/ezmlm-idx-c-cpp.yml/badge.svg)](https://github.com/indimail/ezmlm-idx/actions/workflows/ezmlm-idx-c-cpp.yml)
+[![ezmlm-idx FreeBSD CI](https://github.com/indimail/ezmlm-idx/actions/workflows/ezmlm-idx-freebsd.yml/badge.svg)](https://github.com/indimail/ezmlm-idx/actions/workflows/ezmlm-idx-freebsd.yml)
 
 # ezmlm-idx
 
-Easy Mailing List Manager for [indimail-mta](https://github.com/mbhangui/indimail-mta), [qmail](https://cr.yp.to/qmail.html)
+Easy Mailing List Manager for [indimail-mta](https://github.com/indimail/indimail-mta), [qmail](https://cr.yp.to/qmail.html)
 
 This has been forked from [ezmlm-idx Project Homepage](https://untroubled.org/ezmlm/) to adapt it to work with indimail-mta's multi-queue architecture. The four major changes that this version has made after the fork are
 
 1. Ability to set environment variables in /etc/indimail/ezmlm/global\_vars. You can create any file in this directory. The file name becomes the environment variable and the file content becomes the value of environment variable.
-2. New queue program ezmlm-queue which can use qmail-qmqpc to use [QMQP](http://cr.yp.to/proto/qmqp.html) protocol, [qmail-multi](https://github.com/mbhangui/indimail-virtualdomains/wiki/IndiMail#qmail-multi) to queue mails to indimail's multi-queue instance or [qmail-queue](https://github.com/mbhangui/indimail-virtualdomains/wiki/IndiMail#qmail-queue) to queue mails to any [qmta](https://github.com/mbhangui/indimail-virtualdomains/wiki/IndiMail#qmta---using-a-minimal-standalone-qmta-send-mta) / [qmail](http://cr.yp.to/qmail.html) / [netqmail](http://netqmail.org/) / [notqmail](https://github.com/notqmail/notqmail) instance.
-3. Configure mailing lists using indimail's web administration tool [iwebadmin](https://github.com/mbhangui/indimail-virtualdomains/wiki/IndiMail#iwebadmin--web-administration-of-indimail).
-4. Use all common functions from [libqmail](https://github.com/mbhangui/libqmail) library.
+2. New queue program ezmlm-queue which can use qmail-qmqpc to use [QMQP](http://cr.yp.to/proto/qmqp.html) protocol, [qmail-multi](https://github.com/indimail/indimail-virtualdomains/wiki/IndiMail#qmail-multi) to queue mails to indimail's multi-queue instance or [qmail-queue](https://github.com/indimail/indimail-virtualdomains/wiki/IndiMail#qmail-queue) to queue mails to any [qmta](https://github.com/indimail/indimail-virtualdomains/wiki/IndiMail#qmta---using-a-minimal-standalone-qmta-send-mta) / [qmail](http://cr.yp.to/qmail.html) / [netqmail](http://netqmail.org/) / [notqmail](https://github.com/notqmail/notqmail) instance.
+3. Configure mailing lists using indimail's web administration tool [iwebadmin](https://github.com/indimail/indimail-virtualdomains/wiki/IndiMail#iwebadmin--web-administration-of-indimail).
+4. Use all common functions from [libqmail](https://github.com/indimail/libqmail) library.
 
 ezmlm is an easy-to-use, high-speed mailing list manager for qmail.
 
@@ -30,7 +30,7 @@ ezmlm is easy for users to control. Joe can edit ~/SOS/text/\* to change any of 
 
 ezmlm uses `Delivered-To` header to stop forwarding loops, Mailing-List to protect other mailing lists against false subscription requests, and real cryptographic cookies to protect normal users against false subscription requests. ezmlm can also be used for a sublist, redistributing messages from another list.
 
-ezmlm is reliable, even in the face of system crashes. It writes each ew subscription and each new message safely to disk before it reports success to [indimail-mta](https://github.com/mbhangui/indimail-mta).
+ezmlm is reliable, even in the face of system crashes. It writes each ew subscription and each new message safely to disk before it reports success to [indimail-mta](https://github.com/indimail/indimail-mta).
 
 ezmlm doesn't mind huge mailing lists. Lists don't even have to fit into emory. ezmlm hashes the subscription list into a set of independent files so that it can handle subscription requests quickly. ezmlm uses mail for blazingly fast parallel SMTP deliveries.
 
@@ -44,7 +44,7 @@ ezmlm-idx uses functions from libqmail library. libqmail uses GNU autotools. You
 
 ```
 $ cd /usr/local/src
-$ git clone https://github.com/mbhangui/libqmail.git
+$ git clone https://github.com/indimail/libqmail.git
 $ cd /usr/local/src/libqmail
 $ ./default.configure
 $ make
@@ -86,7 +86,7 @@ Alpine Linux
 
 ```
 $ cd /usr/local/src
-$ git clone https://github.com/mbhangui/ezmlm-idx.git
+$ git clone https://github.com/indimail/ezmlm-idx.git
 $ cd /usr/local/src/ezmlm-idx/ezmlm-idx-x
 $ ./default.configure
 $ make
@@ -97,7 +97,7 @@ $ sudo make install-strip
 
 **[Build Status on](https://build.opensuse.org/project/monitor/home:mbhangui) [Open Build Service](https://build.opensuse.org/project/show/home:mbhangui)**
 
-[![ezmlm-idx obs trigger](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-obs.yml/badge.svg)](https://github.com/mbhangui/ezmlm-idx/actions/workflows/ezmlm-idx-obs.yml)
+[![ezmlm-idx obs trigger](https://github.com/indimail/ezmlm-idx/actions/workflows/ezmlm-idx-obs.yml/badge.svg)](https://github.com/indimail/ezmlm-idx/actions/workflows/ezmlm-idx-obs.yml)
 
 [![ezmlm-idx](https://build.opensuse.org/projects/home:mbhangui/packages/ezmlm-idx/badge.svg?type=percent)](https://build.opensuse.org/package/show/home:mbhangui/ezmlm-idx)
 
@@ -188,12 +188,10 @@ For this forked version of ezmlm-idx, you can contact on IRC or mailing list
 
 ## Mailing list
 
-There are four Mailing Lists for IndiMail
+There are two Mailing Lists for IndiMail
 
 1. indimail-support  - You can subscribe for Support [here](https://lists.sourceforge.net/lists/listinfo/indimail-support). You can mail [indimail-support](mailto:indimail-support@lists.sourceforge.net) for support Old discussions can be seen [here](https://sourceforge.net/mailarchive/forum.php?forum_name=indimail-support)
-2. indimail-devel - You can subscribe [here](https://lists.sourceforge.net/lists/listinfo/indimail-devel). You can mail [indimail-devel](mailto:indimail-devel@lists.sourceforge.net) for development activities. Old discussions can be seen [here](https://sourceforge.net/mailarchive/forum.php?forum_name=indimail-devel)
-3. indimail-announce - This is only meant for announcement of New Releases or patches. You can subscribe [here](http://groups.google.com/group/indimail)
-4. Archive at [Google Groups](http://groups.google.com/group/indimail). This groups acts as a remote archive for indimail-support and indimail-devel.
+2. Archive at [Google Groups](http://groups.google.com/group/indimail). This groups acts as a remote archive for indimail-support and indimail-devel.
 
 There is also a [Project Tracker](http://sourceforge.net/tracker/?group_id=230686) for IndiMail (Bugs, Feature Requests, Patches, Support Requests)
 
