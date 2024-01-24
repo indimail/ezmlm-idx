@@ -10,8 +10,8 @@ For this to work you need few things to be installed on your system. Check your 
 
 ```
 $ cd /usr/local/src
-$ git clone https://github.com/mbhangui/libqmail.git
-$ git clone https://github.com/mbhangui/ezmlm-idx.git
+$ git clone https://github.com/indimail/libqmail.git
+$ git clone https://github.com/indimail/ezmlm-idx.git
 ```
 
 ## Build libqmail package
