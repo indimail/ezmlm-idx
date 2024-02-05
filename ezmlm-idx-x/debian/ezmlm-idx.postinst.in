@@ -23,11 +23,21 @@ esac
 
 #DEBHELPER#
 mkdir -p ${sysconfdir}/ezmlm/global_vars
-for i in QUEUE_BASE QUEUE_COUNT QUEUE_START
-do
-  if [ ! -f ${sysconfdir}/ezmlm/global_vars/$i -a ! -L ${sysconfdir}/ezmlm/global_vars/$i ] ; then
-    ln -srf ${sysconfdir}/control/defaultqueue/$i ${sysconfdir}/ezmlm/global_vars/$i
+if [ -d ${sysconfdir}/control/global_vars ] ; then
+  if [ ! -L ${sysconfdir}/ezmlm/global_vars/.envdir -a ! -f ${sysconfdir}/ezmlm/global_vars/.envdir ] ; then
+    ln -srf ${sysconfdir}/control/global_vars ${sysconfdir}/ezmlm/global_vars/.envdir
   fi
-done
+  for i in QUEUE_BASE QUEUE_COUNT QUEUE_START
+  do
+    /bin/rm -f ${sysconfdir}/ezmlm/global_vars/$i
+  done
+else
+  for i in QUEUE_BASE QUEUE_COUNT QUEUE_START
+  do
+    if [ ! -f ${sysconfdir}/ezmlm/global_vars/$i -a ! -L ${sysconfdir}/ezmlm/global_vars/$i ] ; then
+      ln -srf ${sysconfdir}/control/defaultqueue/$i ${sysconfdir}/ezmlm/global_vars/$i
+    fi
+  done
+fi
 
 exit 0

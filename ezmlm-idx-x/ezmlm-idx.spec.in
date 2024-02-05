@@ -260,12 +260,22 @@ done
 echo For currently supported languages, see the INSTALL
 echo file, section 7.
 %{__mkdir_p} %{rcdir}/global_vars
-for i in QUEUE_BASE QUEUE_COUNT QUEUE_START
-do
-  if [ ! -f %{rcdir}/global_vars/$i -a ! -L %{rcdir}/global_vars/$i ] ; then
-    ln -srf %{sysconfdir}/control/defaultqueue/$i %{rcdir}/global_vars/$i
+if [ -d %{sysconfdir}/control/global_vars ] ; then
+  if [ ! -L %{rcdir}/global_vars/.envdir -a ! -f %{rcdir}/global_vars/.envdir ] ; then
+    ln -srf %{sysconfdir}/control/global_vars %{rcdir}/global_vars/.envdir
   fi
-done
+  for i in QUEUE_BASE QUEUE_COUNT QUEUE_START
+  do
+    %{__rm} -f %{rcdir}/global_vars/$i
+  done
+else
+  for i in QUEUE_BASE QUEUE_COUNT QUEUE_START
+  do
+    if [ ! -f %{rcdir}/global_vars/$i -a ! -L %{rcdir}/global_vars/$i ] ; then
+      ln -srf %{sysconfdir}/control/defaultqueue/$i %{rcdir}/global_vars/$i
+    fi
+  done
+fi
 
 %postun
 # we are doing erase
