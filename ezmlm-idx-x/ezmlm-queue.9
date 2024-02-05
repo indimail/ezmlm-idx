@@ -1,3 +1,4 @@
+.\" vim: tw=75
 .TH ezmlm-queue 1
 .SH NAME
 ezmlm-queue \- queue messages using qmail-qmqpc, qmail-multi or qmail-queue
@@ -16,12 +17,9 @@ to configure \fBqmail-qmqpc\fR(8), \fBqmail-multi\fR(8) or
 set additional environment variables. See \fBenvdir\fR(8) for more
 information.
 
-\fBqmail-multi\fR(8) uses \fBQUEUE_BASE\fR, \fBQUEUE_START\fR and
-\fBQUEUE_COUNT\fR to use indimail-mta's multi-queue environment in
-QMAILHOME/queue directory.
-
-\fBqmail-queue\fR(8) uses \fBQUEUEDIR\fR, else it will use the
-default queue QMAILHOME/queue.
+\fBqmail-multi\fR(8) and \fBqmail-queue\fR(8) uses \fBQUEUE_BASE\fR,
+\fBQUEUE_START\fR and \fBQUEUE_COUNT\fR to use indimail-mta's multi-queue
+architecture in QMAILHOME/queue directory.
 
 \fBqmail-qmqpc\fR(8) uses \fBPORT_QMQP\fR, \fBOUTGOINGIP\fR,
 \fBCONTROLDIR\fR environment variables.
@@ -39,10 +37,8 @@ Following programs use \fBezmlm-queue\fR(1).
 \fBezmlm-request\fR(1), \fBezmlm-send\fR(1), \fBezmlm-split\fR(1),
 \fBezmlm-store\fR(1), \fBezmlm-warn\fR(1)
 
-The above programs use \fISYSCONFDIR/ezmlm/global_vars\fR. Environment
-variables in this directory can be used for setting queue related
-environment variables required by qmail-multi, qmail-queue, qmail-qmqpc or
-any other downstream programs that get invoked by calling ezmlm-queue.
+The above programs too can use \fISYSCONFDIR/ezmlm/global_vars\fR. You can
+set environment variables for these programs in this directory.
 
 You can make the above program to use a different program instead of
 \fBezmlm-queue\fR(1), by setting \fBEZMLMQUEUE\fR or \fBQMAILQUEUE\fR

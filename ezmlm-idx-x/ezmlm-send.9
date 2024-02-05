@@ -1,6 +1,8 @@
+.\" vim: tw=75
 .TH ezmlm-send 1
 .SH NAME
 ezmlm-send \- distribute a message to a mailing list
+
 .SH SYNOPSIS
 .B ezmlm-send
 [
@@ -9,10 +11,10 @@ ezmlm-send \- distribute a message to a mailing list
 .B \-h\fI header
 ]
 .I dir
+
 .SH DESCRIPTION
 .B ezmlm-send
-reads a mail message and
-sends it to the mailing list stored in
+reads a mail message and sends it to the mailing list stored in
 .IR dir .
 If
 .I dir\fB/archived
@@ -26,12 +28,11 @@ If
 .I dir\fB/indexed
 exists,
 .B ezmlm-send
-adds the subject, author and time stamp of the message to the index, kept with
-the message in a subdirectory of
+adds the subject, author and time stamp of the message to the index, kept
+with the message in a subdirectory of
 .IR dir\fB/archive/ .
 The subject is processed to make reply-subject entries identical to
-original
-message subject entries.
+original message subject entries.
 The subject index is used for the archive retrieval functions of
 .BR ezmlm-get(1) .  
 Use
@@ -40,12 +41,12 @@ to create a subject index from a preexisting archive.
 
 Subject and author lines are decoded if they are encoded per rfc2047. When
 split lines are unfolded, the number of escape sequences for
-iso-2022-* character sets is minimized. For instance, two
-consecutive toascii sequences are reduced.
-This processing is done for the character set specified in
+iso-2022-* character sets is minimized. For instance, two consecutive
+toascii sequences are reduced. This processing is done for the character
+set specified in
 .IR dir\fB/charset .
-The result of this process is the same for a given subject, irrespective
-of encoding.
+The result of this process is the same for a given subject, irrespective of
+encoding.
 
 At the beginning of the message,
 .B ezmlm-send
@@ -61,16 +62,15 @@ If
 .I dir\fB/listid
 exists,
 .B ezmlm-send
-will assume that the format is correct and
-create a ``List-ID:'' header by placing the contents after the
-text ``List-ID: ''. 
+will assume that the format is correct and create a ``List-ID:'' header by
+placing the contents after the text ``List-ID: ''. 
 
 Next,
 .B ezmlm-send
 prints all the new fields listed in
 .IR dir\fB/headeradd .
-Any tags, ``<#h#>'', ``<#l#>'', or ``<#n#>'' found in these headers
-are replaced by the list host name, list local name, and message number,
+Any tags, ``<#h#>'', ``<#l#>'', or ``<#n#>'' found in these headers are
+replaced by the list host name, list local name, and message number,
 respectively.
 
 .B ezmlm-send
@@ -84,8 +84,8 @@ is present,
 .B ezmlm-send
 Adds a
 .B Reply-To:
-header to the outgoing message pointing to the mailing list and removes
-any incoming
+header to the outgoing message pointing to the mailing list and removes any
+incoming
 .B Reply-To:
 header.
 
@@ -144,14 +144,14 @@ If
 .I dir\fB/text/trailer
 exists,
 .B ezmlm-send
-adds the trailer to simple text/plain messages in the same encoding as used for
-the the message. However, if the encoding is ``base64'' it is not safe
-to do this and the header is suppressed.
-For composite MIME messages, the trailer is added as a separate
-part, with the character set and encoding specified in
+adds the trailer to simple text/plain messages in the same encoding as used
+for the the message. However, if the encoding is ``base64'' it is not safe
+to do this and the header is suppressed. For composite MIME messages, the
+trailer is added as a separate part, with the character set and encoding
+specified in
 .IR dir\fB/charset .
-The trailer is not added to multipart/alternative messages.
-Any tags, ``<#h#>'', ``<#l#>'', or ``<#n#>'' found in
+The trailer is not added to multipart/alternative messages. Any
+tags, ``<#h#>'', ``<#l#>'', or ``<#n#>'' found in
 .I dir\fB/text/trailer
 are replaced by the list host name, list local name, and message number,
 respectively.
@@ -160,8 +160,8 @@ If
 .I dir\fB/prefix
 exists,
 .B ezmlm-send
-will prefix the subject line with the first line of this
-file. A space will be added to separate
+will prefix the subject line with the first line of this file. A space will
+be added to separate
 .B prefix
 from the subject text.
 .B prefix
@@ -169,16 +169,14 @@ is ignored for sublists. If
 .I dir\fB/prefix
 contains a ``#'', the last ``#'' will be replaced by the message number.
 Any prefix starting with text of a
-reply indicator (``Re:'', ``Re[n]:'', etc) will cause problems.
-The prefix may be
-rfc2047 encoded. Rfc2047 Iso-2022-* encoded prefixes
+reply indicator (``Re:'', ``Re[n]:'', etc) will cause problems. The prefix
+may be rfc2047 encoded. Rfc2047 Iso-2022-* encoded prefixes
 .I must
 end in ascii.
 
-The prefix feature and especially the message number feature
-modify the message in violation
-with Internet mail standards. The features have been implemented by popular
-demand. Use at your own peril.
+The prefix feature and especially the message number feature modify the
+message in violation with Internet mail standards. The features have been
+implemented by popular demand. Use at your own peril.
 
 .I dir\fB/sequence
 is ignored as of ezmlm-idx-0.32. Use
@@ -187,10 +185,10 @@ with substitution to achieve the same goal.
 
 \fBezmlm-send\fR uses \fBezmlm-queue\fR(1) to send messages.
 \fBezmlm-send\fR sets environment variables from RCDIR/global_vars. This
-can be used to set queue related variables for \fBezmlm-queue\fR
+can be used to set queue related variables for \fBezmlm-queue\fR(1).
 
 If
-.I /etc/indimail/control\fB/qmqpservers
+.I /etc/indimail/control/qmqpservers
 exists,
 .B ezmlm-send will use
 .B qmail-qmqpc(1)
@@ -206,15 +204,18 @@ is set, and is either empty or
 .BR #@[] ,
 .B ezmlm-send
 rejects the message.
+
 .SH OPTIONS
 .TP
 .B \-c
 No longer supported. Ignored for backwards compatibility.
+
 .TP
 .B \-C
 No longer supported. Ignored for backwards compatibility.
 .B ezmlm-send
 has to parse the subscriber database.
+
 .TP
 .B \-h\fI header
 If the list is a sublist, i.e.
@@ -230,36 +231,38 @@ rather than ``Mailing-List'' to identify messages from the list.
 Anything after the first colon (if present) in
 .I header
 is ignored.
+
 .TP
 .B \-r
 Copy incoming ``Received:'' headers to the outgoing message.
+
 .TP
 .B \-R
 (Default.)
-Do not copy incoming ``Received:'' headers, except the one added by
-the (last) listhost, to the outgoing message.
-In some
-cases, especially for sublists,
-the messages can have a large number of ``Received:''
-headers. This may lead to bounces for some users due to
-sendmail ``hopcounts'' set too low somewhere in the mail path. These users can
-subscribe and receive warning and probe messages, but no list messages, unless
-the number of ``Received:'' headers is reduced.
+Do not copy incoming ``Received:'' headers, except the one added by the
+(last) listhost, to the outgoing message. In some cases, especially for
+sublists, the messages can have a large number of ``Received:'' headers.
+This may lead to bounces for some users due to sendmail ``hopcounts'' set
+too low somewhere in the mail path. These users can subscribe and receive
+warning and probe messages, but no list messages, unless the number
+of ``Received:'' headers is reduced.
 
 Pre-list ``Received:'' headers are of little interest to normal list
-subscribers. ``Received:'' headers are
-still copied to the archive and available
-to anyone from there for message tracking purposes.
+subscribers. ``Received:'' headers are still copied to the archive and
+available to anyone from there for message tracking purposes.
+
 .TP
 .B \-v
 Display
 .B ezmlm-send
 version information.
+
 .TP
 .B \-V
 Display
 .B ezmlm-send
 version information.
+
 .SH "SUBLISTS"
 If
 .I dir\fB/sublist
@@ -269,8 +272,7 @@ changes its behavior in several ways.
 
 First, if
 .B SENDER
-is set,
-and the first line of
+is set, and the first line of
 .I dir\fB/sublist
 has the form
 .IR parent\fB@\fIparenthost ,
@@ -294,23 +296,23 @@ field.
 
 Fourth,
 .B ezmlm-send
-uses the incoming message number for the outgoing message, if the list
-is not archived and the incoming SENDER has the correct format.
-This allows you to refer bounce warning recipients to the main list for
-archive retrieval of the missed messages. If the sublist archives
-message, it is assumed that missed messages will be retrieved from the sublist
-archive.
+uses the incoming message number for the outgoing message, if the list is
+not archived and the incoming SENDER has the correct format. This allows
+you to refer bounce warning recipients to the main list for archive
+retrieval of the missed messages. If the sublist archives message, it is
+assumed that missed messages will be retrieved from the sublist archive.
 
-The list
-still increments
+The list still increments
 .I dir\fB/num
-for each message. If the sublist is archived, use of incoming message number
-for archive storage would be a security risk. In this case, the local sublist
-message number is used.
+for each message. If the sublist is archived, use of incoming message
+number for archive storage would be a security risk. In this case, the
+local sublist message number is used.
+
 .SH "OPTION USAGE"
-In general, the use of a prefix is discouraged. It wastes subject line space,
-creates trouble when MUAs add non-standard reply indicators. However, many
-users expect it not because it is useful, but because they are used to it.
+In general, the use of a prefix is discouraged. It wastes subject line
+space, creates trouble when MUAs add non-standard reply indicators.
+However, many users expect it not because it is useful, but because they
+are used to it.
 
 The
 .B \-C
@@ -318,14 +320,15 @@ switch prevents posts from being set to SENDER. Rather than just copying
 out subscriber address files,
 .B ezmlm-send
 has to parse them to look for SENDER. This makes it less efficient. Also,
-it is useful for the SENDER to see the post to know that it has made it
-to the list, and it's context to other subscribers, i.e. where it came
-within the traffic of messages on the list.
+it is useful for the SENDER to see the post to know that it has made it to
+the list, and it's context to other subscribers, i.e. where it came within
+the traffic of messages on the list.
 
 Avoiding SENDER as a recipient is useful in small lists, such as small
 teams with varying members, where ezmlm serves mainly as an efficient tool
 to keep the team connected without administrator intervention. Here the
 overhead of subscriber list parsing is negligible.
+
 .SH "CHARACTER SETS"
 If the list is indexed,
 .B ezmlm-send
@@ -335,20 +338,20 @@ If
 .I dir\fB/charset
 exists,
 .B ezmlm-send
-will eliminate redundant escape sequences from the headers according to
-the character set specified in this file.
-Only character sets using escape sequences need this support. Currently,
-supported are iso-2022-jp*, iso-2022-kr, and iso-2022-cn*. Only iso-2022-jp
-has been tested extensively.
+will eliminate redundant escape sequences from the headers according to the
+character set specified in this file. Only character sets using escape
+sequences need this support. Currently, supported are iso-2022-jp*,
+iso-2022-kr, and iso-2022-cn*. Only iso-2022-jp has been tested
+extensively.
 
-The character set can be suffixed
-by ``:'' followed by a code. Recognized codes are ``Q'' 
-for ``Quoted-Printable'', and ``B'' for ``base64''.
+The character set can be suffixed by ``:'' followed by a code. Recognized
+codes are ``Q'' for ``Quoted-Printable'', and ``B'' for ``base64''.
 
 For
 .BR ezmlm-send ,
-this affects the format of the trailer, if a trailer is specified and if the
-message is a multipart mime message
+this affects the format of the trailer, if a trailer is specified and if
+the message is a multipart mime message
+
 .SH BUGS
 Since the MIME parser doesn't decode inner MIME layers of a 
 .I "multipart/*"
@@ -358,6 +361,7 @@ message,
 and
 .I mimereject
 will be applied to the outer MIME layer only.
+
 .SH "SEE ALSO"
 ezmlm-get(1),
 ezmlm-idx(1),
