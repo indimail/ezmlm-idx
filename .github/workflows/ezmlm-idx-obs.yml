@@ -9,8 +9,6 @@ on:
       - .github/workflows/ezmlm-idx-obs.yml
       - '!**/doc/*'
       - '!**.md'
-      - '!**/ezmlm-idx-freebsd.yml'
-      - '!**/ezmlm-idx-c-cpp.yml'
   workflow_dispatch:
 
 jobs:

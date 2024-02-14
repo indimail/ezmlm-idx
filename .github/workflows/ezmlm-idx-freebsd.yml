@@ -13,8 +13,6 @@ on:
       - '!**/*.1'
       - '!**/doc/*'
       - '!**.md'
-      - '!**/ezmlm-idx-c-cpp.yml'
-      - '!**/ezmlm-idx-obs.yml'
   workflow_dispatch:
 
 jobs:
