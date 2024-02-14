@@ -184,8 +184,12 @@ is ignored as of ezmlm-idx-0.32. Use
 with substitution to achieve the same goal.
 
 \fBezmlm-send\fR uses \fBezmlm-queue\fR(1) to send messages.
-\fBezmlm-send\fR sets environment variables from RCDIR/global_vars. This
-can be used to set queue related variables for \fBezmlm-queue\fR(1).
+\fBezmlm-send\fR sets environment variables from \fIRCDIR/global_vars\fR. This
+can be used to set queue related variables for \fBezmlm-queue\fR. If
+\fIRCDIR/global_vars exists\fR, existing environment variables are cleared
+except for \fBEZMLM_ETC\fR, \fBEZMLMQUEUE\fR, \fBQMAILQUEUE\fR. The
+clearing/setting of environment variables is done like how \fBenvdir\fR(1)
+works.
 
 If
 .I /etc/indimail/control/qmqpservers
@@ -374,4 +378,5 @@ qmail-multi(1),
 qmail-queue(1),
 ezmlm-queue(1),
 qmail-qmqpc(1),
+envdir(8),
 ezmlm(5)

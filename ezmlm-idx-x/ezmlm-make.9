@@ -1,3 +1,4 @@
+.\" vim: tw=75
 .TH ezmlm-make 1
 .SH NAME
 ezmlm-make \- create a new mailing list
@@ -41,8 +42,8 @@ is controlled by a template,
 .BR .ezmlmrc .
 Described here is the behavior with the default template file.
 .B ezmlm-make
-will print a warning message before continuing,
-if the ezmlmrc version does not match the
+will print a warning message before continuing, if the ezmlmrc version does
+not match the
 .B ezmlm-make
 version.
 
@@ -79,8 +80,7 @@ and
 You should make sure that messages to
 .IR local\fB@\fIhost ,
 .IR local\fB-owner@\fIhost ,
-etc. are controlled by
-these
+etc. are controlled by these
 .B .qmail
 files.
 
@@ -113,9 +113,9 @@ address is enabled.
 By default,
 .B ezmlm-make
 sets up lists to add a ``X-No-Archive: yes'' header to outgoing messages.
-Public archiving servers will interpret this header as a
-request not to archive messages from
-the list. It this in not what you desire, remove this header from
+Public archiving servers will interpret this header as a request not to
+archive messages from the list. It this in not what you desire, remove this
+header from
 .B ezmlmrc
 for global effects, or from
 .I dir\fB/headeradd
@@ -161,10 +161,9 @@ files (digest are still enabled):
    ezmlm-make -emrldn ~joe/SOS
 .EE
 
-Mail can arrive at any time!
-For safe editing, turn on the sticky bit of the home directory before
-editing the list setup,
-then turn it off again (see
+Mail can arrive at any time! For safe editing, turn on the sticky bit of
+the home directory before editing the list setup, then turn it off again
+(see
 .BR dot-qmail(5) ).
 
 Moderator addresses are added with
@@ -214,13 +213,12 @@ have special meaning within the program.
 customization should respect the function of the switches described here.
 .TP 5
 .B \-+
-Switches currently active for the list
-will be used, as modified by the current command line.
+Switches currently active for the list will be used, as modified by the
+current command line.
 Thus,
 .B \-+
-makes switches ``sticky''. By default,
-only switches specified on the current command line will be used.
-This switch implies
+makes switches ``sticky''. By default, only switches specified on the
+current command line will be used. This switch implies
 .BR \-e 
 as it is meaningless except in edit mode. Note that the config file choice
 (see
@@ -234,8 +232,8 @@ is set up so that most text files (and
 .IR DIR\fB/headerkeep ,
 and
 .IR DIR\fB/headerremove )
-are not overwritten if they already exist so as to preserve
-manual customizations. If
+are not overwritten if they already exist so as to preserve manual
+customizations. If
 .I local
 is specified
 .B ezmlm-make
@@ -265,8 +263,7 @@ Block archive. Only moderators are allowed to access the archive.
 .TP 5
 .B \-B
 (Default.)
-Archive access is open to anyone or subscribers only, depending
-on the
+Archive access is open to anyone or subscribers only, depending on the
 .B \-g
 switch.
 .TP 5
@@ -288,8 +285,8 @@ based on a configuration file controlled by another user.
 .B ezmlm-make
 does not allow periods in any tag to restrict all actions to within
 .IR dir .
-Be careful with this option setting up lists for other users,
-especially when running
+Be careful with this option setting up lists for other users, especially
+when running
 .B ezmlm-make
 as root.
 .TP 5
@@ -298,15 +295,14 @@ Like
 .BR \-c ,
 but use file
 .I arg
-as the ezmlmrc file.
-Use
+as the ezmlmrc file. Use
 .B \-C\fI ''
 to override a default when using
 .B \-+
 or
 .BR \-e .
-If the given path is a directory instead of a file, the actual ezmlmrc
-file is taken as
+If the given path is a directory instead of a file, the actual ezmlmrc file
+is taken as
 .IR arg/ezmlmrc ,
 and the other ezmlm-idx programs will use the directory to look up files
 (such as text files) that are not present in the list directory.
@@ -316,51 +312,45 @@ Digest.
 .B ezmlm-make
 will set up the
 .I local\fB\-digest@host
-digest list to disseminate digest of the list messages. By default, this
-is done when 30 messages, 48 hours, or 64 kbytes of message body text have
+digest list to disseminate digest of the list messages. By default, this is
+done when 30 messages, 48 hours, or 64 kbytes of message body text have
 accumulated since the last digest. Edit the
 .IR dir\fB/digcount ,
 .IR dir\fB/digsize ,
 or
 .I dir\fB/digtime
-files to override these defaults.  See
+files to override these defaults. See
 .B ezmlm-tstdig(1)
 and
 .B ezmlm-get(1)
 for more info.
 .TP 5
 .B \-D
-(Default.)
-No digest.
-Do not set up the digest list.
+(Default.) No digest. Do not set up the digest list.
 .TP 5
 .B \-e
 Edit.
 .B ezmlm-make
-will remove links before creating them and accept
-if directories to be created are already present.
+will remove links before creating them and accept if directories to be
+created are already present.
 .B ezmlm-make
 will also (via entries in
 .IR ezmlmrc )
-remove flags that are present but not desired for the current list.
-Thus, this option can be used to reconfigure existing lists without affecting
+remove flags that are present but not desired for the current list. Thus,
+this option can be used to reconfigure existing lists without affecting
 moderator and subscriber lists or message archive. All desired
 .B ezmlm-make
-switches
-need to be specified. To make all switches sticky, i.e. only specify the
-ones changed from the previous setup, use
+switches need to be specified. To make all switches sticky, i.e. only
+specify the ones changed from the previous setup, use
 .BR \-+ .
 Command line arguments other
 than
 .I dir
-can be omitted.
-In the unlikely case where
+can be omitted. In the unlikely case where
 .I dot
-is changed, you must manually remove the old links.
-Mail can arrive at any time!
-For safe editing, turn on the sticky bit of the home directory before
-using the edit function,
-then turn it off again (see
+is changed, you must manually remove the old links. Mail can arrive at any
+time: For safe editing, turn on the sticky bit of the home directory before
+using the edit function, then turn it off again (see
 .BR dot-qmail(5) ).
 .B ezmlmrc(5)
 is set up so that most text files (and
@@ -368,8 +358,8 @@ is set up so that most text files (and
 .IR DIR\fB/headerkeep ,
 and
 .IR DIR\fB/headerremove )
-are not overwritten if they already exist so as to preserve
-manual customizations. If
+are not overwritten if they already exist so as to preserve manual
+customizations. If
 .I local
 is specified
 .B ezmlm-make
@@ -379,8 +369,7 @@ to rewrite all files by using
 .BR \-ee .
 .TP 5
 .B \-E
-(Default.)
-No edit.
+(Default.) No edit.
 .B ezmlm-make
 will abort if directories or links to be created already exist. This prevents
 accidental reconfiguration of a pre-existing list, since the first action
@@ -389,32 +378,29 @@ is to create the list directory.
 .B \-f
 Prefix.
 .B ezmlm-make
-will set up the list so that the outgoing subject will be prefixed
-with the list name.
+will set up the list so that the outgoing subject will be prefixed with the
+list name.
 .TP 5
 .B \-F
-(Default.)
-No prefix.
+(Default.) No prefix.
 .TP 5
 .B \-g
-Guard archive.
-Archive access requests from unrecognized SENDERs will be rejected.
-This restriction is safe, since replies are sent to the SENDER address.
+Guard archive. Archive access requests from unrecognized SENDERs will be
+rejected. This restriction is safe, since replies are sent to the SENDER
+address.
 .TP 5
 .B \-G
-(Default.)
-Do not guard archive.
-Archive access request from any SENDER will be serviced.
+(Default.) Do not guard archive. Archive access request from any SENDER
+will be serviced.
 .TP 5
 .B \-h
 Help subscription. Subscriptions do not require confirmation. Strongly
-recommended against, since anyone can subscribe any address,
-but may be useful for some subscription moderated lists.
+recommended against, since anyone can subscribe any address, but may be
+useful for some subscription moderated lists.
 .TP 5
 .B \-H
-(Default.)
-Subscription requires confirmation by reply to a message sent to the
-subscription address.
+(Default.) Subscription requires confirmation by reply to a message sent to
+the subscription address.
 .TP 5
 .B \-i
 Indexed for WWW archive access.
@@ -425,19 +411,17 @@ is invoked to maintain an index suitable for use by
 .BR ezmlm-cgi(1) .
 .TP 5
 .B \-I
-(Default.)
-The list is created without
+(Default.) The list is created without
 .BR ezmlm-archive(1) .
 .TP 5
 .B \-j
 Jump off. Unsubscribe does not require confirmation. Strongly recommended
-against, since anyone can unsubscribe any address, but may be useful
-in some situations.
+against, since anyone can unsubscribe any address, but may be useful in
+some situations.
 .TP 5
 .B \-J
-(Default.)
-Unsubscribe requires confirmation by a reply to a message sent to the
-subscription address.
+(Default.) Unsubscribe requires confirmation by a reply to a message sent
+to the subscription address.
 .TP 5
 .B \-k
 .TP 5
@@ -445,15 +429,14 @@ subscription address.
 Ignored for backwards compatibility.  The
 .IR dir\fB/deny/
 subscribers directory is always created to allow denying messages from
-selected addresses.  This is useful in combination with the
+selected addresses. This is useful in combination with the
 .B \-u
-switch to temporarily restrain offenders, such as misconfigured auto-responders
-or automatic spammers.
-It can also be used in combination with
+switch to temporarily restrain offenders, such as misconfigured
+auto-responders or automatic spammers. It can also be used in combination
+with
 .B \-m
-to filter out SENDERs from whom the moderators do not want to see
-posts (again, bad
-re-mailers and spammers come to mind).
+to filter out SENDERs from whom the moderators do not want to see posts
+(again, bad re-mailers and spammers come to mind).
 
 To add/remove blacklisted addresses:
 
@@ -469,12 +452,11 @@ To add/remove blacklisted addresses:
 .B \-l
 List subscribers.
 .B ezmlm-make
-sets up the list so that remote administrators can request a subscriber list,
-and search the subscriber log.
+sets up the list so that remote administrators can request a subscriber
+list, and search the subscriber log.
 .TP 5
 .B \-L
-(Default.)
-The subscriber list cannot be obtained.
+(Default.) The subscriber list cannot be obtained.
 .TP 5
 .B \-m
 Message moderation. (Please note that the 
@@ -531,23 +513,18 @@ sets up the list to allow remote administrators to edit files in
 .IR dir\fB/text/ .
 .TP 5
 .B \-N
-(Default.)
-Not new text file.
-Text file editing not allowed.
+(Default.) Not new text file. Text file editing not allowed.
 .TP 5
 .B \-o
-Others rejected.
-Posts from addresses other than moderators are rejected. This is
-applicable to message moderated lists only
-(see
+Others rejected. Posts from addresses other than moderators are rejected.
+This is applicable to message moderated lists only (see
 .BR \-m ).
 The switch has no effect on other lists.
 .TP 5
 .B \-O
-(Default.)
-Others not rejected.
-For moderated lists, all posts are forwarded to the moderators.
-The switch has effects only on message moderated lists.
+(Default.) Others not rejected. For moderated lists, all posts are
+forwarded to the moderators. The switch has effects only on message
+moderated lists.
 .TP 5
 .B \-p
 (Default.) Public.
@@ -572,8 +549,8 @@ options).
 .B \-q
 .TP
 .B \-Q
-Ignored for backwards compatibility.  The request address is always
-serviced.  Commands sent in the subject to
+Ignored for backwards compatibility. The request address is always
+serviced. Commands sent in the subject to
 .IR local\fB-request@\fIhost
 are processed by
 .BR ezmlm-request(1) .
@@ -583,9 +560,7 @@ Remote admin.
 .B ezmlm-make
 enables remote administration by touching
 .IR dir\fB/remote .
-Moderator(s) can unsubscribe and subscribe
-any address.
-See the
+Moderator(s) can unsubscribe and subscribe any address. See the
 .B \-m
 option on how moderator addresses are stored and manipulated.
 .TP
@@ -597,8 +572,8 @@ Subscription moderation.
 .B ezmlm-make
 enables subscription moderation by touching
 .IR dir\fB/modsub .
-This affects subscriptions for both the main list and the digest list.
-See the
+This affects subscriptions for both the main list and the digest list. See
+the
 .B \-m
 option on how moderator addresses are stored and manipulated.
 .TP
@@ -613,23 +588,21 @@ will create
 to set up the list to add a trailer to outgoing messages.
 .TP 5
 .B \-T
-No trailer.
-(Default.)
+No trailer. (Default.)
 .TP 5
 .B \-u
 User posts only.
 .B ezmlm-make
-sets up the list
-so that posts and archive access is restricted to subscribers.
-These are addresses subscribed to the main list, the digest, or added
-manually to the address database in
+sets up the list so that posts and archive access is restricted to
+subscribers. These are addresses subscribed to the main list, the digest,
+or added manually to the address database in
 .I dir\fB/allow/
 which accommodates addresses from e.g. subscribers working from an address
 other than their subscriber address.
 
-Posts from unrecognized SENDER addresses will be rejected.
-This is relatively easily defeated for posts.
-More secure alternatives are message moderated lists configured with the
+Posts from unrecognized SENDER addresses will be rejected. This is
+relatively easily defeated for posts. More secure alternatives are message
+moderated lists configured with the
 .B ezmlm-make \-m
 switch (without the
 .B \-u
@@ -670,15 +643,12 @@ for both
 .I local@host
 and
 .I local\fB-digest@\fIhost
-will be run by other means, such as crond.
-As the main list will have only sublists as subscribers, it is desirable
-to log bounces and feedback messages rather than to remove a bouncing
-subscriber.
+will be run by other means, such as crond. As the main list will have only
+sublists as subscribers, it is desirable to log bounces and feedback
+messages rather than to remove a bouncing subscriber.
 .TP 5
 .B \-W
-(Default.)
-No address restriction. Normal
-use of
+(Default.) No address restriction. Normal use of
 .B ezmlm-warn(1)
 and
 .BR ezmlm-return(1) .
@@ -734,8 +704,7 @@ with
 .I password
 using database
 .I datab
-(default "ezmlm")
-and the table root name
+(default "ezmlm") and the table root name
 .I table
 (default "ezmlm")
 .TP
@@ -750,10 +719,11 @@ must be an absolute pathname, starting with a slash. If not, it will be ignored.
 .B \-8 \fI/sub_mod_path
 Make
 .I /sub_mod_path
-the path to the database for subscription moderators, if the list is set up for
-subscription moderation.
+the path to the database for subscription moderators, if the list is set up
+for subscription moderation.
 .I /sub_mod_path
-must be an absolute pathname, starting with a slash. If not, it will be ignored.
+must be an absolute pathname, starting with a slash. If not, it will be
+ignored.
 .TP
 .B \-9 \fI/rem_adm_path
 Make
@@ -767,8 +737,8 @@ When
 .B ezmlm-make
 is used with the
 .B \-e
-switch, and the list was previously created or edited with a
-new (ezmlm-idx >= 0.23) version of
+switch, and the list was previously created or edited with a new
+(ezmlm-idx >= 0.23) version of
 .BR ezmlm-make ,
 all arguments other than
 .I dir
@@ -784,13 +754,11 @@ all arguments must be specified.
 .SH CONFIGURATION
 This version of
 .B ezmlm-make
-is template driven. The template file consists of plain text with four types
-of tags. Both start in
-the first position of the line.
-No other text is allowed on the same line. For
-security reasons, no periods are allowed anywhere in a tag.
-Any line with a ``#'' in position 1 is ignored,
-as is any text preceding the first tag.
+is template driven. The template file consists of plain text with four
+types of tags. Both start in the first position of the line. No other text
+is allowed on the same line. For security reasons, no periods are allowed
+anywhere in a tag. Any line with a ``#'' in position 1 is ignored, as is
+any text preceding the first tag.
 .TP
 .B </filename#aI/>
 The following text will be copied to
@@ -799,20 +767,19 @@ if the options specified after the ``#'' are active, in this case
 .I archived
 and not
 .IR indexed .
-Any number of flags can be specified. This
-is used to adapt the files and
-messages to the type of list created. If no flags are
-used, the ``#'' can be omitted. If the file name is the same as the previous
-tag, or if it is omitted, the text will be added to the previous file.
-When a new file is opened the previous file is closed. Attempts to add
-more text to a already closed file overwrites its contents.
+Any number of flags can be specified. This is used to adapt the files and
+messages to the type of list created. If no flags are used, the ``#'' can
+be omitted. If the file name is the same as the previous tag, or if it is
+omitted, the text will be added to the previous file. When a new file is
+opened the previous file is closed. Attempts to add more text to a already
+closed file overwrites its contents.
 
 An alternative to specify that a flag, e.g. ``4'' should not be active is
-to prefix the switch with ``^'', e.g. use ``^4''.
-The ``E'' flag is treated in a special manner. When the list
-is being edited, it evaluates to false if the file already exists,
-true if it does not. Thus, files using this condition are not overwritten
-when editing. This is useful for files that you frequently customize manually.
+to prefix the switch with ``^'', e.g. use ``^4''. The ``E'' flag is treated
+in a special manner. When the list is being edited, it evaluates to false
+if the file already exists, true if it does not. Thus, files using this
+condition are not overwritten when editing. This is useful for files that
+you frequently customize manually.
 .TP
 .B </-filename#eA/>
 .IR dir\fB/filename
@@ -822,25 +789,22 @@ and
 .IR edit .
 .TP
 .B </+directory#aI/>
-The directory ``directory'' is created if the flags specified are active, in
-this case
+The directory ``directory'' is created if the flags specified are active,
+in this case
 .I archived
 and not
 .IR indexed .
-If no flags are specified, the ``#'' can be
-omitted.
+If no flags are specified, the ``#'' can be omitted.
 .TP
 .B </:link/directory#aI/>
 .B dot\fI\-link
 is symlinked to
 .I dir/directory
-if the flags specified are active, in
-this case
+if the flags specified are active, in this case
 .I archived
 and not
 .IR indexed .
-If no flags are specified, the ``#'' can be
-omitted.
+If no flags are specified, the ``#'' can be omitted.
 .PP
 In addition,
 .I local
@@ -887,10 +851,9 @@ or
 .IR local\fB\-digest
 local part of the list address, the
 .IR host ,
-the subscriber address or the moderation accept address,
-the message number, 
-and the subscription reply address or moderation reject address, respectively.
-The use of
+the subscriber address or the moderation accept address, the message
+number, and the subscription reply address or moderation reject address,
+respectively. The use of
 .BR <#l#>
 is to allow the same text file to be used for requests pertaining to both
 the main list and the digest list.
@@ -923,18 +886,15 @@ and
 switches.
 .SH BUGS
 .B ezmlm-make
-deals with the template file as us-ascii.
-Any occurrence of
-the characters ``</'' at the beginning of a line will disrupt
+deals with the template file as us-ascii. Any occurrence of the characters
+``</'' at the beginning of a line will disrupt
 .B ezmlm-make
-operation.
-Any occurrence of tags with the format ``<#X#>'' with 
-with 'X' being any digit, 'B', 'C', 'D', 'F', 'H', 'L', or 'T'
-will be substituted by
+operation. Any occurrence of tags with the format ``<#X#>'' with with 'X'
+being any digit, 'B', 'C', 'D', 'F', 'H', 'L', or 'T' will be substituted
+by
 .BR ezmlm-make .
-Any occurrence of a tag of this format with 'X' being 'h', 'l', 'A',
-or 'R' will be
-substituted by
+Any occurrence of a tag of this format with 'X' being 'h', 'l', 'A', or 'R'
+will be substituted by
 .B ezmlm-store
 and
 .B ezmlm-manage
@@ -943,19 +903,18 @@ at run time.
 will substitute tags with 'h' and 'l', and tags with 'n' will be replaced
 by the current message number.
 .B ezmlm-get
-will substitute tags ``<#h#>'', ``<#l#>'' in the same way. The
-tag ``<#n#>'' will be replaced by the digest message number which is the
+will substitute tags ``<#h#>'', ``<#l#>'' in the same way. The tag
+``<#n#>'' will be replaced by the digest message number which is the
 number of the first message in the digest.
 
 In practice, these character sequences are unlikely to occur in any
-multi-byte character set text. They also will not occur by chance
-in
-single-byte character sets where '<', '/', and '#'
-retain their us-ascii codes.
+multi-byte character set text. They also will not occur by chance in
+single-byte character sets where '<', '/', and '#' retain their us-ascii
+codes.
 .SH BUGS
 .B ezmlm-make
-cannot deal with ezmlmrc lines containing NUL (they will be truncated
-at the NUL). This needs to be fixed to make it 8-bit clean.
+cannot deal with ezmlmrc lines containing NUL (they will be truncated at
+the NUL). This needs to be fixed to make it 8-bit clean.
 .SH "SEE ALSO"
 ezmlm-clean(1),
 ezmlm-get(1),

@@ -19,7 +19,8 @@ int qmail_open(struct qmail *qq)
   int pim[2], pie[2];
   int pic[2], i, unreadable = 0, errfd; /*- custom message */
   const char *etc_dir;
-  char *x, *err, *binqqargs[2] = { 0, 0 };
+  char *x, *err, *ezmlm_etc, *ezmlm_queue, *qmail_queue,
+       *binqqargs[2] = { 0, 0 };
   char **e, **orig_env;
   char errbuf[256];
   substdio sserr;
@@ -45,26 +46,37 @@ int qmail_open(struct qmail *qq)
       else scan_int(x, &errfd);
       if (fd_move(errfd, pic[1]) == -1) _exit(120);
       if (chdir("/") == -1) _exit(120);
+      ezmlm_etc = env_get("EZMLM_ETC");
+      ezmlm_queue = env_get("EZMLMQUEUE");
+      qmail_queue = env_get("QMAILQUEUE");
       etc_dir = auto_etc();
       if (!stralloc_copys(&tmp, etc_dir) ||
           !stralloc_catb(&tmp, "/global_vars", 12) ||
           !stralloc_0(&tmp))
         _exit(51);
       if (!access(tmp.s, X_OK)) {
-		orig_env = environ;
+        orig_env = environ;
         env_clear();
         if ((i = envdir(tmp.s, &err, 1, &unreadable))) {
           substdio_fdbuf(&sserr,write,errfd,errbuf,sizeof(errbuf));
           substdio_put(&sserr, "Zenvdir: ", 9);
           substdio_puts(&sserr, envdir_str(i));
-		  substdio_put(&sserr, ": ", 2);
-		  substdio_puts(&sserr, err);
+          substdio_put(&sserr, ": ", 2);
+          substdio_puts(&sserr, err);
           substdio_put(&sserr, " (#4.3.0)", 9);
           substdio_flush(&sserr);
           _exit(88);
         }
-        if ((e = pathexec(0))) environ = e;
-        else environ = orig_env;
+        if ((e = pathexec(0))) {
+          environ = e;
+          if (!env_get("EZMLM_ETC") && ezmlm_etc && !env_put2("EZMLM_ETC", ezmlm_etc))
+            _exit(51);
+          if (!env_get("EZMLMQUEUE") && ezmlm_queue && !env_put2("EZMLMQUEUE", ezmlm_queue))
+            _exit(51);
+          if (!env_get("QMAILQUEUE") && qmail_queue && !env_put2("QMAILQUEUE", qmail_queue))
+            _exit(51);
+        } else
+          environ = orig_env;
       } else
       if (errno != error_noent)
           _exit(55);

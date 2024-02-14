@@ -447,6 +447,11 @@ ezmlmrc: \
 ezmlmrc.template VERSION fill-template
 	cat ezmlmrc.template | ./fill-template > $@
 
+ezmlmrc.5: ezmlmrc.9 conf-sysconfdir
+	cat ezmlmrc.9 \
+	| sed s}SYSCONFDIR}"`head -1 conf-sysconfdir`"}g \
+	> ezmlmrc.5
+
 ezmlm-reject: \
 load ezmlm-reject.o libezmlm.a
 	./load ezmlm-reject -lezmlm -lqmail
@@ -999,7 +1004,7 @@ make-makeso warn-auto.sh systype
 man: ezmlm-queue.1 ezmlm-make.1 ezmlm-clean.1 ezmlm-dispatch.1 \
 ezmlm-get.1 ezmlm-manage.1 ezmlm-moderate.1 ezmlm-reject.1 \
 ezmlm-request.1 ezmlm-send.1 ezmlm-split.1 ezmlm-store.1 \
-ezmlm-warn.1 INSTALL.cgi
+ezmlm-warn.1 ezmlmrc.5 INSTALL.cgi
 
 messages.all: \
 lang/cs/text/messages lang/da/text/messages lang/de/text/messages \

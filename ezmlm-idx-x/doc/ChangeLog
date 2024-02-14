@@ -36,6 +36,10 @@ Release 7.2.3 Start 18/07/2021 End 02/01/2024
     ignored.
 20. ezmlm-idx.spec, debian/ezmlm-idx.postinst: create .envdir link in
     /etc/indimail/ezmlm/global_vars during install/upgrade
+- 14/02/2023
+21. qmail.c: restore EZMLM_ETC, EZMLMQUEUE, QMAILQUEUE when clearing variables
+    before reading ezmlm/global_vars
+22. updated multiple man pages
 
 * Sat Jul 17 2021 23:15:14 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
 Release 7.2.2 Start 22/03/2017

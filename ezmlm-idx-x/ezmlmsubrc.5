@@ -1,3 +1,4 @@
+.\" vim: tw=75
 .TH ezmlmsubrc 5
 .SH NAME
 ezmlmsubrc \- set up a minimal sublist
@@ -15,8 +16,8 @@ to create
 and files within it to support the
 .I local\fB@\fIhost
 sublist. The sublist handles bounces, but not subscriptions. It is intended
-for creation of sublists that are part of an SQL database supported distributed
-ezmlm list. For creation of regular sublists, use
+for creation of sublists that are part of an SQL database supported
+distributed ezmlm list. For creation of regular sublists, use
 .B ezmlm-make(1)
 with
 .BR ezmlmrc(5) .
@@ -25,11 +26,12 @@ While these switches can be omitted, the list will not function unless they
 are specified.
 .TP
 .B \-3\fI mainlocal
-Local name of the main list for which this list is a sublist. If the sublist
-is a sublist for digests,
+Local name of the main list for which this list is a sublist. If the
+sublist is a sublist for digests,
 .I mainlocal
-should refer to the mail list, i.e. stripped of ``-digest''. This is required
-in order for the bounce texts to refer to the correct archive. Use the
+should refer to the mail list, i.e. stripped of ``-digest''. This is
+required in order for the bounce texts to refer to the correct archive. Use
+the
 .B \-d
 switch!
 .TP
@@ -37,10 +39,10 @@ switch!
 Host name of the main list for which this list is a sublist.
 .TP
 .B \-6\fI host:port:user:pass:db:table
-SQL connect info. Specifies the host and port to connect to, the user/password
-to use, the database name, and the root table name.
-The host defaults to ``localhost'', the database and table to ``ezmlm''. The
-port default is the default for the particular SQL server type used. For
+SQL connect info. Specifies the host and port to connect to, the
+user/password to use, the database name, and the root table name. The host
+defaults to ``localhost'', the database and table to ``ezmlm''. The port
+default is the default for the particular SQL server type used. For
 sublists disseminating a digest, ``table'' will end in ``_digest''.
 .SH OPTIONS
 .TP
