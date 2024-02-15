@@ -15,20 +15,25 @@ environment variables using \fBenvdir\fR(8) using files in the directory
 to configure \fBqmail-qmqpc\fR(8), \fBqmail-multi\fR(8) or
 \fBqmail-queue\fR(8). You can use .\fIenvdir\fR and .\fIenvfile\fR to
 set additional environment variables. See \fBenvdir\fR(8) for more
-information.
+information. If \fISYSCONFDIR\/ezmlm/global_vars\fR exists,
+\fBezmlm-queue\fR clears existing variables before setting new variables.
+The environment variables \fBEZMLM_ETC\fR, \fBEZMLMQUEUE\fR,
+\fBQMAILQUEUE\fR are restored to their original values if they don't exist
+in \fIglobal_vars\fR directory.
 
 \fBqmail-multi\fR(8) and \fBqmail-queue\fR(8) uses \fBQUEUE_BASE\fR,
 \fBQUEUE_START\fR and \fBQUEUE_COUNT\fR to use indimail-mta's multi-queue
-architecture in QMAILHOME/queue directory.
+architecture in \fIQMAILHOME/queue\fR directory. \fBqmail-queue\fR(8) uses
+\fBQUEUEDIR\fR, else it will use the default queue \fIQMAILHOME/queue\fR.
 
 \fBqmail-qmqpc\fR(8) uses \fBPORT_QMQP\fR, \fBOUTGOINGIP\fR,
 \fBCONTROLDIR\fR environment variables.
 
-\fBezmlm-queue\fR first checks if SYSCONFDIR/control/qmqpservers is
+\fBezmlm-queue\fR first checks if \fISYSCONFDIR/control/qmqpservers\fR is
 present and uses \fBqmail-qmqpc\fR(8). if \fBqmqpservers\fR is absent, it
 will look for \fBqmail-multi\fR(8). If \fBezmlm-queue\fR doesn't find
-\fBqmail-multi\fR in /usr/sbin, it tries \fBqmail-queue\fR. It will exit
-with 111 exit code if it finds none of the three binaries.
+\fBqmail-multi\fR in \fIPREFIX/sbin\fR, it tries \fBqmail-queue\fR. It will
+exit with exit code 111 if it finds none of the three binaries.
 
 Following programs use \fBezmlm-queue\fR(1).
 
@@ -49,5 +54,16 @@ environment variable. \fBEZMLMQUEUE\fR takes precedence over
 envdir(8),
 qmail-qmqpc(8),
 qmail-multi(8),
-envdir(8),
-qmail-queue(8)
+qmail-queue(8),
+ezmlm(5),
+ezmlm-clean(1),
+ezmlm-dispatch(1),
+ezmlm-get(1),
+ezmlm-manage(1),
+ezmlm-moderate(1),,
+ezmlm-reject(1),
+ezmlm-request(1),
+ezmlm-send(1),
+ezmlm-split(1),
+ezmlm-store(1),
+ezmlm-warn(1)
