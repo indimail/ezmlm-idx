@@ -1,3 +1,15 @@
+* XXX XXX XX XXXX XX:XX:XX +0530 @email@ @version@-@version@%{?dist}
+Release 7.2.4 Start 05/02/2024 End XX/XX/XXXX
+- 05/02/2024
+01. ezmlm-send.c: Bug - fixed Date not getting extracted due to FWS being
+    ignored.
+02. ezmlm-idx.spec, debian/ezmlm-idx.postinst: create .envdir link in
+    /etc/indimail/ezmlm/global_vars during install/upgrade
+- 14/02/2024
+03. qmail.c: restore EZMLM_ETC, EZMLMQUEUE, QMAILQUEUE when clearing variables
+    before reading ezmlm/global_vars
+04. updated multiple man pages
+
 * Tue Jan 02 2024 00:09:59 +0530 Manvendra Bhangui <ezmlm-idx@indimail.org> 7.2.3-1.1%{?dist}
 Release 7.2.3 Start 18/07/2021 End 02/01/2024
 - 30/08/2021
@@ -31,15 +43,6 @@ Release 7.2.3 Start 18/07/2021 End 02/01/2024
 17. checkrecipient-ezmlm: fix for ezmlm list addresses
 - 31/12/2023
 18. moved repository to indimail org
-- 05/02/2023
-19. ezmlm-send.c: Bug - fixed Date not getting extracted due to FWS being
-    ignored.
-20. ezmlm-idx.spec, debian/ezmlm-idx.postinst: create .envdir link in
-    /etc/indimail/ezmlm/global_vars during install/upgrade
-- 14/02/2023
-21. qmail.c: restore EZMLM_ETC, EZMLMQUEUE, QMAILQUEUE when clearing variables
-    before reading ezmlm/global_vars
-22. updated multiple man pages
 
 * Sat Jul 17 2021 23:15:14 +0530 mbhangui@gmail.com @version@-@release@%{?dist}
 Release 7.2.2 Start 22/03/2017
