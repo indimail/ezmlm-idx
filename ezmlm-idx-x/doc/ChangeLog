@@ -9,6 +9,8 @@ Release 7.2.4 Start 05/02/2024 End XX/XX/XXXX
 03. qmail.c: restore EZMLM_ETC, EZMLMQUEUE, QMAILQUEUE when clearing variables
     before reading ezmlm/global_vars
 04. updated multiple man pages
+- 10/05/2024
+05. qmail.c: changed for envdir.c change in libqmail
 
 * Tue Jan 02 2024 00:09:59 +0530 Manvendra Bhangui <ezmlm-idx@indimail.org> 7.2.3-1.1%{?dist}
 Release 7.2.3 Start 18/07/2021 End 02/01/2024

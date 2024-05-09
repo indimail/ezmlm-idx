@@ -19,8 +19,8 @@ int qmail_open(struct qmail *qq)
   int pim[2], pie[2];
   int pic[2], i, unreadable = 0, errfd; /*- custom message */
   const char *etc_dir;
-  char *x, *err, *ezmlm_etc, *ezmlm_queue, *qmail_queue,
-       *binqqargs[2] = { 0, 0 };
+  const char *x, *err, *ezmlm_etc, *ezmlm_queue, *qmail_queue;
+  char *binqqargs[2] = { 0, 0 };
   char **e, **orig_env;
   char errbuf[256];
   substdio sserr;
