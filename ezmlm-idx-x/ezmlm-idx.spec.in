@@ -34,7 +34,7 @@ License: GPL-2.0+
 License: GPLv2
 %endif
 Group: Utilities/System
-%if %{defined mgaversion}
+%if %{defined mgaversion} || 0%{?mageia}
 BuildRequires: lib64sqlite3-devel
 BuildArch: x86_64
 %else
