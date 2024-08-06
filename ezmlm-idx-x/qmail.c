@@ -57,7 +57,7 @@ int qmail_open(struct qmail *qq)
       if (!access(tmp.s, X_OK)) {
         orig_env = environ;
         env_clear();
-        if ((i = envdir(tmp.s, &err, 1, &unreadable))) {
+        if ((i = envdir((char *) tmp.s, &err, 1, &unreadable))) {
           substdio_fdbuf(&sserr,write,errfd,errbuf,sizeof(errbuf));
           substdio_put(&sserr, "Zenvdir: ", 9);
           substdio_puts(&sserr, envdir_str(i));

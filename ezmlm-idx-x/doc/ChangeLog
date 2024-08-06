@@ -13,6 +13,8 @@ Release 7.2.4 Start 05/02/2024 End XX/XX/XXXX
 05. qmail.c: changed for envdir.c change in libqmail
 - 31/05/2024
 06. ezmlm-idx.spec: updated for mageia
+- 06/08/2024
+6. qmail.c: fix compilation error for envdir call
 
 * Tue Jan 02 2024 00:09:59 +0530 Manvendra Bhangui <ezmlm-idx@indimail.org> 7.2.3-1.1%{?dist}
 Release 7.2.3 Start 18/07/2021 End 02/01/2024
