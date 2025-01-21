@@ -174,7 +174,7 @@ unsigned long sub_sql_putsubs(struct subdbinfo *info,
 			      const char *table,
 			      unsigned long hash_lo,
 			      unsigned long hash_hi,
-			      int subwrite()) /* write function. */
+			      int subwrite(const char *, unsigned int)) /* write function. */
 {
   void *result;
   unsigned long no = 0L;
@@ -208,7 +208,7 @@ unsigned long sub_sql_putsubs(struct subdbinfo *info,
 void sub_sql_searchlog(struct subdbinfo *info,
 		       const char *table,
 		       char *search,		/* search string */
-		       int subwrite())		/* output fxn */
+		       int subwrite(const char *, unsigned int))		/* output fxn */
 {
   void *result;
   datetime_sec when;

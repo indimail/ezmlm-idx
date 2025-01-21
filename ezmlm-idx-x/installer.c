@@ -21,8 +21,7 @@ char outbuf[SUBSTDIO_OUTSIZE];
 substdio ssin;
 substdio ssout;
 
-void doit(line)
-stralloc *line;
+void doit(stralloc *line)
 {
   char *x;
   unsigned int xlen;
@@ -130,9 +129,7 @@ char buf[256];
 substdio in = SUBSTDIO_FDBUF((ssize_t (*) (int, char *, size_t)) read,0,buf,sizeof(buf));
 stralloc line = {0};
 
-int main(argc,argv)
-int argc;
-char **argv;
+int main(int argc, char **argv)
 {
   int match;
 
