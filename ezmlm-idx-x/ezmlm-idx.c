@@ -73,7 +73,7 @@ unsigned int pos,pos1;
   substdio ssin;
   char inbuf[1024];
 
-  substdio_fdbuf(&ssin,read,fd,inbuf,sizeof(inbuf));
+  substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inbuf,sizeof(inbuf));
   for (;;) {
     if (gethdrln(&ssin,&line,&match,'\n') == -1)
       strerr_die2x(111,FATAL,MSG(ERR_READ_INPUT));
@@ -208,7 +208,7 @@ int main(int argc,char **argv)
         strerr_die2sys(100,FATAL,MSG1(ERR_WRITE,fnifn.s));
 
 			/* set up buffers for index */
-      substdio_fdbuf(&ssindex,write,fdindexn,indexbuf,sizeof(indexbuf));
+      substdio_fdbuf(&ssindex,(ssize_t (*) (int, char *, size_t)) write,fdindexn,indexbuf,sizeof(indexbuf));
 
 			/* Get subject without the 'Subject: ' */
 			/* make sure there is one */

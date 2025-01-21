@@ -212,7 +212,7 @@ int main(int argc,char **argv)
   if ((fdin = open_read(TXT_EZCRONRC)) == -1)
     strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,TXT_EZCRONRC));
 	/* first line is special */
-  substdio_fdbuf(&ssin,read,fdin,inbuf,sizeof(inbuf));
+  substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fdin,inbuf,sizeof(inbuf));
   if (getln(&ssin,&line,&match,'\n') == -1)
     strerr_die2sys(111,FATAL,MSG1(ERR_READ,TXT_EZCRONRC));
 
@@ -246,7 +246,7 @@ int main(int argc,char **argv)
   
   if (flagconfig) {
     line.s[line.len-1] = '\n';	/* not very elegant ;-) */
-    substdio_fdbuf(&ssout,write,1,outbuf,sizeof(outbuf));
+    substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,1,outbuf,sizeof(outbuf));
     if (substdio_put(&ssout,line.s,line.len) == -1)
       strerr_die2sys(111,FATAL,MSG(ERR_WRITE_STDOUT));
     if (substdio_flush(&ssout) == -1)
@@ -362,13 +362,13 @@ int main(int argc,char **argv)
     if (errno != error_noent)
       strerr_die2sys(111,FATAL,MSG1(ERR_READ,"crontab"));
   } else
-    substdio_fdbuf(&ssin,read,fdin,inbuf,sizeof(inbuf));
+    substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fdin,inbuf,sizeof(inbuf));
   if (flaglist)
-    substdio_fdbuf(&ssout,write,1,outbuf,sizeof(outbuf));
+    substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,1,outbuf,sizeof(outbuf));
   else {
     if ((fdout = open_trunc("crontabn")) == -1)
       strerr_die2sys(111,FATAL,MSG1(ERR_WRITE,"crontabn"));
-    substdio_fdbuf(&ssout,write,fdout,outbuf,sizeof(outbuf));
+    substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,fdout,outbuf,sizeof(outbuf));
   }
   line.len = 0;
 

@@ -237,7 +237,7 @@ int main(int argc,char **argv)
   fdmsg = open_trunc(fnmsg.s);
   if (fdmsg == -1)
     strerr_die2sys(111,FATAL,MSG1(ERR_WRITE,fnmsg.s));
-  substdio_fdbuf(&ssmsg,write,fdmsg,msgbuf,sizeof(msgbuf));
+  substdio_fdbuf(&ssmsg,(ssize_t (*) (int, char *, size_t)) write,fdmsg,msgbuf,sizeof(msgbuf));
 
   if (qmail_open(&qq) == -1)		/* Open mailer */
     strerr_die2sys(111,FATAL,MSG(ERR_QMAIL_QUEUE));
@@ -300,7 +300,7 @@ int main(int argc,char **argv)
   }
   if (substdio_put(&ssmsg,returnpath.s,returnpath.len) == -1) die_msg();
   if (substdio_put(&ssmsg,mydtline.s,mydtline.len) == -1) die_msg();
-  substdio_fdbuf(&ssin,read,0,inbuf,sizeof(inbuf));
+  substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,0,inbuf,sizeof(inbuf));
 
   if (flagmime) {
     hdr_boundary(0);

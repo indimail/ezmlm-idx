@@ -138,12 +138,12 @@ void write_threads(const msgentry *msgtable,
       if (!stralloc_0(&fnn)) die_nomem();
       if ((fdn = open_trunc(fnn.s)) == -1)
 	strerr_die2sys(111,FATAL,MSG1(ERR_CREATE,fnn.s));
-      substdio_fdbuf(&ssout,write,fdn,outbuf,sizeof(outbuf));
+      substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,fdn,outbuf,sizeof(outbuf));
       if ((fd = open_read(fn.s)) == -1) {
       if (errno != error_noent)
              strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,fn.s));
       } else {
-	substdio_fdbuf(&ssin,read,fd,inbuf,sizeof(inbuf));
+	substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inbuf,sizeof(inbuf));
       for (;;) {
       if (getln(&ssin,&line,&match,'\n') == -1)
              strerr_die2sys(111,FATAL,MSG1(ERR_READ,fn.s));
@@ -231,14 +231,14 @@ void write_threads(const msgentry *msgtable,
     if (!stralloc_0(&fnn)) die_nomem();
     if ((fdn = open_trunc(fnn.s)) == -1)
       strerr_die2sys(111,FATAL,MSG1(ERR_CREATE,fnn.s));
-    substdio_fdbuf(&ssout,write,fdn,outbuf,sizeof(outbuf));
+    substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,fdn,outbuf,sizeof(outbuf));
     if ((fd = open_read(fn.s)) == -1) {
       if (errno != error_noent)
 	  strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,fn.s));
       if (substdio_put(&ssout,psubt->sub,psubt->sublen) == -1)	/* write subject */
 	     strerr_die2sys(111,FATAL,MSG1(ERR_WRITE,fnn.s));
     } else {					/* copy data */
-	substdio_fdbuf(&ssin,read,fd,inbuf,sizeof(inbuf));
+	substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inbuf,sizeof(inbuf));
 	lineno = 0;
 	for (;;) {
 	  if (getln(&ssin,&line,&match,'\n') == -1)
@@ -304,7 +304,7 @@ void write_threads(const msgentry *msgtable,
     if (!stralloc_0(&fnn)) die_nomem();
     if ((fdn = open_trunc(fnn.s)) == -1)
       strerr_die2sys(111,FATAL,MSG1(ERR_CREATE,fnn.s));
-    substdio_fdbuf(&ssout,write,fdn,outbuf,sizeof(outbuf));
+    substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,fdn,outbuf,sizeof(outbuf));
       if ((fd = open_read(fn.s)) == -1) {
 	if (errno != error_noent)
 	  strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,fn.s));
@@ -313,7 +313,7 @@ void write_threads(const msgentry *msgtable,
 	     strerr_die2sys(111,FATAL,MSG1(ERR_WRITE,fnn.s));
 	}
       } else {					/* copy data */
-	substdio_fdbuf(&ssin,read,fd,inbuf,sizeof(inbuf));
+	substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inbuf,sizeof(inbuf));
 	lineno = 0;
 	for (;;) {
 	  if (getln(&ssin,&line,&match,'\n') == -1)
@@ -418,7 +418,7 @@ int main(int argc,char **argv)
 					/* update archnum */
   if ((fd = open_trunc("archnumn")) == -1)
     strerr_die2sys(111,FATAL,MSG1(ERR_CREATE,"archnumn"));
-  substdio_fdbuf(&ssnum,write,fd,numbuf,sizeof(numbuf));
+  substdio_fdbuf(&ssnum,(ssize_t (*) (int, char *, size_t)) write,fd,numbuf,sizeof(numbuf));
   if (substdio_put(&ssnum,strnum,fmt_ulong(strnum,optto)) == -1)
      strerr_die2sys(111,FATAL,MSG1(ERR_WRITE,fnn.s));
   if (substdio_puts(&ssnum,"\n") == -1)

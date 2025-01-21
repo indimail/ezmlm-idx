@@ -138,8 +138,8 @@ int subto(const char *s,unsigned int l)
 }
 
 static char inbuf[1024];
-static substdio ssin = SUBSTDIO_FDBUF(read,0,inbuf,sizeof(inbuf));
-static substdio ssin2 = SUBSTDIO_FDBUF(read,0,inbuf,sizeof(inbuf));
+static substdio ssin = SUBSTDIO_FDBUF((ssize_t (*) (int, char *, size_t)) read,0,inbuf,sizeof(inbuf));
+static substdio ssin2 = SUBSTDIO_FDBUF((ssize_t (*) (int, char *, size_t)) read,0,inbuf,sizeof(inbuf));
 
 static substdio ssnum;
 static char numbuf[16];
@@ -236,7 +236,7 @@ void write_ulong(unsigned long num,unsigned long cum,unsigned long dat,
   fd = open_trunc(fnn);
   if (fd == -1)
      strerr_die2sys(111,FATAL,MSG1(ERR_CREATE,fnn));
-  substdio_fdbuf(&ssnum,write,fd,numbuf,sizeof(numbuf));
+  substdio_fdbuf(&ssnum,(ssize_t (*) (int, char *, size_t)) write,fd,numbuf,sizeof(numbuf));
   if (substdio_put(&ssnum,strnum,fmt_ulong(strnum,num)) == -1)
      strerr_die2sys(111,FATAL,MSG1(ERR_WRITE,fnn));
   if (substdio_puts(&ssnum,":") == -1)
@@ -370,7 +370,7 @@ void copymsg(int fd,char format)
   int flaginheader;
   int flagskipblanks;
 
-  substdio_fdbuf(&sstext,read,fd,textbuf,sizeof(textbuf));
+  substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,sizeof(textbuf));
   switch(format) {
     case VIRGIN:
     case NATIVE:
@@ -1094,7 +1094,7 @@ int main(int argc,char **argv)
         else
           code_qputs(MSG(TXT_NOINDEX));
       else {
-        substdio_fdbuf(&sstext,read,fd,textbuf,sizeof(textbuf));
+        substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,sizeof(textbuf));
         for (;;) {
           if (getln(&sstext,&line,&match,'\n') == -1)
             strerr_die2sys(111,FATAL,MSG1(ERR_READ,filename.s));

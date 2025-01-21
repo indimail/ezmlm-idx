@@ -114,7 +114,7 @@ static void dowit(const char *addr,unsigned long when,const stralloc *bounce)
 
   fd = open_trunc(fndatenew.s);
   if (fd == -1) die_datenew();
-  substdio_fdbuf(&ssout,write,fd,outbuf,sizeof(outbuf));
+  substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,fd,outbuf,sizeof(outbuf));
   if (substdio_puts(&ssout,addr) == -1) die_datenew();
   if (substdio_put(&ssout,"",1) == -1) die_datenew();
   if (substdio_puts(&ssout,"Return-Path: <") == -1) die_datenew();
@@ -172,7 +172,7 @@ static void doit(const char *addr,unsigned long msgnum,unsigned long when,
 
   fd = open_trunc(fndatenew.s);
   if (fd == -1) die_datenew();
-  substdio_fdbuf(&ssout,write,fd,outbuf,sizeof(outbuf));
+  substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,fd,outbuf,sizeof(outbuf));
   if (substdio_puts(&ssout,addr) == -1) die_datenew();
   if (substdio_put(&ssout,"",1) == -1) die_datenew();
   if (substdio_puts(&ssout,"Return-Path: <") == -1) die_datenew();
@@ -203,7 +203,7 @@ static void doit(const char *addr,unsigned long msgnum,unsigned long when,
 
   fdnew = open_trunc(fnhashnew.s);
   if (fdnew == -1) die_hashnew();
-  substdio_fdbuf(&ssout,write,fdnew,outbuf,sizeof(outbuf));
+  substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,fdnew,outbuf,sizeof(outbuf));
 
   fd = open_read(fnhash.s);
   if (fd == -1) {
@@ -213,7 +213,7 @@ static void doit(const char *addr,unsigned long msgnum,unsigned long when,
     wrap_rename(fndatenew.s,fndate.s);
   }
   else {
-    substdio_fdbuf(&ssin,read,fd,inbuf,sizeof(inbuf));
+    substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inbuf,sizeof(inbuf));
     switch(substdio_copy(&ssout,&ssin)) {
       case -2: die_msgin();
       case -3: die_hashnew();
@@ -405,7 +405,7 @@ int main(int argc,char **argv)
 
   /* pre-VERP bounce, in QSBMF format. Receipts are never pre-VERP */
 
-  substdio_fdbuf(&ssmsgin,read,0,msginbuf,sizeof(msginbuf));
+  substdio_fdbuf(&ssmsgin,(ssize_t (*) (int, char *, size_t)) read,0,msginbuf,sizeof(msginbuf));
 
   flaghaveheader = 0;
   flaghaveintro = 0;

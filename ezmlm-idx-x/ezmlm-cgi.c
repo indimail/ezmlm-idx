@@ -169,7 +169,7 @@ void die_syntax(const char *s)
 }
 
 static char outbuf[4096];
-static substdio ssout = SUBSTDIO_FDBUF(write,1,outbuf,sizeof(outbuf));
+static substdio ssout = SUBSTDIO_FDBUF((ssize_t (*) (int, char *, size_t)) write,1,outbuf,sizeof(outbuf));
 
 void oput(const char *s, unsigned int l)
 /* unbuffered. Avoid extra copy as httpd buffers */
@@ -952,7 +952,7 @@ int show_index(struct msginfo *infop)
     else
       strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,fn.s));
   }
-  substdio_fdbuf(&ssin,read,fd,inbuf,sizeof(inbuf));
+  substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inbuf,sizeof(inbuf));
   if (!stralloc_copyb(&line,strnum,
 	fmt_ulong(strnum,(unsigned long) (infop->target / 100))))
 		die_nomem();
@@ -1057,7 +1057,7 @@ int show_object(struct msginfo *infop,int item)
     else
       strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,fn.s));
   }
-  substdio_fdbuf(&ssin,read,fd,inbuf,sizeof(inbuf));
+  substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inbuf,sizeof(inbuf));
   if (item != ITEM_DATE) {
     if (getln(&ssin,&line,&match,'\n') == -1)	/* read subject */
       strerr_die2sys(111,FATAL,MSG1(ERR_READ,fn.s));
@@ -1560,7 +1560,7 @@ int show_message(struct msginfo *infop)
     else
       strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,fn.s));
   }
-  substdio_fdbuf(&ssin,read,fd,inbuf,sizeof(inbuf));
+  substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inbuf,sizeof(inbuf));
   toggle_flagpre(0);
   recursion_level = 0;	/* recursion level for show_part */
   flagmime = 0;		/* no active mime */
@@ -1670,7 +1670,7 @@ int msg2hash(struct msginfo *infop)
     else
       strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,fn.s));
   }
-  substdio_fdbuf(&ssin,read,fd,inbuf,sizeof(inbuf));
+  substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inbuf,sizeof(inbuf));
   for (;;) {
         if (getln(&ssin,&line,&match,'\n') == -1)
           strerr_die2sys(111,FATAL,MSG1(ERR_READ,"index"));
@@ -1728,7 +1728,7 @@ void setmsg(struct msginfo *infop)
     else
       strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,fn.s));
   }
-  substdio_fdbuf(&ssin,read,fd,inbuf,sizeof(inbuf));
+  substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inbuf,sizeof(inbuf));
   if (infop->axis != ITEM_DATE) {
     if (getln(&ssin,&line,&match,'\n') == -1)	/* first line */
       strerr_die2sys(111,FATAL,MSG1(ERR_READ,fn.s));
@@ -2072,7 +2072,7 @@ int main(int argc,char **argv)
       strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,EZ_CGIRC_LOC));
   }
 
-  substdio_fdbuf(&ssin,read,fd,inbuf,sizeof(inbuf));	/* set up buffer */
+  substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inbuf,sizeof(inbuf));	/* set up buffer */
 	/* ##### tainted info #####*/
 
   cmd = env_get("QUERY_STRING");			/* get command */

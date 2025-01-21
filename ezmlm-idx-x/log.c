@@ -45,7 +45,7 @@ void logaddr(const char *subdir,const char *event,
   makepath(&fn,subdir,"/Log",0);
   fd = open_append(fn.s);
   if (fd == -1) return;
-  substdio_fdbuf(&ss,write,fd,NULL,0);
+  substdio_fdbuf(&ss,(ssize_t (*) (int, char *, size_t)) write,fd,NULL,0);
   substdio_putflush(&ss,line.s,line.len);
   close(fd);
   return;

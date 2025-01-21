@@ -236,7 +236,7 @@ void copy(struct qmail *qq,
   if ((fd = alt_open_read(fn)) == -1)
     strerr_die2sys((errno == error_noent) ? 100 : 111,
 		   FATAL,MSG1(ERR_OPEN,fn));
-  substdio_fdbuf(&sstext,read,fd,textbuf,sizeof(textbuf));
+  substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,sizeof(textbuf));
   for (;;) {
     if (getln(&sstext,&srcline,&match,'\n') == -1)
       strerr_die2sys(111,FATAL,MSG1(ERR_READ,fn));

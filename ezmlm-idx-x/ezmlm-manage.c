@@ -133,8 +133,8 @@ char boundary[COOKIE];
 static datetime_sec hashdate;
 
 static char inbuf[1024];
-static substdio ssin = SUBSTDIO_FDBUF(read,0,inbuf,(int) sizeof(inbuf));
-static substdio ssin2 = SUBSTDIO_FDBUF(read,0,inbuf,(int) sizeof(inbuf));
+static substdio ssin = SUBSTDIO_FDBUF((ssize_t (*) (int, char *, size_t)) read,0,inbuf,(int) sizeof(inbuf));
+static substdio ssin2 = SUBSTDIO_FDBUF((ssize_t (*) (int, char *, size_t)) read,0,inbuf,(int) sizeof(inbuf));
 
 static substdio sstext;	/* editing texts and reading "from" */
 static char textbuf[512];
@@ -208,12 +208,12 @@ void store_from(stralloc *frl,	/* from line */
   lock();
   if ((fdout = open_trunc("fromn")) == -1)
     strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,"fromn"));
-  substdio_fdbuf(&ssfrom,write,fdout,frombuf,(int) sizeof(frombuf));
+  substdio_fdbuf(&ssfrom,(ssize_t (*) (int, char *, size_t)) write,fdout,frombuf,(int) sizeof(frombuf));
   if ((fdin = open_read("from")) == -1) {
     if (errno != error_noent)
       strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,"from"));
   } else {
-      substdio_fdbuf(&sstext,read,fdin,textbuf,(int) sizeof(textbuf));
+      substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fdin,textbuf,(int) sizeof(textbuf));
       for (;;) {
 	if (getln(&sstext,&line,&match,'\n') == -1)
 	strerr_die2sys(111,FATAL,MSG1(ERR_READ,"from"));
@@ -276,7 +276,7 @@ const char *get_from(const char *adr, /* target address */
     else
       strerr_die2sys(111,FATAL,MSG1(ERR_READ,"from"));
   }
-  substdio_fdbuf(&sstext,read,fd,textbuf,(int) sizeof(textbuf));
+  substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,(int) sizeof(textbuf));
   for (;;) {
     if (getln(&sstext,&fromline,&match,'\n') == -1)
       strerr_die2sys(111,FATAL,MSG1(ERR_READ,"from"));
@@ -972,7 +972,7 @@ static void do_ed(char *action)
   fd = open_trunc(fneditn.s);
   if (fd == -1)
     strerr_die2sys(111,FATAL,MSG1(ERR_WRITE,fneditn.s));
-  substdio_fdbuf(&sstext,write,fd,textbuf,sizeof(textbuf));
+  substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) write,fd,textbuf,sizeof(textbuf));
   if (!stralloc_copys(&quoted,"")) die_nomem();	/* clear */
   if (!stralloc_copys(&text,"")) die_nomem();
 
@@ -1090,7 +1090,7 @@ static void do_get(const char *action)
       copy_act("text/get-bad");
     else {
       showsend("get");
-      substdio_fdbuf(&sstext,read,fd,textbuf,sizeof(textbuf));
+      substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,sizeof(textbuf));
       qmail_puts(&qq,"> ");
       for (;;) {
 	r = substdio_get(&sstext,&ch,1);

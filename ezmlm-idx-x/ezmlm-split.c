@@ -107,7 +107,7 @@ static int findname(void)
     else
       strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,split));
   }
-  substdio_fdbuf(&sssp,read,fd,spbuf,(int) sizeof(spbuf));
+  substdio_fdbuf(&sssp,(ssize_t (*) (int, char *, size_t)) read,fd,spbuf,(int) sizeof(spbuf));
   lineno = 0;
   for (;;) {	/* dom:hash_lo:hash_hi:listaddress */
     if (getln(&sssp,&line,&match,'\n') == -1)

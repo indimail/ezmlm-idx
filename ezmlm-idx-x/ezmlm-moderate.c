@@ -247,7 +247,7 @@ int main(int argc,char **argv)
       else
         strerr_die2x(100,FATAL,MSG(ERR_MOD_TIMEOUT));
     }
-    substdio_fdbuf(&sstext,read,fd,textbuf,sizeof(textbuf));
+    substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,sizeof(textbuf));
 
     if (getln(&sstext,&line,&match,'\n') == -1 || !match)
       strerr_die2sys(111,FATAL,MSG(ERR_READ_INPUT));
@@ -356,7 +356,7 @@ int main(int argc,char **argv)
     if (seek_begin(fd) == -1)
       strerr_die2sys(111,FATAL,MSG1(ERR_SEEK,fnmsg.s));
 
-    substdio_fdbuf(&sstext,read,fd,textbuf,sizeof(textbuf));
+    substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,sizeof(textbuf));
     if (qmail_copy(&qq,&sstext,-1) != 0)
       strerr_die2sys(111,FATAL,MSG1(ERR_READ,fnmsg.s));
     close(fd);
@@ -401,7 +401,7 @@ int main(int argc,char **argv)
             strerr_die3x(100,FATAL,fnmsg.s,MSG(ERR_MOD_TIMEOUT));
 	}
 
-    substdio_fdbuf(&sstext,read,fd,textbuf,sizeof(textbuf));
+    substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,sizeof(textbuf));
 				/* read "Return-Path:" line */
     if (getln(&sstext,&line,&match,'\n') == -1 || !match)
       strerr_die2sys(111,FATAL,MSG(ERR_READ_INPUT));

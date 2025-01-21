@@ -58,7 +58,7 @@ int qmail_open(struct qmail *qq)
         orig_env = environ;
         env_clear();
         if ((i = envdir((char *) tmp.s, &err, 1, &unreadable))) {
-          substdio_fdbuf(&sserr,write,errfd,errbuf,sizeof(errbuf));
+          substdio_fdbuf(&sserr,(ssize_t (*) (int, char *, size_t)) write,errfd,errbuf,sizeof(errbuf));
           substdio_put(&sserr, "Zenvdir: ", 9);
           substdio_puts(&sserr, envdir_str(i));
           substdio_put(&sserr, ": ", 2);
@@ -90,7 +90,7 @@ int qmail_open(struct qmail *qq)
   qq->fdm = pim[1]; close(pim[0]);
   qq->fde = pie[1]; close(pie[0]);
   qq->fdc = pic[0]; close(pic[1]);
-  substdio_fdbuf(&qq->ss,write,qq->fdm,qq->buf,sizeof(qq->buf));
+  substdio_fdbuf(&qq->ss,(ssize_t (*) (int, char *, size_t)) write,qq->fdm,qq->buf,sizeof(qq->buf));
   qq->flagerr = 0;
   return 0;
 }
@@ -123,7 +123,7 @@ void qmail_from(struct qmail *qq, const char *s)
 {
   if (substdio_flush(&qq->ss) == -1) qq->flagerr = 1;
   close(qq->fdm);
-  substdio_fdbuf(&qq->ss,write,qq->fde,qq->buf,sizeof(qq->buf));
+  substdio_fdbuf(&qq->ss,(ssize_t (*) (int, char *, size_t)) write,qq->fde,qq->buf,sizeof(qq->buf));
   qmail_put(qq,"F",1);
   qmail_puts(qq,s);
   qmail_put(qq,"",1);
@@ -147,7 +147,7 @@ qmail_close(struct qmail *qq)
   if (!qq->flagerr && substdio_flush(&qq->ss) == -1)
     qq->flagerr = 1;
   close(qq->fde);
-  substdio_fdbuf(&qq->ss, read, qq->fdc, qq->buf, sizeof(qq->buf));
+  substdio_fdbuf(&qq->ss, (ssize_t (*) (int, char *, size_t)) read, qq->fdc, qq->buf, sizeof(qq->buf));
   while (substdio_bget(&qq->ss, &ch, 1) && len < (sizeof(errstr) - 1)) {
     errstr[len] = ch;
     len++;

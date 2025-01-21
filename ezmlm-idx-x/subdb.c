@@ -186,7 +186,7 @@ const char *logmsg(unsigned long num,
 unsigned long putsubs(const char *subdir,
 		      unsigned long hash_lo,
 		      unsigned long hash_hi,
-		      int subwrite())
+		      int subwrite(const char *, unsigned int))
 {
   const char *r = 0;
   subdir = fixsubdir(subdir);
@@ -197,7 +197,7 @@ unsigned long putsubs(const char *subdir,
 
 void searchlog(const char *subdir,
 	       char *search,
-	       int subwrite())
+	       int subwrite(const char *, unsigned int))
 {
   unsigned char *cps;
   unsigned char ch;

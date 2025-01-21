@@ -204,7 +204,7 @@ numwrite(void)
 
 	if ((fd = open_trunc("numnew")) == -1)
 		die_numnew();
-	substdio_fdbuf(&ssnumnew, write, fd, numnewbuf, sizeof (numnewbuf));
+	substdio_fdbuf(&ssnumnew, (ssize_t (*) (int, char *, size_t)) write, fd, numnewbuf, sizeof (numnewbuf));
 	if (substdio_put(&ssnumnew, strnum, fmt_ulong(strnum, msgnum)) == -1 ||
 			substdio_puts(&ssnumnew, ":") == -1 ||
 			substdio_put(&ssnumnew, strnum, fmt_ulong(strnum, cumsize)) == -1 ||
@@ -259,7 +259,7 @@ idx_copy_insertsubject(void)
 		strerr_die2sys(111, FATAL, MSG1(ERR_WRITE, fnifn.s));
 
 	/*- set up buffers for indexn */
-	substdio_fdbuf(&ssindexn, write, fdindexn, indexnbuf, sizeof (indexnbuf));
+	substdio_fdbuf(&ssindexn, (ssize_t (*) (int, char *, size_t)) write, fdindexn, indexnbuf, sizeof (indexnbuf));
 
 	concatHDR(subject.s, subject.len, &lines); /*- make 1 line */
 	decodeHDR(lines.s, lines.len, &qline); /*- decode mime */
@@ -270,7 +270,7 @@ idx_copy_insertsubject(void)
 		if (errno != error_noent)
 			strerr_die2x(111, FATAL, MSG1(ERR_OPEN, fnif.s));
 	} else {
-		substdio_fdbuf(&ssin, read, fdindex, inbuf, sizeof (inbuf));
+		substdio_fdbuf(&ssin, (ssize_t (*) (int, char *, size_t)) read, fdindex, inbuf, sizeof (inbuf));
 		for (;;) {
 			if (getln(&ssin, &qline, &match, '\n') == -1)
 				strerr_die2sys(111, FATAL, MSG1(ERR_READ, fnif.s));
@@ -496,7 +496,7 @@ main(int argc, char **argv)
 		if ((fdarchive = open_trunc(fnaf.s)) == -1)
 			strerr_die2sys(111, FATAL, MSG1(ERR_WRITE, fnaf.s));
 
-		substdio_fdbuf(&ssarchive, write, fdarchive, archivebuf, sizeof (archivebuf));
+		substdio_fdbuf(&ssarchive, (ssize_t (*) (int, char *, size_t)) write, fdarchive, archivebuf, sizeof (archivebuf));
 		/*- return-path to archive */
 		if (!stralloc_copys(&line, "Return-Path: <"))
 			die_nomem();

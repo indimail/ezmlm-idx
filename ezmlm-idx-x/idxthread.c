@@ -225,7 +225,7 @@ void idx_mkthreads(msgentry **pmsgtable,	/* table of message<->subject */
       } else
         strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,line.s));
     } else
-      substdio_fdbuf(&ssindex,read,fd,indexbuf,sizeof(indexbuf));
+      substdio_fdbuf(&ssindex,(ssize_t (*) (int, char *, size_t)) read,fd,indexbuf,sizeof(indexbuf));
 
     msg = 100L * idx;			/* current msg# */
     endmsg = msg + 99L;			/* max msg in this index */
@@ -309,7 +309,7 @@ void idx_mkthreads(msgentry **pmsgtable,	/* table of message<->subject */
 	    lastdate = pmsgt->date;
 	    if (datepos >= datemax) {		/* more space */
 	      datemax += DATENO;
-	      if (!alloc_re((char *)pdatetable, datetablesize,datetablesize+datetableunit))
+	      if (!alloc_re((void *)pdatetable, datetablesize,datetablesize+datetableunit))
 		die_nomem();
 	    }
 	    (*pdatetable)[datepos].msg = msg;	/* first msg this mo */
@@ -452,7 +452,7 @@ void idx_mkthread(msgentry **pmsgtable,		/* pointer to table of message<->subjec
     else
       strerr_die2x(111,FATAL,MSG(ERR_NOINDEX));	/* temp - admin can fix! */
   } else {
-    substdio_fdbuf(&ssindex,read,fd,indexbuf,sizeof(indexbuf));
+    substdio_fdbuf(&ssindex,(ssize_t (*) (int, char *, size_t)) read,fd,indexbuf,sizeof(indexbuf));
     for(;;) {
       if (getln(&ssindex,&line,&match,'\n') == -1)
           strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,"index"));
@@ -496,7 +496,7 @@ void idx_mkthread(msgentry **pmsgtable,		/* pointer to table of message<->subjec
       if (errno != error_noent)
         strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,line.s));
     } else {
-      substdio_fdbuf(&ssindex,read,fd,indexbuf,sizeof(indexbuf));
+      substdio_fdbuf(&ssindex,(ssize_t (*) (int, char *, size_t)) read,fd,indexbuf,sizeof(indexbuf));
       for(;;) {
         if (getln(&ssindex,&line,&match,'\n') == -1)
           strerr_die2sys(111,FATAL,MSG1(ERR_READ,"index"));

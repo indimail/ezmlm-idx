@@ -151,7 +151,7 @@ void f_open(const char *slash)
   if (fd == -1)
     strerr_die2sys(111,FATAL,MSG1(ERR_CREATE,dirplus.s));
 
-  substdio_fdbuf(&ss,write,fd,ssbuf,sizeof(ssbuf));
+  substdio_fdbuf(&ss,(ssize_t (*) (int, char *, size_t)) write,fd,ssbuf,sizeof(ssbuf));
 }
 
 void f_put(const char *buf,unsigned int len)
@@ -207,7 +207,7 @@ int read_line(const char *dpm,stralloc *sa)
     if (errno != error_noent) die_read();
     return -1;
   } else {
-    substdio_fdbuf(&sstext,read,fdin,textbuf,sizeof(textbuf));
+    substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fdin,textbuf,sizeof(textbuf));
     if (getln(&sstext,sa,&match,'\n') == -1) die_read();
     sa->len -= match;
     close(fdin);
@@ -290,7 +290,7 @@ int read_old_config(void)
     if (errno != error_noent) die_read();
     return 0;
   } else {
-    substdio_fdbuf(&sstext,read,fdin,textbuf,sizeof(textbuf));
+    substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fdin,textbuf,sizeof(textbuf));
     for (;;) {
       if (getln(&sstext,&line,&match,'\n') == -1) die_read();
       if (!match) break;
@@ -522,7 +522,7 @@ int main(int argc,char **argv)
 			/* with created DIR. Well we also write DIR/key */
 			/* at the end except in -e[dit] mode.           */
 
-  substdio_fdbuf(&sstext,read,fdin,textbuf,sizeof(textbuf));
+  substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fdin,textbuf,sizeof(textbuf));
   if (!stralloc_0(&oldfname)) die_nomem();		/* init oldfname */
   flagdo = 0;
 

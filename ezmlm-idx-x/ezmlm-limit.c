@@ -82,7 +82,7 @@ int main(int argc,char **argv)
 					/* loopnum too old, bad or not there */
       fd = open_trunc(fn);		/* no need to write crash-proof */
       if (fd == -1) die_new();
-      substdio_fdbuf(&ssnew,write,fd,newbuf,sizeof(newbuf));
+      substdio_fdbuf(&ssnew,(ssize_t (*) (int, char *, size_t)) write,fd,newbuf,sizeof(newbuf));
       if (substdio_put(&ssnew,strnum,fmt_ulong(strnum,num)) == -1) die_new();
       if (substdio_puts(&ssnew,":") == -1) die_new();
       if (substdio_put(&ssnew,strnum,fmt_ulong(strnum,when)) == -1) die_new();

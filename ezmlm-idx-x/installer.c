@@ -94,12 +94,12 @@ stralloc *line;
 	else
 	  strerr_die4sys(111,FATAL,"unable to read ",name, ": ");
       }
-      substdio_fdbuf(&ssin,read,fdin,inbuf,sizeof(inbuf));
+      substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fdin,inbuf,sizeof(inbuf));
 
       fdout = open_trunc(target.s);
       if (fdout == -1)
 	strerr_die4sys(111,FATAL,"unable to write ",target.s, ": ");
-      substdio_fdbuf(&ssout,write,fdout,outbuf,sizeof(outbuf));
+      substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,fdout,outbuf,sizeof(outbuf));
 
       switch(substdio_copy(&ssout,&ssin)) {
 	case -2:
@@ -127,7 +127,7 @@ stralloc *line;
 }
 
 char buf[256];
-substdio in = SUBSTDIO_FDBUF(read,0,buf,sizeof(buf));
+substdio in = SUBSTDIO_FDBUF((ssize_t (*) (int, char *, size_t)) read,0,buf,sizeof(buf));
 stralloc line = {0};
 
 int main(argc,argv)

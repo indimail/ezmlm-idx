@@ -141,7 +141,7 @@ _issub(struct subdbinfo *info, const char *subdir, const char *userhost, strallo
 		if (errno != error_noent)
 			strerr_die2sys(111, FATAL, MSG1(ERR_OPEN, fn.s));
 	} else {
-		substdio_fdbuf(&ss, read, fd, ssbuf, sizeof (ssbuf));
+		substdio_fdbuf(&ss, (ssize_t (*) (int, char *, size_t)) read, fd, ssbuf, sizeof (ssbuf));
 
 		for (;;) {
 			if (getln(&ss, &line, &match, '\0') == -1)
@@ -173,7 +173,7 @@ _issub(struct subdbinfo *info, const char *subdir, const char *userhost, strallo
 			strerr_die2sys(111, FATAL, MSG1(ERR_OPEN, fn.s));
 		return 0;
 	}
-	substdio_fdbuf(&ss, read, fd, ssbuf, sizeof (ssbuf));
+	substdio_fdbuf(&ss, (ssize_t (*) (int, char *, size_t)) read, fd, ssbuf, sizeof (ssbuf));
 
 	for (;;) {
 		if (getln(&ss, &line, &match, '\0') == -1)
@@ -216,7 +216,7 @@ _logmsg(struct subdbinfo *info, unsigned long msgnum, unsigned long listno, unsi
  * of newline or whatever needed for the output form. 
  */
 static unsigned long
-_putsubs(struct subdbinfo *info, const char *subdir, unsigned long hash_lo, unsigned long hash_hi, int subwrite())
+_putsubs(struct subdbinfo *info, const char *subdir, unsigned long hash_lo, unsigned long hash_hi, int subwrite(const char *, unsigned int))
 {								/* write function. */
 	static stralloc line = { 0 };
 
@@ -242,7 +242,7 @@ _putsubs(struct subdbinfo *info, const char *subdir, unsigned long hash_lo, unsi
 			if (errno != error_noent)
 				strerr_die2sys(111, FATAL, MSG1(ERR_READ, fn.s));
 		} else {
-			substdio_fdbuf(&ssin, read, fd, inbuf, sizeof (inbuf));
+			substdio_fdbuf(&ssin, (ssize_t (*) (int, char *, size_t)) read, fd, inbuf, sizeof (inbuf));
 			for (;;) {
 				if (getln(&ssin, &line, &match, '\0') == -1)
 					strerr_die2sys(111, FATAL, MSG1(ERR_READ, fn.s));
@@ -261,7 +261,7 @@ _putsubs(struct subdbinfo *info, const char *subdir, unsigned long hash_lo, unsi
 }
 
 static void
-lineout(const stralloc * line, int subwrite())
+lineout(const stralloc * line, int subwrite(const char *, unsigned int))
 {
 	struct datetime dt;
 	char            date[DATE822FMT];
@@ -286,7 +286,7 @@ lineout(const stralloc * line, int subwrite())
  */
 static void
 _searchlog(struct subdbinfo *info, const char *subdir, char *search,	/* search string */
-		   int subwrite    ())
+		   int subwrite    (const char *, unsigned int))
 {								/* output fxn */
 	static stralloc line = { 0 };
 
@@ -321,7 +321,7 @@ _searchlog(struct subdbinfo *info, const char *subdir, char *search,	/* search s
 		else
 			strerr_die3x(100, FATAL, line.s, MSG(ERR_NOEXIST));
 	}
-	substdio_fdbuf(&ssin, read, fd, inbuf, sizeof (inbuf));
+	substdio_fdbuf(&ssin, (ssize_t (*) (int, char *, size_t)) read, fd, inbuf, sizeof (inbuf));
 
 	for (;;) {
 		if (getln(&ssin, &line, &match, '\n') == -1)
@@ -434,7 +434,7 @@ _subscribe(struct subdbinfo *info, const char *subdir, const char *userhost, int
 	fdnew = open_trunc(fnnew.s);
 	if (fdnew == -1)
 		die_write(fnnew.s);
-	substdio_fdbuf(&ssnew, write, fdnew, ssnewbuf, sizeof (ssnewbuf));
+	substdio_fdbuf(&ssnew, (ssize_t (*) (int, char *, size_t)) write, fdnew, ssnewbuf, sizeof (ssnewbuf));
 
 	flagwasthere = 0;
 
@@ -445,7 +445,7 @@ _subscribe(struct subdbinfo *info, const char *subdir, const char *userhost, int
 			die_read();
 		}
 	} else {
-		substdio_fdbuf(&ss, read, fd, ssbuf, sizeof (ssbuf));
+		substdio_fdbuf(&ss, (ssize_t (*) (int, char *, size_t)) read, fd, ssbuf, sizeof (ssbuf));
 
 		for (;;) {
 			if (getln(&ss, &line, &match, '\0') == -1) {
@@ -510,7 +510,7 @@ _subscribe(struct subdbinfo *info, const char *subdir, const char *userhost, int
 	fdnew = open_trunc(fnnew.s);
 	if (fdnew == -1)
 		die_write(fnnew.s);
-	substdio_fdbuf(&ssnew, write, fdnew, ssnewbuf, sizeof (ssnewbuf));
+	substdio_fdbuf(&ssnew, (ssize_t (*) (int, char *, size_t)) write, fdnew, ssnewbuf, sizeof (ssnewbuf));
 
 	fd = open_read(fn.s);
 	if (fd == -1) {
@@ -519,7 +519,7 @@ _subscribe(struct subdbinfo *info, const char *subdir, const char *userhost, int
 			die_read();
 		}
 	} else {
-		substdio_fdbuf(&ss, read, fd, ssbuf, sizeof (ssbuf));
+		substdio_fdbuf(&ss, (ssize_t (*) (int, char *, size_t)) read, fd, ssbuf, sizeof (ssbuf));
 
 		for (;;) {
 			if (getln(&ss, &line, &match, '\0') == -1) {

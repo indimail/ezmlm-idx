@@ -189,8 +189,8 @@ int main(int argc,char **argv)
   int match;
   char strnum[FMT_ULONG];
   char buf0[4096];
-  substdio ssin = SUBSTDIO_FDBUF(read,0,buf0,(int) sizeof(buf0));
-  substdio ssin2 = SUBSTDIO_FDBUF(read,0,buf0,(int) sizeof(buf0));
+  substdio ssin = SUBSTDIO_FDBUF((ssize_t (*) (int, char *, size_t)) read,0,buf0,(int) sizeof(buf0));
+  substdio ssin2 = SUBSTDIO_FDBUF((ssize_t (*) (int, char *, size_t)) read,0,buf0,(int) sizeof(buf0));
 
   getconfopt(argc,argv,options,-1,&dir);
   if (dir) {

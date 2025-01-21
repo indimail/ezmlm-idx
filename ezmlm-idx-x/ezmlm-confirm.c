@@ -181,7 +181,7 @@ int main(int argc, char **argv)
         strerr_die3x(100,FATAL,fnmsg.s,MSG(ERR_MOD_TIMEOUT));
     }
 
-    substdio_fdbuf(&sstext,read,fd,textbuf,sizeof(textbuf));
+    substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,sizeof(textbuf));
 				/* read "Return-Path:" line */
     if (getln(&sstext,&line,&match,'\n') == -1 || !match)
       strerr_die2sys(111,FATAL,MSG(ERR_READ_INPUT));

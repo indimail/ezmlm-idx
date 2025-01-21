@@ -108,8 +108,8 @@ static char textbuf[1024];
 struct qmail qq;
 
 static char inbuf[1024];
-static substdio ssin = SUBSTDIO_FDBUF(read,0,inbuf,(int) sizeof(inbuf));
-static substdio ssin2 = SUBSTDIO_FDBUF(read,0,inbuf,(int) sizeof(inbuf));
+static substdio ssin = SUBSTDIO_FDBUF((ssize_t (*) (int, char *, size_t)) read,0,inbuf,(int) sizeof(inbuf));
+static substdio ssin2 = SUBSTDIO_FDBUF((ssize_t (*) (int, char *, size_t)) read,0,inbuf,(int) sizeof(inbuf));
 
 static stralloc mydtline = {0};
 
@@ -471,7 +471,7 @@ int main(int argc,char **argv)
       fd = open_read(cfname);
       if (fd == -1)
         strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,cfname));
-      substdio_fdbuf(&sstext,read,fd,textbuf,sizeof(textbuf));
+      substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,sizeof(textbuf));
       flagok = 0;			/* got listhost match */
       for (;;) {
         if (getln(&sstext,&line,&match,'\n') == -1)
@@ -542,7 +542,7 @@ int main(int argc,char **argv)
 
     if (seek_begin(0) == -1)
       strerr_die2sys(111,FATAL,MSG(ERR_SEEK_INPUT));
-    substdio_fdbuf(&ssin,read,0,inbuf,sizeof(inbuf));
+    substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,0,inbuf,sizeof(inbuf));
 
     for (;;) {
       if (getln(&ssin,&line,&match,'\n') == -1)
@@ -615,7 +615,7 @@ int main(int argc,char **argv)
       fd = open_read(cfname);
       if (fd == -1)
         strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,cfname));
-      substdio_fdbuf(&sstext,read,fd,textbuf,sizeof(textbuf));
+      substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,sizeof(textbuf));
       for (;;) {
         if (getln(&sstext,&line,&match,'\n') == -1)
           strerr_die2sys(111,FATAL,MSG1(ERR_READ,cfname));

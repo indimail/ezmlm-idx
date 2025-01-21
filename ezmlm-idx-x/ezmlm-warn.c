@@ -101,7 +101,7 @@ static void doit(int flagdig, int flagw)
 
   fd = open_read(fn.s);
   if (fd == -1) die_read();
-  substdio_fdbuf(&ssin,read,fd,inbuf,sizeof(inbuf));
+  substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inbuf,sizeof(inbuf));
 
   if (getln(&ssin,&addr,&match,'\0') == -1) die_read();
   if (!match) { close(fd); return; }
@@ -152,7 +152,7 @@ static void doit(int flagdig, int flagw)
         if (errno != error_noent)
           strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,fnhash.s));
       } else {
-        substdio_fdbuf(&sstext,read,fdhash,textbuf,sizeof(textbuf));
+        substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fdhash,textbuf,sizeof(textbuf));
         for(;;) {
           if (getln(&sstext,&line,&match,'\n') == -1)
             strerr_die2sys(111,FATAL,MSG1(ERR_READ,fnhash.s));
@@ -324,7 +324,7 @@ static void dodir(int flagdig)
   fd = open_trunc(line.s);			/* write lastd. Do safe */
 						/* since we read before lock*/
   if (fd == -1) strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,line.s));
-  substdio_fdbuf(&ssout,write,fd,outbuf,sizeof(outbuf));
+  substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,fd,outbuf,sizeof(outbuf));
   if (substdio_put(&ssout,strnum,fmt_ulong(strnum,when)) == -1)
     strerr_die2sys(111,FATAL,MSG1(ERR_WRITE,line.s));
   if (substdio_put(&ssout,"\n",1) == -1)	/* prettier */
@@ -387,7 +387,7 @@ static void dodir(int flagdig)
 
   fd = open_trunc(fnlasth.s);			/* write lasth */
   if (fd == -1) strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,fnlasth.s));
-  substdio_fdbuf(&ssout,write,fd,outbuf,sizeof(outbuf));
+  substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,fd,outbuf,sizeof(outbuf));
   if (substdio_put(&ssout,lasth.s,1) == -1)
     strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,fnlasth.s));
   if (substdio_put(&ssout,"\n",1) == -1)	/* prettier */

@@ -78,7 +78,7 @@ int main(int argc,char *argv[])
 
   i = getconfopt(argc,argv,options,0,&dir);
 
-  substdio_fdbuf(&ssout,write,1,buf,sizeof buf);
+  substdio_fdbuf(&ssout,(ssize_t (*) (int, char *, size_t)) write,1,buf,sizeof buf);
 
   put_u("getconfopt => ",i);
   put_u("optind=",optind);

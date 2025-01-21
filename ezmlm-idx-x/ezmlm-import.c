@@ -53,7 +53,7 @@ static int openone(unsigned long outnum)
   if ((fd = open_trunc(fnaf.s)) == -1)
     strerr_die2sys(111,FATAL,MSG1(ERR_WRITE,fnaf.s));
 
-  substdio_fdbuf(&ssarchive,write,fd,archivebuf,sizeof archivebuf);
+  substdio_fdbuf(&ssarchive,(ssize_t (*) (int, char *, size_t)) write,fd,archivebuf,sizeof archivebuf);
   return fd;
 }
 
@@ -101,12 +101,12 @@ int main(int argc,char *argv[])
   opt = getconfopt(argc,argv,options,1,0);
   switch (argc - opt) {
     case 0:
-      substdio_fdbuf(&ssin,read,0,inputbuf,sizeof inputbuf);
+      substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,0,inputbuf,sizeof inputbuf);
       break;
     case 1:
       if ((fd = open_read(argv[opt])) == -1)
         strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,argv[opt]));
-      substdio_fdbuf(&ssin,read,fd,inputbuf,sizeof inputbuf);
+      substdio_fdbuf(&ssin,(ssize_t (*) (int, char *, size_t)) read,fd,inputbuf,sizeof inputbuf);
       break;
     default:
       die_usage();

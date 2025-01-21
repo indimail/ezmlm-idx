@@ -105,7 +105,7 @@ static void sendnotice(const char *d)
       fd = open_read(d);
       if (fd == -1)
         strerr_die2sys(111,FATAL,MSG1(ERR_OPEN,d));
-      substdio_fdbuf(&sstext,read,fd,textbuf,sizeof(textbuf));
+      substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,sizeof(textbuf));
       if (getln(&sstext,&line,&match,'\n') == -1) die_read();
       if (!match) die_read();
       if (!case_startb(line.s,line.len,"return-path:")) die_read();
@@ -147,7 +147,7 @@ static void sendnotice(const char *d)
       if (seek_begin(fd) == -1)
         strerr_die2sys(111,FATAL,MSG1(ERR_SEEK,d));
 
-      substdio_fdbuf(&sstext,read,fd,textbuf,sizeof(textbuf));
+      substdio_fdbuf(&sstext,(ssize_t (*) (int, char *, size_t)) read,fd,textbuf,sizeof(textbuf));
       if (qmail_copy(&qq,&sstext,-1) != 0) die_read();
       close (fd);
 
