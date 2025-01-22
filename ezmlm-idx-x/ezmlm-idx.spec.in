@@ -1,3 +1,6 @@
+#
+# $Id: ezmlm-idx.spec.in,v 1.1 2025-01-22 10:57:11+05:30 Cprogrammer Exp mbhangui $
+#
 %undefine _missing_build_ids_terminate_build
 %define _unpackaged_files_terminate_build 1
 %if %{defined nodebug}
@@ -174,7 +177,7 @@ echo %{sysconfdir}                 >conf-sysconfdir
 echo %{_libexecdir}                >conf-libexec
 echo %{_prefix}                    >conf-prefix
 echo %{_bindir}                    >conf-bin
-echo %{_sbindir}                   >conf-sbin
+echo %{_prefix}/sbin               >conf-sbin
 echo %{mandir}                     >conf-man
 echo %{ezmlmlibdir}                >conf-lib
 (
@@ -222,7 +225,7 @@ echo "PACKAGE_BUGREPORT=\"'@email@'\""
 
 %install
 %{__mkdir_p} %{buildroot}%{_bindir} 
-%{__mkdir_p} %{buildroot}%{_sbindir}
+%{__mkdir_p} %{buildroot}%{_prefix}/sbin
 %{__mkdir_p} %{buildroot}%{ezmlmlibdir}
 %{__mkdir_p} %{buildroot}%{_libexecdir}/ezmlm
 %{__mkdir_p} %{buildroot}%{rcdir}
@@ -233,7 +236,7 @@ echo "PACKAGE_BUGREPORT=\"'@email@'\""
 
 ./installer %buildroot%{rcdir}                    < ETC
 ./installer %buildroot%{_bindir}                  < BIN
-./installer %buildroot%{_sbindir}                 < SBIN
+./installer %buildroot%{_prefix}/sbin             < SBIN
 ./installer %buildroot%{mandir}                   < MAN
 ./installer %buildroot%_prefix/lib/indimail/ezmlm < LIB
 ./installer %buildroot%_libexecdir/ezmlm          < LIBEXEC
@@ -306,7 +309,7 @@ fi
 %attr(644,root,root) %{ezdocdir}/ChangeLog
 
 %{_bindir}/*
-%{_sbindir}/*
+%{_prefix}/sbin/*
 %{_libexecdir}/ezmlm/*
 %{_prefix}/lib/indimail/ezmlm/sub-std.so
 %{mandir}/man1/ezmlm-accept.1.*

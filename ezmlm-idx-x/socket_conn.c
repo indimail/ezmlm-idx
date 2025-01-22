@@ -1,4 +1,8 @@
-/* Public domain, from djbdns-1.05. */
+/*
+ * $Idx: $
+ *
+ * Public domain, from djbdns-1.05. 
+ */
 
 #include <sys/types.h>
 #include <sys/param.h>
@@ -8,29 +12,37 @@
 #include "byte.h"
 #include "socket.h"
 
-int socket_connect4(int s,const char ip[4],uint16 port)
+int
+socket_connect4(int s, const char ip[4], uint16 port)
 {
-  struct sockaddr_in sa;
+	struct sockaddr_in sa;
 
-  byte_zero((void*)&sa,sizeof sa);
-  sa.sin_family = AF_INET;
-  uint16_pack_big((char *) &sa.sin_port,port);
-  byte_copy((char *) &sa.sin_addr,4,ip);
+	byte_zero((void *) &sa, sizeof sa);
+	sa.sin_family = AF_INET;
+	uint16_pack_big((char *) &sa.sin_port, port);
+	byte_copy((char *) &sa.sin_addr, 4, ip);
 
-  return connect(s,(struct sockaddr *) &sa,sizeof sa);
+	return connect(s, (struct sockaddr *) &sa, sizeof sa);
 }
 
-int socket_connected(int s)
+int
+socket_connected(int s)
 {
-  struct sockaddr_in sa;
-  socklen_t dummy;
-  char ch;
+	struct sockaddr_in sa;
+	socklen_t       dummy;
+	char            ch;
 
-  dummy = sizeof sa;
-  if (getpeername(s,(struct sockaddr *) &sa,&dummy) == -1) {
-    if (read(s,&ch,1) == -1) /* sets errno */
-		return (0);
-    return 0;
-  }
-  return 1;
+	dummy = sizeof sa;
+	if (getpeername(s, (struct sockaddr *) &sa, &dummy) == -1) {
+		if (read(s, &ch, 1) == -1)	/* sets errno */
+			return (0);
+		return 0;
+	}
+	return 1;
 }
+/*
+ * $Log: socket_conn.c,v $
+ * Revision 1.1  2025-01-22 10:52:38+05:30  Cprogrammer
+ * Fixes for gcc14
+ *
+ */

@@ -1,4 +1,8 @@
-/* Public domain, from djbdns-1.05. */
+/*
+ * $Idx: $
+ *
+ * Public domain, from djbdns-1.05. 
+ */
 
 #include <sys/types.h>
 #include <sys/param.h>
@@ -7,29 +11,39 @@
 #include "byte.h"
 #include "socket.h"
 
-int socket_bind4(int s,char ip[4],uint16 port)
+int
+socket_bind4(int s, char ip[4], uint16 port)
 {
-  struct sockaddr_in sa;
+	struct sockaddr_in sa;
 
-  byte_zero((void*)&sa,sizeof sa);
-  sa.sin_family = AF_INET;
-  uint16_pack_big((char *) &sa.sin_port,port);
-  byte_copy((char *) &sa.sin_addr,4,ip);
+	byte_zero((void *) &sa, sizeof sa);
+	sa.sin_family = AF_INET;
+	uint16_pack_big((char *) &sa.sin_port, port);
+	byte_copy((char *) &sa.sin_addr, 4, ip);
 
-  return bind(s,(struct sockaddr *) &sa,sizeof sa);
+	return bind(s, (struct sockaddr *) &sa, sizeof sa);
 }
 
-int socket_bind4_reuse(int s,char ip[4],uint16 port)
+int
+socket_bind4_reuse(int s, char ip[4], uint16 port)
 {
-  int opt = 1;
-  setsockopt(s,SOL_SOCKET,SO_REUSEADDR,&opt,sizeof opt);
-  return socket_bind4(s,ip,port);
+	int             opt = 1;
+	setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof opt);
+	return socket_bind4(s, ip, port);
 }
 
-void socket_tryreservein(int s,int size)
+void
+socket_tryreservein(int s, int size)
 {
-  while (size >= 1024) {
-    if (setsockopt(s,SOL_SOCKET,SO_RCVBUF,&size,sizeof size) == 0) return;
-    size -= (size >> 5);
-  }
+	while (size >= 1024) {
+		if (setsockopt(s, SOL_SOCKET, SO_RCVBUF, &size, sizeof size) == 0)
+			return;
+		size -= (size >> 5);
+	}
 }
+/*
+ * $Log: socket_bind.c,v $
+ * Revision 1.1  2025-01-22 10:52:38+05:30  Cprogrammer
+ * Fixes for gcc14
+ *
+ */

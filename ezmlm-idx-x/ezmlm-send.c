@@ -1,3 +1,6 @@
+/*
+ * $Id: ezmlm-send.c,v 1.1 2025-01-22 10:52:36+05:30 Cprogrammer Exp mbhangui $
+ */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -61,7 +64,7 @@ static int      flagreplytolist = 0;
 static struct option options[] = {
 	OPT_FLAG(ignoredflag, 'c', 0, 0), /*- ignore for backwards compat */
 	OPT_FLAG(ignoredflag, 'C', 0, 0),
-	OPT_CSTR(mlheader, 'H', 0), /*- Alternative sublist check header */
+	OPT_CSTR(mlheader, 'H', 0),	/*- Alternative sublist check header */
 	OPT_FLAG(flaglog, 'l', 1, 0),
 	OPT_FLAG(flaglog, 'L', 0, 0),
 	OPT_FLAG(flagnoreceived, 'r', 0, 0),
@@ -187,13 +190,14 @@ sublistmatch(const char *sender)
 		return 0;
 	if ((i = byte_rchr(sublist.s, sublist.len, '@')) == sublist.len)
 		return 1;
-	if (byte_diff(sublist.s, i, sender) ||
-			case_diffb(sublist.s + i, sublist.len - i, sender + j - (sublist.len - i)))
+	if (byte_diff(sublist.s, i, sender) || case_diffb(sublist.s + i, sublist.len - i, sender + j - (sublist.len - i)))
 		return 0;
 	return 1;
 }
 
-/* this one deals with msgnum, not outnum! */
+/*
+ * this one deals with msgnum, not outnum! 
+ */
 void
 numwrite(void)
 {
@@ -204,14 +208,10 @@ numwrite(void)
 
 	if ((fd = open_trunc("numnew")) == -1)
 		die_numnew();
-	substdio_fdbuf(&ssnumnew, write, fd, numnewbuf, sizeof (numnewbuf));
-	if (substdio_put(&ssnumnew, strnum, fmt_ulong(strnum, msgnum)) == -1 ||
-			substdio_puts(&ssnumnew, ":") == -1 ||
-			substdio_put(&ssnumnew, strnum, fmt_ulong(strnum, cumsize)) == -1 ||
-			substdio_puts(&ssnumnew, "\n") == -1 ||
-			substdio_flush(&ssnumnew) == -1 ||
-			fsync(fd) == -1 ||
-			close(fd) == -1)
+	substdio_fdbuf(&ssnumnew, (ssize_t(*)(int, char *, size_t)) write, fd, numnewbuf, sizeof (numnewbuf));
+	if (substdio_put(&ssnumnew, strnum, fmt_ulong(strnum, msgnum)) == -1 || substdio_puts(&ssnumnew, ":") == -1
+		|| substdio_put(&ssnumnew, strnum, fmt_ulong(strnum, cumsize)) == -1 || substdio_puts(&ssnumnew, "\n") == -1
+		|| substdio_flush(&ssnumnew) == -1 || fsync(fd) == -1 || close(fd) == -1)
 		die_numnew(); /* NFS stupidity */
 	wrap_rename("numnew", "num");
 }
@@ -239,15 +239,9 @@ idx_copy_insertsubject(void)
 	char            strnum[FMT_ULONG];
 	char            hash[HASHLEN];
 
-	if (!stralloc_copys(&fnadir, "archive/") ||
-			!stralloc_catb(&fnadir, strnum, fmt_ulong(strnum, outnum / 100)) ||
-			!stralloc_copy(&fnif, &fnadir) ||
-			!stralloc_copy(&fnifn, &fnif) ||
-			!stralloc_cats(&fnif, "/index") ||
-			!stralloc_cats(&fnifn, "/indexn") ||
-			!stralloc_0(&fnif) ||
-			!stralloc_0(&fnifn) ||
-			!stralloc_0(&fnadir))
+	if (!stralloc_copys(&fnadir, "archive/") || !stralloc_catb(&fnadir, strnum, fmt_ulong(strnum, outnum / 100))
+		|| !stralloc_copy(&fnif, &fnadir) || !stralloc_copy(&fnifn, &fnif) || !stralloc_cats(&fnif, "/index")
+		|| !stralloc_cats(&fnifn, "/indexn") || !stralloc_0(&fnif) || !stralloc_0(&fnifn) || !stralloc_0(&fnadir))
 		die_nomem();
 
 	/*- may not exists since we run before ezmlm-send */
@@ -259,7 +253,7 @@ idx_copy_insertsubject(void)
 		strerr_die2sys(111, FATAL, MSG1(ERR_WRITE, fnifn.s));
 
 	/*- set up buffers for indexn */
-	substdio_fdbuf(&ssindexn, write, fdindexn, indexnbuf, sizeof (indexnbuf));
+	substdio_fdbuf(&ssindexn, (ssize_t(*)(int, char *, size_t)) write, fdindexn, indexnbuf, sizeof (indexnbuf));
 
 	concatHDR(subject.s, subject.len, &lines); /*- make 1 line */
 	decodeHDR(lines.s, lines.len, &qline); /*- decode mime */
@@ -270,14 +264,14 @@ idx_copy_insertsubject(void)
 		if (errno != error_noent)
 			strerr_die2x(111, FATAL, MSG1(ERR_OPEN, fnif.s));
 	} else {
-		substdio_fdbuf(&ssin, read, fdindex, inbuf, sizeof (inbuf));
+		substdio_fdbuf(&ssin, (ssize_t(*)(int, char *, size_t)) read, fdindex, inbuf, sizeof (inbuf));
 		for (;;) {
 			if (getln(&ssin, &qline, &match, '\n') == -1)
 				strerr_die2sys(111, FATAL, MSG1(ERR_READ, fnif.s));
 			if (!match)
 				break;
 			pos = scan_ulong(qline.s, &idx);
-			if (!idx) /*- "impossible!" */
+			if (!idx)	/*- "impossible!" */
 				strerr_die2x(111, FATAL, MSG(ERR_BAD_INDEX));
 			if (idx >= outnum)
 				break; /*- messages always come in order */
@@ -286,7 +280,7 @@ idx_copy_insertsubject(void)
 			if (qline.s[pos] == ':') { /*- has author line */
 				if (getln(&ssin, &qline, &match, '\n') == -1)
 					strerr_die2sys(111, FATAL, MSG1(ERR_READ, fnif.s));
-				if (!match && qline.s[0] != '\t') /*- "impossible! */
+				if (!match && qline.s[0] != '\t')	/*- "impossible! */
 					strerr_die2x(111, FATAL, MSG(ERR_BAD_INDEX));
 				if (substdio_put(&ssindexn, qline.s, qline.len) == -1)
 					die_indexn();
@@ -294,40 +288,31 @@ idx_copy_insertsubject(void)
 		}
 		close(fdindex);
 	}
-	if (!stralloc_copyb(&qline, strnum, fmt_ulong(strnum, outnum)) ||
-			!stralloc_cats(&qline, ": "))
+	if (!stralloc_copyb(&qline, strnum, fmt_ulong(strnum, outnum)) || !stralloc_cats(&qline, ": "))
 		die_nomem(); /*- ':' for new ver */
 	makehash(lines.s, lines.len, hash);
-	if (!stralloc_catb(&qline, hash, HASHLEN) ||
-			!stralloc_cats(&qline, " "))
+	if (!stralloc_catb(&qline, hash, HASHLEN) || !stralloc_cats(&qline, " "))
 		die_nomem();
-	if (r & 1) /*- reply */
+	if (r & 1)	 /*- reply */
 		if (!stralloc_cats(&qline, "Re: "))
 			die_nomem();
-	if (!stralloc_cat(&qline, &lines) ||
-			!stralloc_cats(&qline, "\n\t") ||
-			!stralloc_cat(&qline, &received) ||
-			!stralloc_cats(&qline, ";"))
+	if (!stralloc_cat(&qline, &lines) || !stralloc_cats(&qline, "\n\t") || !stralloc_cat(&qline, &received)
+		|| !stralloc_cats(&qline, ";"))
 		die_nomem();
 
 	concatHDR(from.s, from.len, &lines);
 	mkauthhash(lines.s, lines.len, hash);
 
-	if (!stralloc_catb(&qline, hash, HASHLEN) ||
-			!stralloc_cats(&qline, " "))
+	if (!stralloc_catb(&qline, hash, HASHLEN) || !stralloc_cats(&qline, " "))
 		die_nomem();
 
 	author_name(&from, lines.s, lines.len);
 
 	(void) unfoldHDR(from.s, from.len, &lines, charset.s, &dcprefix, 0);
-	if (!stralloc_cat(&qline, &lines) ||
-			!stralloc_cats(&qline, "\n"))
+	if (!stralloc_cat(&qline, &lines) || !stralloc_cats(&qline, "\n"))
 		die_nomem();
-	if (substdio_put(&ssindexn, qline.s, qline.len) == -1 ||
-			substdio_flush(&ssindexn) == -1 ||
-			fsync(fdindexn) == -1 ||
-			fchmod(fdindexn, MODE_ARCHIVE | 0700) == -1 ||
-			close(fdindexn) == -1)
+	if (substdio_put(&ssindexn, qline.s, qline.len) == -1 || substdio_flush(&ssindexn) == -1 || fsync(fdindexn) == -1
+		|| fchmod(fdindexn, MODE_ARCHIVE | 0700) == -1 || close(fdindexn) == -1)
 		die_indexn(); /*- NFS stupidity */
 	wrap_rename(fnifn.s, fnif.s);
 	return r;
@@ -349,8 +334,7 @@ rewrite_from()
 		at = byte_rchr(author.s, author.len, '@');
 		if (++at >= author.len)
 			return;
-		if (!stralloc_copyb(&dummy, author.s + at, author.len - at) ||
-				!stralloc_0(&dummy))
+		if (!stralloc_copyb(&dummy, author.s + at, author.len - at) || !stralloc_0(&dummy))
 			die_nomem();
 		if ((r = dmarc_p_reject(dummy.s)) < 0)
 			die_dns(dummy.s);
@@ -360,18 +344,11 @@ rewrite_from()
 	if (flagrewritefrom) {
 		concatHDR(from.s, from.len, &lines);
 		author_name(&author, lines.s, lines.len);
-		if (!stralloc_0(&author) ||
-				!stralloc_copy(&dummy, &outlocal) ||
-				!stralloc_0(&dummy) ||
-				!stralloc_copyb(&line, "From: \"", 7) ||
-				!stralloc_cats(&line, MSG2(AUTHOR_VIA_LIST, author.s, dummy.s)) ||
-				!stralloc_catb(&line, "\" <", 3) ||
-				!stralloc_catb(&line, outlocal.s, outlocal.len) ||
-				!stralloc_catb(&line, "@", 1) ||
-				!stralloc_catb(&line, outhost.s, outhost.len) ||
-				!stralloc_catb(&line, ">\n", 2) ||
-				!stralloc_cats(&line, flagreplytolist ? "Cc:" : "Reply-To:") ||
-				!stralloc_catb(&line, from.s, from.len))
+		if (!stralloc_0(&author) || !stralloc_copy(&dummy, &outlocal) || !stralloc_0(&dummy)
+			|| !stralloc_copyb(&line, "From: \"", 7) || !stralloc_cats(&line, MSG2(AUTHOR_VIA_LIST, author.s, dummy.s))
+			|| !stralloc_catb(&line, "\" <", 3) || !stralloc_catb(&line, outlocal.s, outlocal.len) || !stralloc_catb(&line, "@", 1)
+			|| !stralloc_catb(&line, outhost.s, outhost.len) || !stralloc_catb(&line, ">\n", 2)
+			|| !stralloc_cats(&line, flagreplytolist ? "Cc:" : "Reply-To:") || !stralloc_catb(&line, from.s, from.len))
 			die_nomem();
 	}
 }
@@ -384,7 +361,7 @@ main(int argc, char **argv)
 	const char     *ret;
 	const char     *err;
 	int             flagmlwasthere;
-	int             flaglistid = 0; /*- no listid header added */
+	int             flaglistid = 0;	/*- no listid header added */
 	int             match;
 	unsigned int    i;
 	int             r = 0;
@@ -454,12 +431,9 @@ main(int argc, char **argv)
 		headerremoveflag = 1;
 	else
 		getconf(&headerremove, "headerremove", 1);
-	if (!constmap_init(&headerremovemap, headerremove.s, headerremove.len, 0) ||
-			!stralloc_copys(&mydtline, "Delivered-To: mailing list ") ||
-			!stralloc_catb(&mydtline, outlocal.s, outlocal.len) ||
-			!stralloc_cats(&mydtline, "@") ||
-			!stralloc_catb(&mydtline, outhost.s, outhost.len) ||
-			!stralloc_cats(&mydtline, "\n"))
+	if (!constmap_init(&headerremovemap, headerremove.s, headerremove.len, 0)
+		|| !stralloc_copys(&mydtline, "Delivered-To: mailing list ") || !stralloc_catb(&mydtline, outlocal.s, outlocal.len)
+		|| !stralloc_cats(&mydtline, "@") || !stralloc_catb(&mydtline, outhost.s, outhost.len) || !stralloc_cats(&mydtline, "\n"))
 		die_nomem();
 
 	if (sender) {
@@ -468,10 +442,10 @@ main(int argc, char **argv)
 		if (flagsublist && !sublistmatch(sender))
 			strerr_die2x(100, FATAL, MSG(ERR_NOT_PARENT));
 	}
-	innum = msgnum; /*- innum = incoming */
+	innum = msgnum;	/*- innum = incoming */
 	outnum = msgnum; /*- outnum = outgoing */
-	if (flagsublist && !flagarchived) { /* msgnum = archive */
-		pos = byte_rchr(sublist.s, sublist.len, '@'); /* checked in sublistmatch */
+	if (flagsublist && !flagarchived) {	/* msgnum = archive */
+		pos = byte_rchr(sublist.s, sublist.len, '@');	/* checked in sublistmatch */
 		if (str_start(sender + pos, "-return-"))
 			pos += 8;
 		pos += scan_ulong(sender + pos, &innum);
@@ -482,13 +456,10 @@ main(int argc, char **argv)
 	set_cpnum(szmsgnum); /*- for copy */
 
 	if (flagarchived) {
-		if (!stralloc_copys(&fnadir, "archive/") ||
-				!stralloc_catb(&fnadir, strnum, fmt_ulong(strnum, outnum / 100)) ||
-				!stralloc_copy(&fnaf, &fnadir) ||
-				!stralloc_cats(&fnaf, "/") ||
-				!stralloc_catb(&fnaf, strnum, fmt_uint0(strnum, (unsigned int) (outnum % 100), 2)) ||
-				!stralloc_0(&fnadir) ||
-				!stralloc_0(&fnaf))
+		if (!stralloc_copys(&fnadir, "archive/") || !stralloc_catb(&fnadir, strnum, fmt_ulong(strnum, outnum / 100))
+			|| !stralloc_copy(&fnaf, &fnadir) || !stralloc_cats(&fnaf, "/")
+			|| !stralloc_catb(&fnaf, strnum, fmt_uint0(strnum, (unsigned int) (outnum % 100), 2)) || !stralloc_0(&fnadir)
+			|| !stralloc_0(&fnaf))
 			die_nomem();
 
 		if (mkdir(fnadir.s, 0755) == -1 && errno != error_exist)
@@ -496,7 +467,7 @@ main(int argc, char **argv)
 		if ((fdarchive = open_trunc(fnaf.s)) == -1)
 			strerr_die2sys(111, FATAL, MSG1(ERR_WRITE, fnaf.s));
 
-		substdio_fdbuf(&ssarchive, write, fdarchive, archivebuf, sizeof (archivebuf));
+		substdio_fdbuf(&ssarchive, (ssize_t(*)(int, char *, size_t)) write, fdarchive, archivebuf, sizeof (archivebuf));
 		/*- return-path to archive */
 		if (!stralloc_copys(&line, "Return-Path: <"))
 			die_nomem();
@@ -528,11 +499,8 @@ main(int argc, char **argv)
 	copy(&qq, "headeradd", 'H');
 	qa_put(mydtline.s, mydtline.len);
 	if (flagreplytolist) {
-		if (!stralloc_copyb(&line, "Reply-To: <", 11) ||
-				!stralloc_cat(&line, &outlocal) ||
-				!stralloc_append(&line, "@") ||
-				!stralloc_cat(&line, &outhost) ||
-				!stralloc_catb(&line, ">\n", 2))
+		if (!stralloc_copyb(&line, "Reply-To: <", 11) || !stralloc_cat(&line, &outlocal) || !stralloc_append(&line, "@")
+			|| !stralloc_cat(&line, &outhost) || !stralloc_catb(&line, ">\n", 2))
 			die_nomem();
 		qa_put(line.s, line.len);
 	}
@@ -551,11 +519,11 @@ main(int argc, char **argv)
 		if (flaginheader && match) {
 			if (line.len == 1) { /*- end of header */
 				flaginheader = 0;
-				if (flagindexed) /*- std entry */
+				if (flagindexed)   /*- std entry */
 					r = idx_copy_insertsubject(); /*- all indexed lists */
 				if (flagprefixed && !flagsublist) {
 					qa_puts("Subject:");
-					if (!flagindexed) { /*- non-indexed prefixed lists */
+					if (!flagindexed) {	/*- non-indexed prefixed lists */
 						concatHDR(subject.s, subject.len, &lines);
 						decodeHDR(lines.s, lines.len, &qline);
 						r = unfoldHDR(qline.s, qline.len, &lines, charset.s, &dcprefix, 1);
@@ -586,7 +554,7 @@ main(int argc, char **argv)
 							flagtrailer = 0;
 
 					cp = content.s;
-					cpafter = cp + content.len; /*- check after each ';' */
+					cpafter = cp + content.len;	/*- check after each ';' */
 					while ((cp += byte_chr(cp, cpafter - cp, ';')) != cpafter) {
 						++cp;
 						while (cp < cpafter && (*cp == ' ' || *cp == '\t' || *cp == '\n'))
@@ -605,8 +573,7 @@ main(int argc, char **argv)
 								while (cp < cpafter && *cp != ';' && *cp != ' ' && *cp != '\t' && *cp != '\n')
 									++cp;
 							}
-							if (!stralloc_copys(&boundary, "--") ||
-									!stralloc_catb(&boundary, cpstart, cp - cpstart))
+							if (!stralloc_copys(&boundary, "--") || !stralloc_catb(&boundary, cpstart, cp - cpstart))
 								die_nomem();
 							flagfoundokpart = 0;
 							if (!constmap_init(&mimeremovemap, mimeremove.s, mimeremove.len, 0))
@@ -625,7 +592,7 @@ main(int argc, char **argv)
 				if (constmap(&headerremovemap, line.s, byte_chr(line.s, line.len, ':')))
 					flagbadfield = !headerremoveflag;
 				if ((flagnoreceived || !flagsawreceived) && case_startb(line.s, line.len, "Received:")) {
-					if (!flagsawreceived) { /*- get date from first Received header */
+					if (!flagsawreceived) {	/*- get date from first Received header */
 						flagsawreceived = 1; /*- line (done by indimail-mta) */
 						pos = byte_chr(line.s, line.len, ';');
 						if (pos != line.len) { /*- has ' ', '\t' or '\n' */
@@ -645,12 +612,13 @@ main(int argc, char **argv)
 					}
 				} else
 				if (case_startb(line.s, line.len, "Mailing-List:"))
-					flagmlwasthere = 1; /*- sublists always ok ezmlm masters */
+					flagmlwasthere = 1;	/*- sublists always ok ezmlm masters */
 				else
 				if (mlheader && case_startb(line.s, line.len, mlheader))
-					flagmlwasthere = 1; /*- mlheader treated as ML */
+					flagmlwasthere = 1;	/*- mlheader treated as ML */
 				else
-				if ((mimeremove.len || flagtrailer) && /*- else no MIME need */
+				if ((mimeremove.len || flagtrailer) &&
+													   /*- else no MIME need */
 						 case_startb(line.s, line.len, "Content-Type:")) {
 					if (!stralloc_copyb(&content, line.s + 13, line.len - 13))
 						die_nomem();
@@ -658,7 +626,7 @@ main(int argc, char **argv)
 				if (case_startb(line.s, line.len, "Subject:")) {
 					if (!stralloc_copyb(&subject, line.s + 8, line.len - 8))
 						die_nomem();
-					if (flagprefixed && !flagsublist) /*- don't prefix for sublists */
+					if (flagprefixed && !flagsublist)	/*- don't prefix for sublists */
 						flagbadfield = 1; /*- we'll print our own */
 				} else
 				if (flagtrailer && case_startb(line.s, line.len, "Content-Transfer-Encoding:")) {
@@ -683,7 +651,7 @@ main(int argc, char **argv)
 				if (line.len == mydtline.len && !byte_diff(line.s, line.len, mydtline.s))
 					strerr_die2x(100, FATAL, MSG(ERR_LOOPING));
 			}
-		} else /*- body */
+		} else	 /*- body */
 			msgsize += line.len; /*- always for tstdig support */
 
 		if (!(flaginheader && flagbadfield)) {
@@ -708,7 +676,8 @@ main(int argc, char **argv)
 					flagseenext = 1; /*- need to check Cont-type */
 				}
 			} else
-			if (flagseenext) { /*- last was boundary, now stored */
+			if (flagseenext) {
+							   /*- last was boundary, now stored */
 				if (case_startb(line.s, line.len, "content-type:")) {
 					flagseenext = 0; /*- done thinking about it */
 					cp = line.s + 13; /*- start of type */
@@ -722,23 +691,24 @@ main(int argc, char **argv)
 					if (!flagbadpart) {
 						/*- do this part */
 						flagfoundokpart = 1;
-						qa_put(lines.s, lines.len); /*- saved lines */
+						qa_put(lines.s, lines.len);	/*- saved lines */
 					}
 				} else
-				if (line.len == 1) { /*- end of content desc */
+				if (line.len == 1) {
+									 /*- end of content desc */
 					flagbadpart = 0; /*- default type, so ok */
 					flagfoundokpart = 1; /*- this is part of a multipart msg */
 					flagseenext = 0; /*- done thinking about it */
-					qa_put(lines.s, lines.len); /*- saved lines */
-				} else /*- save line in cont desc */
-				if (!stralloc_cat(&lines, &line))
+					qa_put(lines.s, lines.len);	/*- saved lines */
+				} else /*- save line in cont desc */ if (!stralloc_cat(&lines, &line))
 					die_nomem();
 			}
 			if (!flagbadpart)
 				qa_put(line.s, line.len);
 
 		} else
-		if (flagarchiveonly && flagarchived) /*- received headers */
+		if (flagarchiveonly && flagarchived)
+											   /*- received headers */
 			if (substdio_put(&ssarchive, line.s, line.len) == -1)
 				die_archive();
 		if (!match)
@@ -761,18 +731,16 @@ main(int argc, char **argv)
 			else
 				strerr_die2x(100, FATAL, MSG(ERR_NOT_PARENT));
 		}
-		if (!flagmlwasthere) /*- sublists need ML header */
+		if (!flagmlwasthere)   /*- sublists need ML header */
 			strerr_die2x(100, FATAL, MSG(ERR_SUBLIST));
 	} else /*- others are not allowed to have one */ if (flagmlwasthere)
 		strerr_die2x(100, FATAL, MSG(ERR_MAILING_LIST));
-	if (!flagfoundokpart) /*- all parts were on the strip list */
+	if (!flagfoundokpart)	/*- all parts were on the strip list */
 		strerr_die2x(100, FATAL, MSG(ERR_BAD_ALL));
 
 	if (flagarchived) {
-		if (substdio_flush(&ssarchive) == -1 ||
-				fsync(fdarchive) == -1 ||
-				fchmod(fdarchive, MODE_ARCHIVE | 0700) == -1 ||
-				close(fdarchive) == -1)
+		if (substdio_flush(&ssarchive) == -1 || fsync(fdarchive) == -1 || fchmod(fdarchive, MODE_ARCHIVE | 0700) == -1
+			|| close(fdarchive) == -1)
 			die_archive(); /*- NFS stupidity */
 	}
 
@@ -782,21 +750,16 @@ main(int argc, char **argv)
 	}
 
 	numwrite();
-	if (!stralloc_copy(&line, &outlocal) ||
-			!stralloc_cats(&line, "-return-") ||
-			!stralloc_cats(&line, szmsgnum) ||
-			!stralloc_cats(&line, "-@") ||
-			!stralloc_cat(&line, &outhost) ||
-			!stralloc_cats(&line, "-@[]") ||
-			!stralloc_0(&line))
+	if (!stralloc_copy(&line, &outlocal) || !stralloc_cats(&line, "-return-") || !stralloc_cats(&line, szmsgnum)
+		|| !stralloc_cats(&line, "-@") || !stralloc_cat(&line, &outhost) || !stralloc_cats(&line, "-@[]") || !stralloc_0(&line))
 		die_nomem();
 	qmail_from(&qq, line.s); /*- envelope sender */
-	subs = putsubs(0, hash_lo, hash_hi, subto); /*- subscribers */
+	subs = putsubs(0, hash_lo, hash_hi, subto);	/*- subscribers */
 	if (flagsublist)
 		hash_lo++;
 
 	if (*(err = qmail_close(&qq)) == '\0') {
-		if (flaglog) /*- mysql logging */
+		if (flaglog)   /*- mysql logging */
 			(void) logmsg(outnum, hash_lo, subs, flagsublist ? 3 : 4);
 		closesub();
 		strnum[fmt_ulong(strnum, qmail_qp(&qq))] = 0;
@@ -808,3 +771,9 @@ main(int argc, char **argv)
 		strerr_die4x(111, FATAL, MSG(ERR_TMP_QMAIL_QUEUE), ": ", err + 1);
 	}
 }
+/*
+ * $Log: ezmlm-send.c,v $
+ * Revision 1.1  2025-01-22 10:52:36+05:30  Cprogrammer
+ * Fixes for gcc14
+ *
+ */

@@ -1,3 +1,6 @@
+/*
+ * $Id: getln2_idx.c,v 1.1 2025-01-22 10:52:38+05:30 Cprogrammer Exp mbhangui $
+ */
 #include "substdio.h"
 #include "stralloc.h"
 #include "byte.h"
@@ -33,3 +36,9 @@ getln2_idx(struct substdio *ss, struct stralloc *sa, char **cont, unsigned int *
 		sa->len = i + substdio_get(ss, sa->s + i, n);
 	}
 }
+/*
+ * $Log: getln2_idx.c,v $
+ * Revision 1.1  2025-01-22 10:52:38+05:30  Cprogrammer
+ * Fixes for gcc14
+ *
+ */

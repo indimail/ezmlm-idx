@@ -1,3 +1,6 @@
+/*
+ * $Idx: $
+ */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -81,15 +84,15 @@ _opensub(struct subdbinfo *info)
 static const char *
 _checktag(struct subdbinfo *info, unsigned long num,	/* message number */
 		  unsigned long listno, const char *action, const char *seed,	/* cookie base */
-		  const char *hash)
-{								/* cookie */
-	char            strnum[FMT_ULONG];	/* message number as sz */
+		  const char *hash /* cookie */)
+{
+	char            strnum[FMT_ULONG]; /* message number as sz */
 	char            newcookie[COOKIE];
 
 	if (!seed)
-		return (char *) 0;		/* no data - accept */
+		return (char *) 0; /* no data - accept */
 
-	strnum[fmt_ulong(strnum, num)] = '\0';	/* message nr ->string */
+	strnum[fmt_ulong(strnum, num)] = '\0'; /* message nr ->string */
 
 	cookie(newcookie, key.s, key.len, strnum, seed, action);
 	if (byte_diff(hash, COOKIE, newcookie))
@@ -102,7 +105,7 @@ _checktag(struct subdbinfo *info, unsigned long num,	/* message number */
 }
 
 static int
-_issub(struct subdbinfo *info, const char *subdir, const char *userhost, stralloc * recorded)
+_issub(struct subdbinfo *info, const char *subdir, const char *userhost, stralloc *recorded)
 {
 	static stralloc line = { 0 };
 
@@ -141,7 +144,7 @@ _issub(struct subdbinfo *info, const char *subdir, const char *userhost, strallo
 		if (errno != error_noent)
 			strerr_die2sys(111, FATAL, MSG1(ERR_OPEN, fn.s));
 	} else {
-		substdio_fdbuf(&ss, read, fd, ssbuf, sizeof (ssbuf));
+		substdio_fdbuf(&ss, (ssize_t(*)(int, char *, size_t)) read, fd, ssbuf, sizeof (ssbuf));
 
 		for (;;) {
 			if (getln(&ss, &line, &match, '\0') == -1)
@@ -173,7 +176,7 @@ _issub(struct subdbinfo *info, const char *subdir, const char *userhost, strallo
 			strerr_die2sys(111, FATAL, MSG1(ERR_OPEN, fn.s));
 		return 0;
 	}
-	substdio_fdbuf(&ss, read, fd, ssbuf, sizeof (ssbuf));
+	substdio_fdbuf(&ss, (ssize_t(*)(int, char *, size_t)) read, fd, ssbuf, sizeof (ssbuf));
 
 	for (;;) {
 		if (getln(&ss, &line, &match, '\0') == -1)
@@ -216,8 +219,9 @@ _logmsg(struct subdbinfo *info, unsigned long msgnum, unsigned long listno, unsi
  * of newline or whatever needed for the output form. 
  */
 static unsigned long
-_putsubs(struct subdbinfo *info, const char *subdir, unsigned long hash_lo, unsigned long hash_hi, int subwrite())
-{								/* write function. */
+_putsubs(struct subdbinfo *info, const char *subdir, unsigned long hash_lo, unsigned long hash_hi,
+		 int subwrite(const char *, unsigned int) /* write function. */)
+{
 	static stralloc line = { 0 };
 
 	unsigned int    i;
@@ -242,7 +246,7 @@ _putsubs(struct subdbinfo *info, const char *subdir, unsigned long hash_lo, unsi
 			if (errno != error_noent)
 				strerr_die2sys(111, FATAL, MSG1(ERR_READ, fn.s));
 		} else {
-			substdio_fdbuf(&ssin, read, fd, inbuf, sizeof (inbuf));
+			substdio_fdbuf(&ssin, (ssize_t(*)(int, char *, size_t)) read, fd, inbuf, sizeof (inbuf));
 			for (;;) {
 				if (getln(&ssin, &line, &match, '\0') == -1)
 					strerr_die2sys(111, FATAL, MSG1(ERR_READ, fn.s));
@@ -261,7 +265,7 @@ _putsubs(struct subdbinfo *info, const char *subdir, unsigned long hash_lo, unsi
 }
 
 static void
-lineout(const stralloc * line, int subwrite())
+lineout(const stralloc *line, int subwrite(const char *, unsigned int))
 {
 	struct datetime dt;
 	char            date[DATE822FMT];
@@ -285,9 +289,9 @@ lineout(const stralloc * line, int subwrite())
  * * char is replaced by a '_' 
  */
 static void
-_searchlog(struct subdbinfo *info, const char *subdir, char *search,	/* search string */
-		   int subwrite    ())
-{								/* output fxn */
+_searchlog(struct subdbinfo *info, const char *subdir, char *search, /* search string */
+		   int subwrite    (const char *, unsigned int) /* output fxn */)
+{
 	static stralloc line = { 0 };
 
 	unsigned char   x;
@@ -321,7 +325,7 @@ _searchlog(struct subdbinfo *info, const char *subdir, char *search,	/* search s
 		else
 			strerr_die3x(100, FATAL, line.s, MSG(ERR_NOEXIST));
 	}
-	substdio_fdbuf(&ssin, read, fd, inbuf, sizeof (inbuf));
+	substdio_fdbuf(&ssin, (ssize_t(*)(int, char *, size_t)) read, fd, inbuf, sizeof (inbuf));
 
 	for (;;) {
 		if (getln(&ssin, &line, &match, '\n') == -1)
@@ -330,7 +334,7 @@ _searchlog(struct subdbinfo *info, const char *subdir, char *search,	/* search s
 			break;
 		if (!searchlen) {
 			lineout(&line, subwrite);
-		} else {				/* simple case-insensitive search */
+		} else { /* simple case-insensitive search */
 			cpline = (unsigned char *) line.s - 1;
 			cplast = cpline + line.len - searchlen;	/* line has \0 at the end */
 			while ((cp = ++cpline) <= cplast) {
@@ -434,7 +438,7 @@ _subscribe(struct subdbinfo *info, const char *subdir, const char *userhost, int
 	fdnew = open_trunc(fnnew.s);
 	if (fdnew == -1)
 		die_write(fnnew.s);
-	substdio_fdbuf(&ssnew, write, fdnew, ssnewbuf, sizeof (ssnewbuf));
+	substdio_fdbuf(&ssnew, (ssize_t(*)(int, char *, size_t)) write, fdnew, ssnewbuf, sizeof (ssnewbuf));
 
 	flagwasthere = 0;
 
@@ -445,7 +449,7 @@ _subscribe(struct subdbinfo *info, const char *subdir, const char *userhost, int
 			die_read();
 		}
 	} else {
-		substdio_fdbuf(&ss, read, fd, ssbuf, sizeof (ssbuf));
+		substdio_fdbuf(&ss, (ssize_t(*)(int, char *, size_t)) read, fd, ssbuf, sizeof (ssbuf));
 
 		for (;;) {
 			if (getln(&ss, &line, &match, '\0') == -1) {
@@ -500,17 +504,17 @@ _subscribe(struct subdbinfo *info, const char *subdir, const char *userhost, int
 		return 0;
 	}
 
-	/*
-	 * If unsub and not found and hashed differ, OR 
-	 * sub and not found (so added with new hash) 
-	 * do the 'case-dependent' hash 
-	 */
+/*
+ * If unsub and not found and hashed differ, OR 
+ * sub and not found (so added with new hash) 
+ * do the 'case-dependent' hash 
+ */
 	fn.s[fn.len - 2] = ch;
 	fnnew.s[fnnew.len - 3] = ch;
 	fdnew = open_trunc(fnnew.s);
 	if (fdnew == -1)
 		die_write(fnnew.s);
-	substdio_fdbuf(&ssnew, write, fdnew, ssnewbuf, sizeof (ssnewbuf));
+	substdio_fdbuf(&ssnew, (ssize_t(*)(int, char *, size_t)) write, fdnew, ssnewbuf, sizeof (ssnewbuf));
 
 	fd = open_read(fn.s);
 	if (fd == -1) {
@@ -519,7 +523,7 @@ _subscribe(struct subdbinfo *info, const char *subdir, const char *userhost, int
 			die_read();
 		}
 	} else {
-		substdio_fdbuf(&ss, read, fd, ssbuf, sizeof (ssbuf));
+		substdio_fdbuf(&ss, (ssize_t(*)(int, char *, size_t)) read, fd, ssbuf, sizeof (ssbuf));
 
 		for (;;) {
 			if (getln(&ss, &line, &match, '\0') == -1) {
@@ -641,3 +645,9 @@ struct sub_plugin sub_plugin = {
 	_subscribe,
 	_tagmsg,
 };
+/*
+ * $Log: sub-std.c,v $
+ * Revision 1.1  2025-01-22 10:52:36+05:30  Cprogrammer
+ * Fixes for gcc14
+ *
+ */
