@@ -1,3 +1,6 @@
+#
+# $Id: ezmlm-idx.spec.in,v 1.1 2025-01-22 10:57:11+05:30 Cprogrammer Exp mbhangui $
+#
 %undefine _missing_build_ids_terminate_build
 %define _unpackaged_files_terminate_build 1
 %if %{defined nodebug}

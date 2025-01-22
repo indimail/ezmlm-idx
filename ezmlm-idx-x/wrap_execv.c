@@ -1,3 +1,6 @@
+/*
+ * $Idx: $
+ */
 #include "error.h"
 #include "messages.h"
 #include "strerr.h"
@@ -5,24 +8,31 @@
 #include "die.h"
 #include "idx.h"
 
-static void wrapper(int (*fn)(char*,char**), const char **args)
+static void
+wrapper(int     (*fn)(char *, char **), const char **args)
 {
-  fn((char*)*args, (char**)args);
-  strerr_die2sys((errno == error_txtbsy
-                 || errno == error_nomem
-		 || errno == error_io
-		 ) ? 111 : 100, FATAL, MSG1(ERR_EXECUTE,args[0]));
+	fn( (char *) *args,(char **) args);
+	strerr_die2sys((errno == error_txtbsy || errno == error_nomem
+					|| errno == error_io) ? 111 : 100, FATAL, MSG1(ERR_EXECUTE, args[0]));
 }
 
-extern int execv(char*,char**);
-extern int execvp(char*,char**);
+extern int      execv(char *, char **);
+extern int      execvp(char *, char **);
 
-void wrap_execv(const char **args)
+void
+wrap_execv(const char **args)
 {
-  wrapper(execv, args);
+	wrapper(execv, args);
 }
 
-void wrap_execvp(const char **args)
+void
+wrap_execvp(const char **args)
 {
-  wrapper(execvp, args);
+	wrapper(execvp, args);
 }
+/*
+ * $Log: wrap_execv.c,v $
+ * Revision 1.1  2025-01-22 10:52:37+05:30  Cprogrammer
+ * Fixes for gcc14
+ *
+ */
