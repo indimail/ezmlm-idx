@@ -10,7 +10,8 @@ sysconfdir=$(shell head -1 ../conf-sysconfdir)
 all: rules debian.tar.gz dummy.tar.gz ezmlm-idx.dsc \
 	ezmlm-idx-Debian_11.dsc ezmlm-idx-Debian_10.dsc \
 	ezmlm-idx-Debian_9.0.dsc ezmlm-idx-Debian_12.dsc \
-	ezmlm-idx.postinst ezmlm-idx.postrm _service
+	ezmlm-idx-Debian_13.dsc ezmlm-idx.postinst \
+	ezmlm-idx.postrm _service
 
 clean:
 	/bin/rm -f *.dsc debian.tar.gz dummy.tar.gz _service
@@ -25,6 +26,8 @@ edit = sed \
 	-e 's,@prefix\@,$(prefix),g'
 
 ezmlm-idx.dsc: ezmlm-idx.dsc.in ../conf-release ../conf-version
+	$(edit) $@.in > $@
+ezmlm-idx-Debian_13.dsc: ezmlm-idx-Debian_13.dsc.in ../conf-release ../conf-version
 	$(edit) $@.in > $@
 ezmlm-idx-Debian_12.dsc: ezmlm-idx-Debian_12.dsc.in ../conf-release ../conf-version
 	$(edit) $@.in > $@
